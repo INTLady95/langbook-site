@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta.title.buy">Купить курс · English & Español — MIRAVERBA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" data-i18n-content="meta.desc.buy" content="Курс (один уровень) — $79 по цене запуска (после запуска $99): один платёж, и он твой навсегда. Вся серия A1→C2 — $369. Английский и испанский, 30 уроков и 4 экзамена в каждом курсе. Без подписок и без «сгорающих жизней».">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MIRAVERBA">
+<meta property="og:title" content="Купить курс · English & Español — MIRAVERBA">
+<meta property="og:description" content="Курс (один уровень) — $79 по цене запуска: один платёж, и он твой навсегда. Вся серия A1→C2 — $369. Без подписок.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:image: replace with an absolute URL once the site has a domain -->
+<meta property="og:image" content="assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* design tokens (palette/type) live in theme.css — the single source of truth */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);
+  background-image:radial-gradient(120% 90% at 50% -10%, rgba(255,250,238,.7), transparent 55%),radial-gradient(70% 50% at 14% 10%, var(--tint), transparent 60%),radial-gradient(70% 50% at 86% 16%, var(--tint), transparent 60%);
+  -webkit-font-smoothing:antialiased;transition:background-color .5s}
+.wrap{max-width:720px;margin:0 auto;padding:34px 22px 40px}
+a{color:inherit}
+
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.3em;font-size:11px;color:var(--accent);font-weight:700;text-align:center;margin:14px 0 14px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(32px,6.2vw,50px);text-align:center;margin:0 0 12px;line-height:1.05}
+.lead{text-align:center;color:var(--ink-soft);font-size:17.5px;line-height:1.6;max-width:560px;margin:0 auto 4px}
+.lead b{color:var(--ink);font-weight:600}
+
+.card{background:var(--card);border:1px solid var(--line-strong);border-radius:22px;padding:28px;box-shadow:var(--shadow),0 0 50px -34px var(--accent);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:52%;background:linear-gradient(180deg,rgba(255,255,255,.07),transparent);pointer-events:none}
+.card>*{position:relative}
+
+/* price hero */
+.price-card{margin:30px 0 8px;text-align:center}
+.price-kicker{font-family:var(--label);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:10px}
+.price-row{display:flex;align-items:baseline;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:4px}
+.price{font-family:var(--display);font-weight:700;font-size:clamp(54px,13vw,84px);line-height:.9;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.price-once{font-family:var(--label);font-size:14px;font-weight:600;color:var(--ink-soft)}
+.price-sub{font-size:15.5px;color:var(--ink-soft);line-height:1.55;margin:8px auto 20px;max-width:440px}
+.price-sub b{color:var(--ink);font-weight:600}
+
+.btn{font-family:var(--label);font-weight:700;font-size:16px;letter-spacing:.02em;border:0;border-radius:30px;padding:16px 40px;cursor:pointer;background:var(--gold-grad);background-size:200% 200%;color:var(--on-accent);box-shadow:0 16px 34px -14px var(--accent);transition:transform .15s,box-shadow .2s;text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-2px);box-shadow:0 22px 42px -14px var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong);box-shadow:none;font-size:15px;padding:14px 30px}
+.btn.ghost:hover{border-color:var(--accent);background:var(--accent-soft)}
+.mini{font-size:13.5px;color:var(--ink-faint);font-style:italic;margin-top:14px}
+.free-note{display:inline-flex;align-items:center;gap:8px;font-family:var(--label);font-size:13.5px;font-weight:600;color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:30px;padding:9px 16px;margin-top:18px}
+
+/* course picker */
+.pick{display:flex;flex-direction:column;gap:12px;max-width:460px;margin:0 auto 22px}
+.pick-lang{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap}
+.pick-lang .pl{font-family:var(--label);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);min-width:74px;text-align:right}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--label);font-weight:700;font-size:14px;border:1px solid var(--line-strong);background:var(--card);color:var(--ink);border-radius:12px;padding:9px 14px;cursor:pointer;transition:border-color .15s,background .15s,transform .1s}
+.chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--gold-grad);color:var(--on-accent);border-color:transparent;box-shadow:0 10px 22px -12px var(--accent)}
+.price-old{font-family:var(--label);font-size:15px;font-weight:600;color:var(--ink-faint);text-decoration:line-through}
+.series-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:4px}
+
+/* "sales soon" callout revealed on click */
+.soon{margin-top:20px;border:1px dashed var(--accent-line);background:var(--accent-soft);border-radius:16px;padding:18px 20px;text-align:left}
+.soon h3{font-family:var(--display);font-size:22px;font-weight:600;margin:0 0 6px}
+.soon p{font-size:15px;color:var(--ink-soft);line-height:1.6;margin:0 0 12px}
+
+/* section frame */
+.sec{margin-top:44px}
+.sec-eyebrow{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+.sec-eyebrow .num{font-family:var(--display);font-size:20px;color:var(--accent);font-weight:600}
+.sec-eyebrow .ln{height:1px;width:30px;background:var(--line-strong)}
+.sec h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4.6vw,38px);text-align:center;margin:0 0 6px;line-height:1.08}
+.sec .subh{text-align:center;color:var(--ink-soft);font-size:15.5px;margin:0 auto 26px;max-width:500px;line-height:1.55}
+
+/* what's inside — feature grid */
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.feat{display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 16px}
+a.feat{text-decoration:none;color:inherit;cursor:pointer}
+a.feat:hover{border-color:var(--accent)}
+.feat .fi{font-size:24px;line-height:1;flex:0 0 auto}
+.feat .ft b{display:block;font-family:var(--label);font-size:14.5px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.feat .ft span{font-size:13.5px;color:var(--ink-soft);line-height:1.5}
+
+/* honest principles */
+.vows{display:flex;flex-direction:column;gap:12px}
+.vow{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.vow .vk{font-size:22px;line-height:1.1;flex:0 0 auto}
+.vow p{margin:0;font-size:15px;color:var(--ink-soft);line-height:1.6}
+.vow p b{color:var(--ink);font-weight:600}
+
+/* have a key */
+.keybox{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--gold-line);border-radius:20px;padding:26px 24px;text-align:center}
+.keybox h2{font-family:var(--display);font-weight:600;font-size:28px;margin:0 0 6px}
+.keybox p{font-size:15px;color:var(--ink-soft);line-height:1.55;margin:0 auto 18px;max-width:420px}
+.keyrow{display:flex;gap:10px;max-width:460px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.keyrow input{flex:1;min-width:200px;background:var(--card);border:1px solid var(--line-strong);border-radius:13px;padding:14px 16px;font-family:var(--label);font-size:16px;color:var(--ink);outline:none;transition:border-color .15s}
+.keyrow input:focus{border-color:var(--accent)}
+.key-msg{font-style:italic;font-size:14.5px;margin-top:14px;min-height:1.2em}
+.key-msg.ok{color:var(--good)}
+.key-msg.warn{color:var(--bad)}
+.key-msg a{color:var(--accent);font-weight:700;font-style:normal;text-decoration:underline}
+
+/* FAQ */
+.faq{border:1px solid var(--line);border-radius:14px;background:var(--card);margin-bottom:12px;overflow:hidden}
+.faq summary{list-style:none;cursor:pointer;padding:17px 20px;font-family:var(--label);font-weight:600;font-size:15.5px;color:var(--ink);display:flex;align-items:center;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"+";font-family:var(--label);font-weight:700;font-size:20px;color:var(--accent);width:18px;flex:0 0 auto;text-align:center;transition:transform .2s}
+.faq[open] summary::before{content:"–"}
+.faq .faq-a{padding:0 20px 18px 50px;font-size:14.5px;color:var(--ink-soft);line-height:1.65}
+.faq .faq-a b{color:var(--ink);font-weight:600}
+
+/* footer */
+.foot{margin-top:56px;padding-top:26px;border-top:1px solid var(--line);text-align:center}
+.foot-nav{display:flex;gap:8px 20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.foot-nav a{font-family:var(--label);font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;transition:color .15s}
+.foot-nav a:hover{color:var(--accent)}
+.foot-brand{font-family:var(--label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+
+@media(max-width:560px){
+  .wrap{padding:26px 15px 34px}
+  .card{padding:22px 18px;border-radius:18px}
+  .feats{grid-template-columns:1fr}
+  .btn{padding:15px 32px}
+}
+</style>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="i18n.js?v=2"></script>
+</head>
+<body data-page="buy">
+<div class="wrap">
+
+  <div class="eyebrow" data-i18n="buy.eyebrow">Один платёж · курс навсегда</div>
+  <h1 data-i18n="buy.h1">Каждый курс — твой навсегда</h1>
+  <p class="lead" data-i18n="buy.lead">Здесь каждый уровень — это <b>отдельный курс</b>: увидел цену, заплатил <b>один раз</b> — и курс остаётся твоим. Никаких месячных списаний, никаких «жизней», которые сгорают. А если идёшь до конца — бери всю серию <b>A1→C2</b> со скидкой.</p>
+
+  <!-- PRICE: one course -->
+  <section class="card price-card">
+    <div class="price-kicker" data-i18n="buy.kicker1">Один курс · 30 уроков · 4 экзамена</div>
+    <div class="price-row"><span class="price" id="price">$79</span><span class="price-old">$99</span><span class="price-once" data-i18n="buy.once1">цена запуска · навсегда твоё</span></div>
+    <p class="price-sub" data-i18n="buy.launch1">Мы только запускаемся — поэтому цена сейчас ниже. После запуска этот курс будет стоить <b>$99</b>.</p>
+    <p class="price-sub" data-i18n="buy.sub1">Выбери курс — ключ откроет его <b>целиком и навсегда</b>: 30 уроков и 4 экзамена. Без второго платежа и без подписки.</p>
+    <div class="pick" role="group" aria-label="Выбор курса">
+      <div class="pick-lang"><span class="pl">English</span>
+        <div class="chips">
+          <button type="button" class="chip" data-course="en-a1" aria-pressed="true">A1</button>
+          <button type="button" class="chip" data-course="en-a2" aria-pressed="false">A2</button>
+          <button type="button" class="chip" data-course="en-b1" aria-pressed="false">B1</button>
+          <button type="button" class="chip" data-course="en-b2" aria-pressed="false">B2</button>
+          <button type="button" class="chip" data-course="en-c1" aria-pressed="false">C1</button>
+          <button type="button" class="chip" data-course="en-c2" aria-pressed="false">C2</button>
+        </div>
+      </div>
+      <div class="pick-lang"><span class="pl">Español</span>
+        <div class="chips">
+          <button type="button" class="chip" data-course="es-a1" aria-pressed="false">A1</button>
+          <button type="button" class="chip" data-course="es-a2" aria-pressed="false">A2</button>
+          <button type="button" class="chip" data-course="es-b1" aria-pressed="false">B1</button>
+          <button type="button" class="chip" data-course="es-b2" aria-pressed="false">B2</button>
+          <button type="button" class="chip" data-course="es-c1" aria-pressed="false">C1</button>
+          <button type="button" class="chip" data-course="es-c2" aria-pressed="false">C2</button>
+        </div>
+      </div>
+    </div>
+    <a href="#" id="buyBtn" class="btn">Купить English A1 — $79</a>
+    <div class="free-note" data-i18n="buy.free">🌿 Первые 3 урока каждого курса — бесплатно; экзамены — в полной версии</div>
+
+    <!-- shown by JS when checkout isn't wired up yet -->
+    <div class="soon" id="soonBlock" hidden>
+      <h3 data-i18n="buy.soon.h">Продажи вот-вот откроются</h3>
+      <p data-i18n="buy.soon.p">Ключей пока нет в автоматической выдаче — я подключаю оплату. Напиши мне пару слов, и я пришлю тебе ключ первой волне, как только всё будет готово.</p>
+      <!-- TODO: заменить hello@example.com на реальную почту Тани перед запуском -->
+      <a class="btn ghost" id="soonMail" href="mailto:hello@example.com?subject=Хочу%20ключ%20к%20курсу" data-i18n="buy.soon.mail">Написать мне ✍️</a>
+    </div>
+  </section>
+
+  <!-- PRICE: full series -->
+  <section class="card price-card">
+    <div class="price-kicker" data-i18n="buy.kicker2">Вся серия языка · A1 → C2 · 6 курсов</div>
+    <div class="price-row"><span class="price">$369</span><span class="price-old">$479</span><span class="price-once" data-i18n="buy.once2">цена запуска · одним ключом</span></div>
+    <p class="price-sub" data-i18n="buy.launch2">И здесь цена запуска: после старта продаж серия будет стоить <b>$479</b>.</p>
+    <p class="price-sub" data-i18n="buy.sub2">Решил(а) идти до конца — бери всю лестницу сразу: <b>шесть курсов одним ключом</b>, от нуля до свободного. Дешевле, чем по одному (по отдельности — $474).</p>
+    <div class="series-btns">
+      <a href="#" class="btn buy-series" data-course="en-series">English A1→C2 — $369</a>
+      <a href="#" class="btn buy-series" data-course="es-series">Español A1→C2 — $369</a>
+    </div>
+  </section>
+
+  <!-- WHAT'S INSIDE -->
+  <section class="sec">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">01</span><span class="ln"></span></div>
+    <h2 data-i18n="buy.in.h">Что входит в один курс</h2>
+    <div class="subh" data-i18n="buy.in.sub">Один платёж $79 — и всё это открыто сразу, без доплат по ходу</div>
+    <div class="feats">
+      <div class="feat"><span class="fi">📅</span><span class="ft" data-i18n="buy.in.1"><b>30 уроков</b><span>Один день — один урок, ~20 минут. Месяц занятий, собранный по шагам.</span></span></div>
+      <div class="feat"><span class="fi">🎓</span><span class="ft" data-i18n="buy.in.2"><b>4 экзамена</b><span>Проверка в конце каждой недели и большой финал курса — с разбором.</span></span></div>
+      <div class="feat"><span class="fi">🎛</span><span class="ft" data-i18n="buy.in.3"><b>7 типов заданий</b><span>Выбор, сборка фразы, ввод, говорение в микрофон, чтение вслух, сопоставление, живые сценки.</span></span></div>
+      <div class="feat"><span class="fi">🔊</span><span class="ft" data-i18n="buy.in.4"><b>Озвучка</b><span>Каждая фраза звучит вслух — привыкаешь к речи, а не только к тексту.</span></span></div>
+      <a class="feat" href="certificate.html" title="Собери свою грамоту" data-i18n-title="cert.h1"><span class="fi">📜</span><span class="ft" data-i18n="buy.in.5"><b>Грамота за курс</b><span>За каждый пройденный курс — именная грамота о завершении.</span></span></a>
+      <div class="feat"><span class="fi">🪜</span><span class="ft" data-i18n="buy.in.6"><b>Ступень серии A1→C2</b><span>Каждый курс — ступень одной лестницы: закончил — следующий продолжает ровно оттуда.</span></span></div>
+    </div>
+  </section>
+
+  <!-- HONEST PRINCIPLES -->
+  <section class="sec">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">02</span><span class="ln"></span></div>
+    <h2 data-i18n="buy.vow.h">Честные правила</h2>
+    <div class="subh" data-i18n="buy.vow.sub">Так, как я сама хотела бы платить за учёбу</div>
+    <div class="vows">
+      <div class="vow"><span class="vk">♾️</span><p data-i18n="buy.vow.1"><b>Навсегда твоё.</b> Купил один раз — доступ остаётся. Не «на год» и не «пока платишь»: курс твой, как книга на полке.</p></div>
+      <div class="vow"><span class="vk">🚫</span><p data-i18n="buy.vow.2"><b>Без подписок.</b> Никаких ежемесячных списаний и «продлить, чтобы не потерять прогресс». Один платёж — и тишина.</p></div>
+      <div class="vow"><span class="vk">🌿</span><p data-i18n="buy.vow.3"><b>Без «жизней» и таймеров страха.</b> Ошибка — рабочий момент, а не потеря. Идёшь в своём темпе, без давления.</p></div>
+      <div class="vow"><span class="vk">🔑</span><p data-i18n="buy.vow.4"><b>Платишь только за нужное.</b> Каждый курс покупается отдельно — не нужно платить за всю лестницу, если тебе пока нужен один шаг. А если нужна вся — серия A1→C2 идёт со скидкой.</p></div>
+    </div>
+  </section>
+
+  <!-- ALREADY HAVE A KEY -->
+  <section class="sec">
+    <div class="keybox">
+      <h2 data-i18n="buy.key.h">Уже есть ключ?</h2>
+      <p data-i18n="buy.key.p">Введи ключ, который я тебе прислала, — и курс откроется в этом браузере.</p>
+      <div class="keyrow">
+        <input type="text" id="licenseInput" placeholder="Вставь свой ключ…" data-i18n-ph="buy.key.ph" autocomplete="off" spellcheck="false" aria-label="Ключ доступа" data-i18n-aria="buy.key.aria">
+        <button class="btn" id="licenseBtn" data-i18n="buy.key.btn">Открыть курс</button>
+      </div>
+      <div class="key-msg" id="keyMsg" role="status" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="sec">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">03</span><span class="ln"></span></div>
+    <h2 data-i18n="buy.faq.h">Частые вопросы</h2>
+    <div class="subh" data-i18n="buy.faq.sub">Коротко и честно</div>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.1q">Это подписка? С меня будут списывать каждый месяц?</summary>
+      <div class="faq-a" data-i18n="buy.faq.1a">Нет. Это <b>разовая покупка</b>: один платёж — и курс твой навсегда. Ничего не продлевается и не списывается повторно.</div>
+    </details>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.2q">Я купил один курс. Что будет, когда я его закончу?</summary>
+      <div class="faq-a" data-i18n="buy.faq.2a">Докупаешь следующий курс за <b>$79</b> — и продолжаешь ровно с того места. А если уже знаешь, что пойдёшь до конца, выгоднее сразу взять <b>всю серию A1→C2 за $369</b> вместо $474 по отдельности.</div>
+    </details>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.3q">Можно вернуть деньги, если не подойдёт?</summary>
+      <div class="faq-a" data-i18n="buy.faq.3a">Возвратов нет — и именно поэтому <b>первые 3 урока каждого курса открыты бесплатно</b>: сначала попробуй, потом решай. Ты покупаешь курс, уже полистав его, — как книгу в магазине.</div>
+    </details>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.4q">На скольких устройствах будет работать?</summary>
+      <div class="faq-a" data-i18n="buy.faq.4a">Ключ открывает курс <b>по ключу</b>, а прогресс хранится прямо в браузере, где ты занимаешься. Открой курс тем же ключом на любом своём устройстве — телефоне, планшете, ноутбуке. Прогресс у каждого браузера свой, потому что аккаунтов и общего сервера у курса нет.</div>
+    </details>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.5q">Нужен ли интернет во время занятий?</summary>
+      <div class="faq-a" data-i18n="buy.faq.5a">Интернет нужен, чтобы <b>загрузить страницу урока</b> и подтянуть шрифты и озвучку. Прогресс сохраняется локально в браузере. Задания на произношение используют встроенное распознавание речи браузера — для них связь тоже нужна.</div>
+    </details>
+
+    <details class="faq">
+      <summary data-i18n="buy.faq.6q">А если я новичок и вообще ноль в английском?</summary>
+      <div class="faq-a" data-i18n="buy.faq.6a">Тогда тебе точно на <b>A1</b> — он построен с самого нуля, маленькими шагами, с объяснениями на русском. Не уверен(а) в уровне? Пройди <a href="placement.html" style="color:var(--accent);font-weight:600">бесплатный экзамен уровня</a> — он подскажет, откуда начать.</div>
+    </details>
+  </section>
+
+  <footer class="foot">
+    <nav class="foot-nav">
+      <a href="index.html" data-i18n="chrome.home">Главная</a>
+      <a href="buy.html" data-i18n="foot.buyShort">Купить</a>
+      <a href="certificate.html" data-i18n="foot.cert">Грамота</a>
+      <a href="privacy.html" data-i18n="foot.privacy">Конфиденциальность</a>
+      <a href="terms.html" data-i18n="foot.terms">Условия</a>
+    </nav>
+    <div class="foot-brand" data-i18n="foot.brand">MIRAVERBA — авторская академия языков · A1 → C2</div>
+  </footer>
+
+</div>
+
+<script src="courses/paywall.js"></script>
+<script>
+/* ============================================================
+   BUY — vanilla JS. Three jobs:
+   1) Course picker: chips choose one of 12 courses (launch $79); the
+      series buttons sell a whole language ladder (launch $369).
+      ?course=en-b1 in the URL pre-selects the course the
+      learner was reading when they hit the lock.
+   2) «Купить»: go to the product's checkout URL from
+      PAYWALL.checkout; while it isn't wired yet, reveal the
+      "sales opening soon" note instead of going nowhere.
+   3) «Уже есть ключ?»: recognise the key prefix (ENA1-…,
+      ESALL-…, ALL-…), append it to the stored keys and say
+      what exactly it opened.
+   ============================================================ */
+(function(){
+  var LANG_NAME = {en:'English', es:'Español'};
+  function courseName(id){ // 'en-a1' → «English A1», 'es-series' → «Español A1→C2»
+    var lang = LANG_NAME[id.slice(0,2)] || '';
+    return id.slice(3) === 'series' ? lang + ' A1→C2' : lang + ' ' + id.slice(3).toUpperCase();
+  }
+
+  var buyBtn  = document.getElementById('buyBtn');
+  var soon    = document.getElementById('soonBlock');
+  var soonMail= document.getElementById('soonMail');
+  var chips   = Array.prototype.slice.call(document.querySelectorAll('.chip[data-course]'));
+  var current = 'en-a1';
+
+  function select(id){
+    if (!chips.some(function(c){ return c.dataset.course === id; })) return;
+    current = id;
+    chips.forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.course === id)); });
+    if (buyBtn) buyBtn.textContent = T('buy.btn.buy','Купить ') + courseName(id) + ' — ' + ((window.PAYWALL && PAYWALL.price) || '$79');
+  }
+  chips.forEach(function(c){ c.addEventListener('click', function(){ select(c.dataset.course); }); });
+  select(current); // localize the default button label
+  try { // pre-select the course the learner came from (?course=en-b1)
+    var q = new URLSearchParams(location.search).get('course');
+    if (q) select(q.toLowerCase());
+  } catch(e){}
+
+  function goCheckout(e, id){
+    e.preventDefault();
+    var url = (window.PAYWALL && PAYWALL.checkout && PAYWALL.checkout[id]) || '';
+    if (!url || url.indexOf('REPLACE_ME') !== -1){
+      if (soonMail) soonMail.href = 'mailto:hello@example.com?subject=' +
+        encodeURIComponent(T('buy.mailSubject','Хочу ключ: ') + courseName(id));
+      if (soon){ soon.hidden = false; soon.scrollIntoView({behavior:'smooth', block:'center'}); }
+    } else {
+      window.location.href = url;
+    }
+  }
+  if (buyBtn) buyBtn.addEventListener('click', function(e){ goCheckout(e, current); });
+  document.querySelectorAll('.buy-series').forEach(function(b){
+    b.addEventListener('click', function(e){ goCheckout(e, b.dataset.course); });
+  });
+
+  var input = document.getElementById('licenseInput');
+  var btn   = document.getElementById('licenseBtn');
+  var msg   = document.getElementById('keyMsg');
+  function keyLabel(key){ // what does this key open? null = not a known format
+    var m = key.toUpperCase().match(/^(ALL|(EN|ES)(A1|A2|B1|B2|C1|C2|ALL))-/);
+    if (!m || key.length < 8) return null;
+    if (m[1] === 'ALL') return T('buy.key.all','вся академия открыта');
+    var lang = LANG_NAME[m[2].toLowerCase()];
+    return m[3] === 'ALL' ? T('buy.key.series1','вся серия ') + lang + T('buy.key.series2',' A1→C2 открыта')
+                          : T('buy.key.course1','курс ') + lang + ' ' + m[3] + T('buy.key.course2',' открыт');
+  }
+  function accept(){
+    var v = input ? input.value.trim() : '';
+    if (!v){
+      msg.className = 'key-msg warn';
+      msg.textContent = T('buy.key.empty','Впиши ключ — я его пока не вижу.');
+      return;
+    }
+    var label = keyLabel(v);
+    if (!label){
+      msg.className = 'key-msg warn';
+      msg.textContent = T('buy.key.unknown','Ключ выглядит незнакомо — сверь его с письмом, он должен начинаться как ENA1-, ESALL-…');
+      return;
+    }
+    try { // keep every bought key: several courses can live side by side
+      var keys = (localStorage.getItem('langbook-license') || '').split(/[\s,;]+/).filter(Boolean);
+      if (keys.indexOf(v) === -1) keys.push(v);
+      localStorage.setItem('langbook-license', keys.join(' '));
+    } catch(err){}
+    msg.className = 'key-msg ok';
+    msg.innerHTML = T('buy.key.ok1','Ключ принят — ') + label + '. <a href="index.html">' + T('buy.key.ok2','Перейти к курсам →') + '</a>';
+  }
+  if (btn)   btn.addEventListener('click', accept);
+  if (input) input.addEventListener('keydown', function(e){ if (e.key === 'Enter'){ e.preventDefault(); accept(); } });
+})();
+</script>
+<script src="theme.js?v=3"></script>
+</body>
+</html>

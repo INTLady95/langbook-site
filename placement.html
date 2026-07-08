@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta.title.placement">Экзамен уровня · English — MIRAVERBA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" data-i18n-content="meta.desc.placement" content="Бесплатный экзамен уровня английского: 25 заданий, 7 форматов, ~20 минут. Узнай свой уровень от A1 до C2 — с баллами и разбором каждого ответа.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MIRAVERBA">
+<meta property="og:title" content="Экзамен уровня · English — MIRAVERBA">
+<meta property="og:description" content="Бесплатный экзамен уровня английского: 25 заданий, 7 форматов, ~20 минут. Узнай свой уровень от A1 до C2 — с баллами и разбором каждого ответа.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:image: replace with an absolute URL once the site has a domain -->
+<meta property="og:image" content="assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* design tokens (palette/type) live in theme.css — the single source of truth */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);
+  background-image:radial-gradient(120% 90% at 50% -10%, rgba(255,250,238,.7), transparent 55%),radial-gradient(70% 50% at 15% 12%, var(--tint), transparent 60%),radial-gradient(70% 50% at 85% 16%, var(--tint), transparent 60%);
+  -webkit-font-smoothing:antialiased;transition:background-color .5s}
+.wrap{max-width:680px;margin:0 auto;padding:30px 22px 90px}
+.view{display:none}
+.view.on{display:block;animation:rise .55s cubic-bezier(.2,.7,.2,1)}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+.eyebrow{display:flex;align-items:center;gap:12px;justify-content:center;margin:20px 0 8px}
+.eyebrow .num{font-family:var(--display);font-size:22px;color:var(--accent);font-weight:600}
+.eyebrow .ln{height:1px;width:34px;background:var(--line-strong)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,6vw,46px);text-align:center;margin:0 0 8px;line-height:1.04}
+.sub{text-align:center;color:var(--ink-soft);font-size:16.5px;line-height:1.55;margin-bottom:26px}
+
+.card{background:var(--card);border:1px solid var(--line-strong);border-radius:22px;padding:26px;box-shadow:var(--shadow),0 0 50px -34px var(--accent);position:relative;overflow:hidden}
+.card::before{content:"";position:absolute;left:0;right:0;top:0;height:54%;background:linear-gradient(180deg,rgba(255,255,255,.07),transparent);pointer-events:none}
+.card>*{position:relative}
+
+.btn{font-family:var(--label);font-weight:700;font-size:15px;letter-spacing:.02em;border:0;border-radius:30px;padding:15px 34px;cursor:pointer;background:var(--gold-grad);background-size:200% 200%;color:var(--on-accent);box-shadow:0 16px 34px -14px var(--accent);transition:transform .15s,box-shadow .2s;text-decoration:none;display:inline-block}
+.btn:hover{transform:translateY(-2px);box-shadow:0 22px 42px -14px var(--accent)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong);box-shadow:none}
+.btn.ghost:hover{border-color:var(--accent);background:var(--accent-soft)}
+.btn:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+.center{text-align:center;margin-top:26px}
+.mini{font-size:13.5px;color:var(--ink-faint);font-style:italic;margin-top:14px;text-align:center}
+
+/* intro feature list */
+.feats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:4px 0 8px;text-align:left}
+.feat{display:flex;gap:10px;align-items:flex-start;font-family:var(--label);font-size:13.5px;color:var(--ink-soft);background:var(--card-2);border:1px solid var(--line);border-radius:12px;padding:11px 13px}
+.feat .fi{font-size:18px;line-height:1.1}
+
+/* progress */
+.qbar{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.qbar .lab{font-family:var(--label);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+.qbar .part{font-family:var(--label);font-size:11px;letter-spacing:.08em;color:var(--accent);font-weight:700;white-space:nowrap}
+.track{flex:1;height:7px;background:var(--card-2);border:1px solid var(--line);border-radius:40px;overflow:hidden}
+.track i{display:block;height:100%;width:0;background:var(--gold-grad);border-radius:40px;transition:width .35s cubic-bezier(.6,0,.2,1)}
+
+.stem{font-family:var(--label);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-faint);text-align:center;margin:4px 0 4px}
+.q{font-family:var(--display);font-size:clamp(23px,4.4vw,31px);font-weight:600;line-height:1.2;margin:6px 0 18px;text-align:center}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{font-family:var(--label);font-size:16px;font-weight:600;text-align:left;background:var(--card-2);border:1px solid var(--line);border-radius:14px;padding:15px 18px;cursor:pointer;color:var(--ink);transition:transform .12s,border-color .15s,background .15s}
+.opt:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-1px)}
+.opt.pick{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1.5px var(--accent) inset}
+
+/* text fields */
+.qin{width:100%;font-family:var(--label);font-size:17px;padding:14px 16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card-2);color:var(--ink)}
+.qin:focus{outline:none;border-color:var(--accent);background:var(--card)}
+.qta{width:100%;min-height:120px;font-family:var(--body);font-size:16px;padding:14px 16px;border:1px solid var(--line-strong);border-radius:14px;background:var(--card-2);color:var(--ink);resize:vertical;line-height:1.5}
+.qta:focus{outline:none;border-color:var(--accent);background:var(--card)}
+.qhint{font-size:13.5px;color:var(--ink-faint);font-style:italic;margin-top:12px;text-align:center}
+.wc{font-size:12px;color:var(--ink-faint);text-align:right;margin-top:6px;font-family:var(--label)}
+
+/* build / order */
+.aline{min-height:54px;border:1px dashed var(--line-strong);border-radius:14px;padding:10px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:14px;background:var(--tint)}
+.aline.empty::before{content:attr(data-ph);color:var(--ink-faint);font-style:italic;font-family:var(--body)}
+.tiles{display:flex;flex-wrap:wrap;gap:9px;justify-content:center}
+.tile{font-family:var(--label);font-weight:600;font-size:15px;background:var(--card-2);border:1px solid var(--line-strong);border-radius:11px;padding:10px 14px;cursor:pointer;color:var(--ink);transition:transform .12s,opacity .15s}
+.tile:hover{border-color:var(--accent);transform:translateY(-1px)}
+.tile.used{opacity:.22;pointer-events:none}
+.atile{font-family:var(--label);font-weight:600;font-size:15px;background:var(--accent-soft);border:1px solid var(--accent);border-radius:11px;padding:10px 14px;cursor:pointer;color:var(--ink)}
+
+/* match pictures */
+.mwrap{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:start}
+.mpool{display:flex;flex-wrap:wrap;gap:12px;align-content:flex-start;max-width:160px}
+.mtile{font-size:36px;line-height:1;width:62px;height:62px;display:grid;place-items:center;background:var(--card-2);border:1px solid var(--line-strong);border-radius:16px;cursor:grab;transition:transform .12s,box-shadow .15s}
+.mtile:hover{transform:translateY(-2px)}
+.mtile.sel{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent) inset}
+.mtile.placed{opacity:.2;pointer-events:none}
+.mslots{display:flex;flex-direction:column;gap:10px}
+.mslot{display:flex;align-items:center;gap:10px;border:1px dashed var(--line-strong);border-radius:14px;padding:9px 14px;min-height:56px;background:var(--tint);transition:border-color .15s,background .15s}
+.mslot .mw{font-family:var(--label);font-weight:700;font-size:15px}
+.mslot .mdrop{margin-left:auto;font-size:26px;color:var(--ink-faint);min-width:30px;text-align:center}
+.mslot.over{border-color:var(--accent);background:var(--accent-soft)}
+.mslot.done{border-style:solid;border-color:var(--good);background:rgba(47,138,82,.08)}
+.mslot.shake{animation:shk .4s}
+@keyframes shk{0%,100%{transform:none}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+/* describe picture */
+.figure{margin:0 0 14px;border-radius:16px;overflow:hidden;border:1px solid var(--line-strong);background:var(--card-2)}
+.figure img{display:block;width:100%;height:auto;max-height:300px;object-fit:cover}
+.figcap{font-size:11px;color:var(--ink-faint);padding:6px 12px;text-align:right;font-family:var(--label)}
+
+/* nav */
+.qnav2{display:flex;align-items:center;justify-content:space-between;margin-top:22px;gap:12px}
+.back{background:none;border:0;color:var(--ink-faint);font-family:var(--label);font-size:13px;cursor:pointer;letter-spacing:.04em}
+.back:hover{color:var(--accent)}
+.qnext{font-family:var(--label);font-weight:700;font-size:15px;border:0;border-radius:30px;padding:13px 30px;cursor:pointer;background:var(--gold-grad);color:var(--on-accent);box-shadow:0 12px 26px -12px var(--accent);transition:transform .15s}
+.qnext:hover{transform:translateY(-1px)}
+
+/* result */
+.res-emoji{font-size:50px;text-align:center;line-height:1}
+.res-lvl{font-family:var(--display);font-size:clamp(46px,10vw,76px);font-weight:700;text-align:center;line-height:1;margin:6px 0 2px;background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.res-name{text-align:center;font-family:var(--label);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:8px}
+.scoreline{text-align:center;font-family:var(--label);font-weight:700;font-size:15px;color:var(--accent);margin:2px 0 8px}
+.res-txt{text-align:center;font-size:16.5px;line-height:1.6;color:var(--ink-soft);margin-bottom:8px}
+.scale{display:grid;grid-template-columns:repeat(6,1fr);gap:7px;margin:20px 0 6px}
+.scale span{text-align:center;font-family:var(--label);font-size:12px;font-weight:700;padding:9px 0;border-radius:10px;border:1px solid var(--line);color:var(--ink-faint);background:var(--card-2)}
+.scale span.hit{background:var(--gold-grad);color:var(--on-accent);border-color:transparent;box-shadow:0 8px 18px -10px var(--accent)}
+
+/* per-band bars */
+.bars{display:flex;flex-direction:column;gap:8px;margin:20px 0 6px}
+.bar{display:flex;align-items:center;gap:10px}
+.bar b{width:26px;font-family:var(--label);font-size:12px;color:var(--ink-soft);font-weight:700}
+.bar .bt{flex:1;height:9px;background:var(--card-2);border:1px solid var(--line);border-radius:30px;overflow:hidden}
+.bar .bt i{display:block;height:100%;width:0;background:var(--gold-grad);border-radius:30px;transition:width .6s cubic-bezier(.6,0,.2,1)}
+.bar .bp{width:44px;text-align:right;font-family:var(--label);font-size:11px;color:var(--ink-faint)}
+
+/* answer review */
+.revtoggle{display:block;width:100%;margin:18px 0 0;text-align:center;background:none;border:0;border-top:1px solid var(--line);padding-top:16px;color:var(--accent);font-family:var(--label);font-weight:700;font-size:13.5px;cursor:pointer}
+.rev{margin-top:8px;display:none}
+.rev.on{display:block}
+.rev-item{padding:13px 0;border-bottom:1px solid var(--line)}
+.rev-head{display:flex;align-items:center;gap:8px}
+.rev-tag{font-size:10px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:6px;background:var(--card-2);border:1px solid var(--line);color:var(--ink-faint)}
+.rev-mark{margin-left:auto;font-size:15px;font-weight:800;font-family:var(--label)}
+.rev-mark.ok{color:var(--good)} .rev-mark.no{color:var(--bad)} .rev-mark.half{color:var(--accent-2)}
+.rev-q{font-family:var(--body);font-size:15px;color:var(--ink);margin:6px 0 3px}
+.rev-a{font-family:var(--label);font-size:13.5px;color:var(--ink-soft)}
+.rev-a .you{color:var(--ink)}
+.rev-a .corr{color:var(--good);font-weight:600}
+
+/* mobile (the exam is the front door for new learners — must work on phones) */
+@media(max-width:560px){
+  .wrap{padding:20px 14px 70px}
+  .card{padding:20px 16px;border-radius:18px}
+  .feats{grid-template-columns:1fr}
+  .btn{padding:14px 26px;font-size:14.5px}
+  .qbar{gap:9px}
+  .qbar .part{display:none}
+  .opt{padding:13px 14px;font-size:15px}
+  .scale{grid-template-columns:repeat(3,1fr)}
+  .mwrap{grid-template-columns:1fr}
+  .mpool{max-width:none;justify-content:center}
+  .qnav2{flex-wrap:wrap;justify-content:center}
+  .res-lvl{font-size:clamp(40px,16vw,64px)}
+}
+</style>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="i18n.js?v=2"></script>
+</head>
+<body data-page="placement">
+<div class="wrap">
+
+  <!-- INTRO -->
+  <section class="view on" id="intro">
+    <div class="eyebrow"><span class="ln"></span><span class="num">🎓</span><span class="ln"></span></div>
+    <h1 data-i18n="pl.h1">Экзамен уровня · English</h1>
+    <div class="sub" data-i18n="pl.sub">Полноценный экзамен, как целая неделя занятий в одном тесте — <b>25 заданий, 7 форматов</b>. От простого к сложному, от A1 до C2.<br>В конце — твой уровень, баллы по каждому уровню и разбор каждого ответа.</div>
+    <div class="card">
+      <div class="feats">
+        <div class="feat"><span class="fi">✅</span><span data-i18n="pl.feat.choice">Выбрать верный вариант</span></div>
+        <div class="feat"><span class="fi">✍️</span><span data-i18n="pl.feat.gap">Вписать слово самому</span></div>
+        <div class="feat"><span class="fi">🇷🇺→🇬🇧</span><span data-i18n="pl.feat.trre">Перевести с русского</span></div>
+        <div class="feat"><span class="fi">🇬🇧→🇷🇺</span><span data-i18n="pl.feat.trer">Перевести на русский</span></div>
+        <div class="feat"><span class="fi">🖼</span><span data-i18n="pl.feat.match">Соединить картинки и слова</span></div>
+        <div class="feat"><span class="fi">🧩</span><span data-i18n="pl.feat.order">Собрать предложение</span></div>
+        <div class="feat"><span class="fi">📷</span><span data-i18n="pl.feat.describe">Описать картинку</span></div>
+        <div class="feat"><span class="fi">🧭</span><span data-i18n="pl.feat.level">Узнать свой уровень</span></div>
+      </div>
+      <div class="center"><button class="btn" id="startBtn" data-i18n="pl.start">Начать экзамен →</button></div>
+      <div class="mini" data-i18n="pl.mini.intro">25 заданий · ~20 минут · можно вернуться к любому вопросу</div>
+    </div>
+    <div class="center" style="margin-top:18px"><a class="back" href="index.html" data-i18n="pl.skip">← Я знаю свой уровень, на главную</a></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="view" id="quiz">
+    <div class="qbar"><span class="lab" id="qNum">Задание 1 / 25</span><span class="track"><i id="qFill"></i></span><span class="part" id="qPart"></span></div>
+    <div class="card">
+      <div class="stem" id="qStem"></div>
+      <div id="qBody"></div>
+      <div class="qnav2"><button class="back" id="qBack" style="visibility:hidden" data-i18n="pl.back">← Назад</button><button class="qnext" id="qNext">Дальше →</button></div>
+    </div>
+    <div class="mini"><button class="back" id="qQuit" data-i18n="pl.quit">✕ Прервать и выйти на главную</button></div>
+  </section>
+
+  <!-- RESULT -->
+  <section class="view" id="result">
+    <div class="eyebrow"><span class="ln"></span><span class="num">✨</span><span class="ln"></span></div>
+    <h1 style="margin-bottom:18px" data-i18n="pl.result.h1">Твой результат</h1>
+    <div class="card">
+      <div class="res-emoji" id="rEmoji">🌱</div>
+      <div class="res-lvl" id="rLvl">A1</div>
+      <div class="res-name" id="rName">Начальный</div>
+      <div class="scoreline" id="rScore"></div>
+      <div class="scale" id="rScale"></div>
+      <div class="res-txt" id="rTxt"></div>
+      <div class="bars" id="rBars"></div>
+      <div class="center" id="rCta"></div>
+      <button class="revtoggle" id="revToggle" data-i18n="pl.rev.show">▾ Показать разбор всех 25 ответов</button>
+      <div class="rev" id="rev"></div>
+      <div class="mini"><button class="back" id="retry" data-i18n="pl.retry">↻ Пройти ещё раз</button></div>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ============================================================
+   ЭКЗАМЕН УРОВНЯ — 25 заданий, 7 форматов, A1→C2.
+   Каждое задание помечено уровнем (band). В конце считаем,
+   до какого уровня ученик уверенно дошёл.
+   ============================================================ */
+const PARTS = {
+  A1:T('pl.part.a1','Часть 1 · Старт'),  A2:T('pl.part.a2','Часть 2 · База'),  B1:T('pl.part.b1','Часть 3 · Средний'),
+  B2:T('pl.part.b2','Часть 4 · Уверенный'),  C1:T('pl.part.c1','Часть 5 · Продвинутый'),  C2:T('pl.part.c2','Часть 5 · Продвинутый')
+};
+const STEMS = {
+  choice:T('pl.stem.choice','Выбери верный вариант'),  gap:T('pl.stem.gap','Впиши пропущенное слово'),
+  trRE:T('pl.stem.trre','Переведи на английский'),   trER:T('pl.stem.trer','Переведи на русский'),
+  match:T('pl.stem.match','Соедини картинку и слово'), order:T('pl.stem.order','Собери предложение из слов'),
+  describe:T('pl.stem.describe','Опиши картинку'),        essay:T('pl.stem.essay','Напиши своё мнение')
+};
+
+const BANK = [
+  /* ---------- A1 ---------- */
+  { band:'A1', type:'choice', q:'She ___ from Spain.', opts:['is','am','are','be'], answer:'is',
+    explain:'He / she / it → <b>is</b>. Это базовая форма глагола to be в 3-м лице.' },
+  { band:'A1', type:'match', q:'Перетащи каждую картинку к её английскому слову.',
+    pairs:[['☕','coffee'],['🐱','cat'],['🏠','house'],['📖','book'],['🚗','car']] },
+  { band:'A1', type:'gap', q:'I ___ a student. <span style="color:var(--ink-faint)">(глагол «быть»)</span>',
+    accept:['am','i am'], model:'am' },
+  { band:'A1', type:'trRE', ru:'У меня есть собака.',
+    accept:['i have a dog','i have got a dog','ive got a dog','i have got a dog','i have dog'], model:'I have a dog.' },
+
+  /* ---------- A2 ---------- */
+  { band:'A2', type:'choice', q:'Yesterday we ___ to the cinema.', opts:['went','go','gone','goed'], answer:'went',
+    explain:'Прошедшее время от go — неправильный глагол <b>went</b>.' },
+  { band:'A2', type:'match', q:'Перетащи картинку к нужному месту в городе.',
+    pairs:[['🏥','hospital'],['🚉','station'],['🏖️','beach'],['🏦','bank'],['🥖','bakery']] },
+  { band:'A2', type:'order', answer:'i went to london last year', accept:['i went to london last year','last year i went to london'], hintRu:'Смысл: «Я ездил в Лондон в прошлом году».' },
+  { band:'A2', type:'gap', q:'We ___ John at the party yesterday. <span style="color:var(--ink-faint)">(not / see)</span>',
+    accept:["didn't see","did not see","didnt see"], model:"didn't see" },
+  { band:'A2', type:'trER', en:'She is taller than her brother.',
+    accept:['она выше своего брата','она выше брата','она выше чем её брат','она выше, чем её брат','она выше чем ее брат','она выше своего брата ростом'], model:'Она выше своего брата.' },
+  { band:'A2', type:'trRE', ru:'Сколько это стоит?',
+    accept:['how much is it','how much does it cost','how much does this cost','how much is this','how much are they'], model:'How much is it?' },
+
+  /* ---------- B1 ---------- */
+  { band:'B1', type:'choice', q:'If it rains tomorrow, we ___ at home.', opts:['will stay','stay','stayed','would stay'], answer:'will stay',
+    explain:'Первый кондишнл: if + Present Simple, главная часть — <b>will</b> + глагол.' },
+  { band:'B1', type:'gap', q:'She asked me where I ___. <span style="color:var(--ink-faint)">(live → reported speech)</span>',
+    accept:['lived'], model:'lived' },
+  { band:'B1', type:'describe', img:'courses/img/day-09.jpg', credit:'Photo · CC0',
+    prompt:'Опиши, что ты видишь на фото. Кто эти люди? Что они делают? Напиши 2–3 предложения по-английски.',
+    minWords:8, keywords:['family','people','happy','together','smiling','photo','mother','father','child','outside'],
+    model:'This is a photo of a family. There are several people standing together and they look happy. They are smiling and enjoying their time outside.' },
+  { band:'B1', type:'trRE', ru:'Если бы у меня было время, я бы тебе помог.',
+    accept:['if i had time i would help you','if i had the time i would help you','if i had time, i would help you','if i had more time i would help you',"if i had time i'd help you","if i had the time i'd help you","if i had more time i'd help you"], model:'If I had time, I would help you.' },
+
+  /* ---------- B2 ---------- */
+  { band:'B2', type:'choice', q:'By next year, I ___ here for a decade.', opts:['will have worked','will work','work','worked'], answer:'will have worked',
+    explain:'Future Perfect: к моменту в будущем действие будет завершено — <b>will have</b> + 3-я форма.' },
+  { band:'B2', type:'order', answer:'this bridge was built a hundred years ago', accept:['this bridge was built a hundred years ago','a hundred years ago this bridge was built'], hintRu:'Смысл: «Этот мост построили сто лет назад» (пассив).' },
+  { band:'B2', type:'gap', q:"I'd rather you ___ him the secret. <span style=\"color:var(--ink-faint)\">(not / tell)</span>",
+    accept:["didn't tell","did not tell","didnt tell","not tell"], model:"didn't tell" },
+  { band:'B2', type:'trER', en:"He behaves as if he owned the place.",
+    accept:['он ведёт себя так, будто это его место','он ведёт себя так будто он тут хозяин','он ведёт себя так словно он здесь хозяин','он ведёт себя так словно он тут хозяин','он ведёт себя так как будто это его собственность','он ведёт себя так будто он здесь хозяин','он ведёт себя так как будто он здесь хозяин','он ведет себя так как будто он тут хозяин','он ведёт себя так, будто хозяин здесь он'],
+    model:'Он ведёт себя так, будто он здесь хозяин.' },
+  { band:'B2', type:'choice', q:"Let's ___ advantage of the good weather.", opts:['take','make','do','have'], answer:'take',
+    explain:'Устойчивое сочетание — <b>take</b> advantage of (воспользоваться). «make/do/have advantage» — так не говорят.' },
+
+  /* ---------- C1 / C2 ---------- */
+  { band:'C1', type:'choice', q:'___ had I arrived than the phone rang.', opts:['No sooner','Hardly','Scarcely','Not only'], answer:'No sooner',
+    explain:'Инверсия: <b>No sooner</b> … than … — «не успел …, как …».' },
+  { band:'C1', type:'choice', q:'The proposal was met with widespread ___.', opts:['acclaim','acclaimed','acclaiming','acclaims'], answer:'acclaim',
+    explain:'Нужно существительное — <b>acclaim</b> (всеобщее признание).' },
+  { band:'C1', type:'trRE', ru:'Несмотря на трудности, он не сдался.',
+    accept:["despite the difficulties he didn't give up","despite the difficulties, he didn't give up","in spite of the difficulties he did not give up","in spite of the difficulties he didn't give up","despite the hardships he didnt give up","despite the hardships he didn't give up","despite all the difficulties he didn't give up","despite the difficulties he did not give up","despite the difficulties he didn't give in","despite the difficulties he didn't surrender"],
+    model:"Despite the difficulties, he didn't give up." },
+  { band:'C2', type:'choice', q:'She has a ___ grasp of nuance that few possess.', opts:['consummate','consumed','consuming','consumes'], answer:'consummate',
+    explain:'<b>consummate</b> (прил.) — совершенный, безупречный. Остальные — формы глагола consume.' },
+  { band:'C2', type:'choice', q:'___ the gravity of the situation, he remained composed.', opts:['Notwithstanding','Nevertheless','However','Despite of'], answer:'Notwithstanding',
+    explain:'<b>Notwithstanding</b> + существительное = «несмотря на». «Despite of» — ошибка.' },
+
+  /* ---------- открытое письмо (C1) ---------- */
+  { band:'C1', type:'essay',
+    prompt:'Напиши своё мнение в 3–4 предложениях по-английски: «Is it better to study a language online or in a classroom?» Приведи хотя бы одну причину.',
+    minWords:25, keywords:['because','however','think','believe','online','classroom','prefer','opinion','reason','while','although'],
+    model:'In my opinion, studying online is better for most people because it is flexible and you can learn at your own pace. However, a classroom gives you real conversation practice and immediate feedback from a teacher. Personally, I prefer a mix of both, since each one covers the weakness of the other.' }
+];
+
+const BANDS=['A1','A2','B1','B2','C1','C2'];
+const NAMES={A1:T('pl.name.a1','Начальный'),A2:T('pl.name.a2','Базовый'),B1:T('pl.name.b1','Средний'),B2:T('pl.name.b2','Уверенный'),C1:T('pl.name.c1','Продвинутый'),C2:T('pl.name.c2','Свободный')};
+const EMO={A1:'🌱',A2:'🌿',B1:'🌳',B2:'⭐',C1:'🏆',C2:'👑'};
+const PASS=0.6;          // нужно ≥60% на уровне, чтобы «подняться» на него
+const STOP=new Set('a an the to of is are am be do does did and or i you he she it we they this that my your his her в на и не я ты он она оно мы вы они что это так как бы у меня его её'.split(' '));
+
+const $=s=>document.querySelector(s);
+const answers=new Array(BANK.length).fill(null);   // сырые ответы; оцениваем в конце
+let i=0;
+
+function norm(s){ return (s||'').toLowerCase().replace(/[.,!?;:'"’`«»()]/g,'').replace(/ё/g,'е').replace(/\s+/g,' ').trim(); }
+function shuffle(a){ a=a.slice(); for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]];} return a; }
+BANK.forEach(it=>{ if(it.type==='choice'&&Array.isArray(it.opts)) it.opts=shuffle(it.opts); }); // ключ не должен всегда стоять первым
+function show(id){ document.querySelectorAll('.view').forEach(v=>v.classList.remove('on')); $('#'+id).classList.add('on'); window.scrollTo(0,0); }
+
+/* ===================== render one item ===================== */
+function renderItem(){
+  const it=BANK[i];
+  $('#qNum').textContent=T('pl.qnum1','Задание ')+(i+1)+' / '+BANK.length;
+  $('#qPart').textContent=PARTS[it.band]+' · '+it.band;
+  $('#qFill').style.width=Math.round(i/BANK.length*100)+'%';
+  $('#qStem').textContent=STEMS[it.type]||'';
+  const body=$('#qBody');
+  if(it.type==='choice') body.innerHTML=tplChoice(it);
+  else if(it.type==='gap') body.innerHTML=tplInput(it,it.q,T('pl.ph.gap','Впиши слово…'));
+  else if(it.type==='trRE') body.innerHTML=tplInput(it,'«'+it.ru+'»','Type in English…');
+  else if(it.type==='trER') body.innerHTML=tplInput(it,'“'+it.en+'”',T('pl.ph.trer','Напиши по-русски…'));
+  else if(it.type==='order') body.innerHTML=tplOrder(it);
+  else if(it.type==='match') body.innerHTML=tplMatch(it);
+  else if(it.type==='describe'||it.type==='essay') body.innerHTML=tplWrite(it);
+  wireItem(it,body);
+  $('#qBack').style.visibility = i>0 ? 'visible' : 'hidden';
+  $('#qNext').textContent = (i<BANK.length-1) ? T('pl.next','Дальше →') : T('pl.finish','Завершить экзамен ✓');
+}
+
+/* ---- templates ---- */
+function tplChoice(it){ const sel=answers[i];
+  return '<div class="q">'+it.q+'</div><div class="opts">'+it.opts.map(o=>
+    '<button class="opt'+(sel===o?' pick':'')+'" data-o="'+o.replace(/"/g,'&quot;')+'">'+o+'</button>').join('')+'</div>'; }
+function tplInput(it,prompt,ph){ const v=answers[i]?String(answers[i]).replace(/"/g,'&quot;'):'';
+  return '<div class="q">'+prompt+'</div><input class="qin" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="'+ph+'" value="'+v+'"><div class="qhint">'+T('pl.hint.typo','Пиши как умеешь — мелкие опечатки я прощаю.')+'</div>'; }
+function tplOrder(it){
+  return '<div class="q" style="font-size:21px">'+it.hintRu+'</div><div class="aline empty" id="aline" data-ph="'+T('pl.ph.order','Нажимай слова по порядку…')+'"></div><div class="tiles" id="tiles"></div>'; }
+function tplMatch(it){
+  return '<div class="q" style="font-size:20px">'+it.q+'</div><div class="mwrap"><div class="mpool" id="mpool"></div><div class="mslots" id="mslots"></div></div>'; }
+function tplWrite(it){ const v=answers[i]?String(answers[i]).replace(/</g,'&lt;'):'';
+  const fig = it.img ? '<figure class="figure"><img src="'+it.img+'" alt="'+T('pl.alt.figure','Картинка для описания')+'" loading="lazy"><figcaption class="figcap">'+(it.credit||'')+'</figcaption></figure>' : '';
+  return '<div class="q" style="font-size:20px;line-height:1.3">'+it.prompt+'</div>'+fig+
+    '<textarea class="qta" id="wta" placeholder="'+(it.img?T('pl.ph.describe','Опиши картинку по-английски…'):T('pl.ph.essay','Напиши свой ответ по-английски…'))+'">'+v+'</textarea>'+
+    '<div class="wc" id="wc">'+T('pl.wc1','слов: ')+'0'+T('pl.wc2',' · нужно ≥ ')+it.minWords+'</div>'; }
+
+/* ---- wiring ---- */
+function wireItem(it,root){
+  if(it.type==='choice'){
+    root.querySelectorAll('.opt').forEach(b=>b.addEventListener('click',()=>{
+      answers[i]=b.dataset.o;
+      root.querySelectorAll('.opt').forEach(x=>x.classList.remove('pick')); b.classList.add('pick');
+    }));
+  } else if(it.type==='gap'||it.type==='trRE'||it.type==='trER'){
+    const inp=root.querySelector('.qin');
+    inp.addEventListener('input',()=>{ answers[i]=inp.value; });
+    inp.addEventListener('keydown',e=>{ if(e.key==='Enter'){ e.preventDefault(); $('#qNext').click(); } });
+    setTimeout(()=>inp.focus(),60);
+  } else if(it.type==='order'){ wireOrder(it,root);
+  } else if(it.type==='match'){ wireMatch(it,root);
+  } else { // describe / essay
+    const ta=root.querySelector('#wta'), wc=root.querySelector('#wc');
+    const upd=()=>{ answers[i]=ta.value; const n=norm(ta.value).split(' ').filter(Boolean).length;
+      wc.textContent=T('pl.wc1','слов: ')+n+T('pl.wc2',' · нужно ≥ ')+it.minWords; wc.style.color=n>=it.minWords?'var(--good)':'var(--ink-faint)'; };
+    ta.addEventListener('input',upd); upd();
+  }
+}
+
+function wireOrder(it,root){
+  const words=shuffle(it.answer.split(' '));
+  const line=root.querySelector('#aline'), box=root.querySelector('#tiles');
+  let chosen=[];
+  function sync(){ answers[i]=chosen.map(c=>c.word).join(' '); line.classList.toggle('empty',chosen.length===0); }
+  words.forEach(word=>{
+    const t=document.createElement('button'); t.className='tile'; t.textContent=word;
+    t.addEventListener('click',()=>{ t.classList.add('used'); const c={word,tile:t};
+      const a=document.createElement('button'); a.className='atile'; a.textContent=word;
+      a.addEventListener('click',()=>{ t.classList.remove('used'); a.remove(); chosen=chosen.filter(x=>x.tile!==t); sync(); });
+      c.atile=a; line.appendChild(a); chosen.push(c); sync(); });
+    box.appendChild(t);
+  });
+  // restore if revisiting
+  if(answers[i]){ const prev=String(answers[i]).split(' ');
+    prev.forEach(w=>{ const btn=[...box.querySelectorAll('.tile')].find(b=>!b.classList.contains('used')&&b.textContent===w); if(btn) btn.click(); }); }
+  sync();
+}
+
+function wireMatch(it,root){
+  const pool=root.querySelector('#mpool'), slots=root.querySelector('#mslots');
+  const tiles=shuffle(it.pairs.slice()), order=shuffle(it.pairs.slice());
+  let total=it.pairs.length, matched=0, sel=null, dragEl=null;
+  const prevWords=(answers[i]&&answers[i].words)?answers[i].words.slice():[]; // restore if revisiting
+  answers[i]={matched:0,total:total,words:[]};
+  tiles.forEach(p=>{ const t=document.createElement('div'); t.className='mtile'; t.textContent=p[0]; t.draggable=true; t.dataset.w=p[1];
+    t.addEventListener('click',()=>{ if(t.classList.contains('placed'))return; if(sel===t){sel=null;t.classList.remove('sel');return;} if(sel)sel.classList.remove('sel'); sel=t; t.classList.add('sel'); });
+    t.addEventListener('dragstart',e=>{ dragEl=t; if(e.dataTransfer)e.dataTransfer.setData('text',p[1]); });
+    pool.appendChild(t); });
+  order.forEach(p=>{ const s=document.createElement('div'); s.className='mslot'; s.dataset.w=p[1];
+    s.innerHTML='<span class="mw">'+p[1]+'</span><span class="mdrop">·</span>';
+    function tryPlace(tile){ if(!tile||s.classList.contains('done'))return;
+      if(tile.dataset.w===s.dataset.w){ s.classList.add('done'); s.querySelector('.mdrop').textContent=tile.textContent; tile.classList.add('placed'); tile.classList.remove('sel'); if(sel===tile)sel=null; matched++; answers[i]={matched:matched,total:total,words:(answers[i].words||[]).concat([s.dataset.w])}; }
+      else { s.classList.add('shake'); setTimeout(()=>s.classList.remove('shake'),420); } }
+    s.addEventListener('click',()=>{ if(sel) tryPlace(sel); });
+    s.addEventListener('dragover',e=>{ if(!s.classList.contains('done')){ e.preventDefault(); s.classList.add('over'); } });
+    s.addEventListener('dragleave',()=>s.classList.remove('over'));
+    s.addEventListener('drop',e=>{ e.preventDefault(); s.classList.remove('over'); tryPlace(dragEl); dragEl=null; });
+    slots.appendChild(s); });
+  prevWords.forEach(wd=>{ const s=[...slots.children].find(x=>x.dataset.w===wd&&!x.classList.contains('done')); const t=[...pool.children].find(x=>x.dataset.w===wd&&!x.classList.contains('placed')); if(s&&t){ s.classList.add('done'); s.querySelector('.mdrop').textContent=t.textContent; t.classList.add('placed'); matched++; answers[i]={matched:matched,total:total,words:(answers[i].words||[]).concat([wd])}; } });
+}
+
+/* ===================== navigation ===================== */
+$('#qNext').addEventListener('click',()=>{
+  if(i<BANK.length-1){ i++; renderItem(); window.scrollTo(0,0); }
+  else { $('#qFill').style.width='100%'; finish(); }
+});
+$('#qBack').addEventListener('click',()=>{ if(i>0){ i--; renderItem(); window.scrollTo(0,0); } });
+$('#startBtn').addEventListener('click',()=>{ i=0; renderItem(); show('quiz'); });
+$('#qQuit').addEventListener('click',()=>{ location.href='index.html'; });
+$('#retry').addEventListener('click',()=>{ for(let k=0;k<answers.length;k++)answers[k]=null; i=0; $('#rev').classList.remove('on'); $('#revToggle').textContent=T('pl.rev.show','▾ Показать разбор всех 25 ответов'); show('intro'); });
+$('#revToggle').addEventListener('click',()=>{ const on=$('#rev').classList.toggle('on'); $('#revToggle').textContent=(on?T('pl.rev.hide','▴ Скрыть разбор'):T('pl.rev.show','▾ Показать разбор всех 25 ответов')); });
+
+/* ===================== grading ===================== */
+function tokens(s){ return norm(s).split(' ').filter(w=>w.length>1 && !STOP.has(w)); }
+function overlap(ans,model){ const a=tokens(ans), m=tokens(model); if(!m.length||!a.length)return 0;
+  const set=new Set(a); let hit=0; m.forEach(w=>{ if(set.has(w))hit++; }); return hit/m.length; }
+function matchText(ans,accept,model){ const nv=norm(ans); if(!nv)return 0;
+  if(accept.some(a=>{ const na=norm(a); return na && (nv===na || nv.startsWith(na+' ') || na.startsWith(nv) && na.length>=6 && nv.length>=na.length-2); })) return 1;
+  const ov=overlap(ans,model||''); if(ov>=0.7)return 0.85; if(ov>=0.5)return 0.6; if(ov>=0.34)return 0.34; return 0; }
+function scoreOpen(ans,it){ const nWords=norm(ans).split(' ').filter(Boolean).length;
+  if(nWords===0)return 0;
+  const kw=(it.keywords||[]).filter(k=>norm(ans).includes(norm(k))).length;
+  if(nWords>=it.minWords) return kw>0?1:0.75;
+  return Math.min(0.6, nWords/it.minWords*0.6); }
+function gradeItem(it,ans){
+  if(it.type==='choice') return ans===it.answer?1:0;
+  if(it.type==='gap')   return matchText(ans,it.accept,it.model);
+  if(it.type==='trRE')  return matchText(ans,it.accept,it.model);
+  if(it.type==='trER')  return matchText(ans,it.accept,it.model);
+  if(it.type==='order'){ if(!ans)return 0; const nv=norm(ans);
+    if(nv===norm(it.answer))return 1;
+    if(it.accept&&it.accept.some(a=>nv===norm(a)))return 1; return 0; }
+  if(it.type==='match') return ans&&ans.total?ans.matched/ans.total:0;
+  if(it.type==='describe'||it.type==='essay') return scoreOpen(ans||'',it);
+  return 0;
+}
+function weightOf(it){ return (it.type==='describe'||it.type==='essay')?0.6:1; }
+
+function computeResult(){
+  const scores=BANK.map((it,k)=>gradeItem(it,answers[k]));
+  const per={}; BANDS.forEach(b=>per[b]={earned:0,poss:0});
+  BANK.forEach((it,k)=>{ const w=weightOf(it); per[it.band].earned+=scores[k]*w; per[it.band].poss+=w; });
+  const ratio={}; BANDS.forEach(b=>ratio[b]= per[b].poss? per[b].earned/per[b].poss : 0);
+  let level='A1';
+  for(const b of BANDS){ if(ratio[b]>=PASS) level=b; else break; }
+  const totalScore=scores.reduce((s,x)=>s+x,0);
+  return {scores,ratio,level,totalScore};
+}
+
+function finish(){
+  const R=computeResult(), lvl=R.level;
+  $('#rLvl').textContent=lvl; $('#rName').textContent=NAMES[lvl]; $('#rEmoji').textContent=EMO[lvl];
+  $('#rScore').textContent=T('pl.score1','Баллы: ')+(Math.round(R.totalScore*10)/10)+T('pl.score2',' из ')+BANK.length;
+  $('#rScale').innerHTML=BANDS.map(b=>'<span class="'+(b===lvl?'hit':'')+'">'+b+'</span>').join('');
+  // per-band bars
+  $('#rBars').innerHTML=BANDS.map(b=>{ const pc=Math.round(R.ratio[b]*100);
+    return '<div class="bar"><b>'+b+'</b><span class="bt"><i style="width:'+pc+'%"></i></span><span class="bp">'+pc+'%</span></div>'; }).join('');
+  // headline + CTA
+  setVerdict(lvl);
+  // review
+  $('#rev').innerHTML=BANK.map((it,k)=>revRow(it,answers[k],R.scores[k])).join('');
+  show('result');
+}
+
+function setVerdict(lvl){
+  const ROUTES={ A1:'courses/en-a1.html', A2:'courses/en-a2.html', B1:'courses/en-b1.html', B2:'courses/en-b2.html', C1:'courses/en-c1.html', C2:'courses/en-c2.html' };
+  const PREV={ A2:'A1', B1:'A2', B2:'B1', C1:'B2', C2:'C1' };
+  let txt, cta;
+  if(lvl==='A1'){
+    txt=T('pl.verdict.a1','Ты в <b>самом начале пути</b> — и это лучшее место для старта! Курс <b>A1</b> построен с нуля, шаг за шагом. Идём 💛');
+    cta='<a class="btn" href="courses/en-a1.html">'+T('pl.cta.a1','Начать уровень A1 →')+'</a>';
+  } else {
+    const prev=PREV[lvl];
+    txt=T('pl.verdict.x1','Твой уровень — <b>')+lvl+' ('+NAMES[lvl]+')</b> '+EMO[lvl]+T('pl.verdict.x2','. Курс <b>')+lvl+T('pl.verdict.x3','</b> уже ждёт тебя — все 30 дней готовы.');
+    cta='<a class="btn" href="'+ROUTES[lvl]+'">'+T('pl.cta.start','Начать уровень ')+lvl+' →</a> <a class="btn ghost" href="'+ROUTES[prev]+'" style="margin-left:8px">'+T('pl.cta.refresh','Освежить ')+prev+'</a>';
+  }
+  $('#rTxt').innerHTML=txt; $('#rCta').innerHTML=cta;
+}
+
+function esc(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function revRow(it,ans,score){
+  const mark = score>=0.99?'<span class="rev-mark ok">✓</span>' : (score>0?'<span class="rev-mark half">≈ '+Math.round(score*100)+'%</span>':'<span class="rev-mark no">✗</span>');
+  let q, you, corr='';
+  if(it.type==='choice'){ q=it.q; you=esc(ans||'—'); corr=T('pl.rev.correct','Верно: ')+'<span class="corr">'+esc(it.answer)+'</span>'+(it.explain?' · '+it.explain:''); }
+  else if(it.type==='gap'){ q=String(it.q).replace(/<[^>]+>/g,''); you=esc(ans||'—'); corr=T('pl.rev.correct','Верно: ')+'<span class="corr">'+esc(it.model)+'</span>'; }
+  else if(it.type==='trRE'){ q='«'+it.ru+'»'; you=esc(ans||'—'); corr=T('pl.rev.model','Образец: ')+'<span class="corr">'+esc(it.model)+'</span>'; }
+  else if(it.type==='trER'){ q='“'+it.en+'”'; you=esc(ans||'—'); corr=T('pl.rev.model','Образец: ')+'<span class="corr">'+esc(it.model)+'</span>'; }
+  else if(it.type==='order'){ q=it.hintRu; you=esc(ans||'—'); corr=T('pl.rev.correct','Верно: ')+'<span class="corr">'+esc(it.answer)+'</span>'; }
+  else if(it.type==='match'){ q=String(it.q).replace(/<[^>]+>/g,''); you=ans?(ans.matched+T('pl.rev.of',' из ')+ans.total+T('pl.rev.pairs',' пар')):'—'; corr=T('pl.rev.pairsLabel','Пары: ')+'<span class="corr">'+it.pairs.map(p=>p[0]+' '+p[1]).join(' · ')+'</span>'; }
+  else { q=String(it.prompt).replace(/<[^>]+>/g,''); const n=norm(ans).split(' ').filter(Boolean).length; you=ans?esc(ans):'—'; you+=' <span style="color:var(--ink-faint)">('+n+T('pl.rev.words',' слов')+')</span>'; corr=T('pl.rev.example','Пример: ')+'<span class="corr">'+esc(it.model)+'</span>'; }
+  return '<div class="rev-item"><div class="rev-head"><span class="rev-tag">'+it.band+'</span><span class="rev-tag">'+(STEMS[it.type]||it.type)+'</span>'+mark+'</div>'+
+    '<div class="rev-q">'+q+'</div><div class="rev-a"><span class="you">'+T('pl.rev.yourAnswer','Твой ответ: ')+you+'</span></div><div class="rev-a">'+corr+'</div></div>';
+}
+</script>
+<script src="theme.js?v=3"></script>
+</body>
+</html>

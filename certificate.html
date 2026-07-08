@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta.title.cert">Грамота за курс — MIRAVERBA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" data-i18n-content="meta.desc.cert" content="Именная грамота о завершении курса MIRAVERBA: собери её в своих цветах и распечатай. Открывается после финального экзамена курса.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);
+  background-image:radial-gradient(120% 90% at 50% -10%, rgba(255,250,238,.7), transparent 55%),radial-gradient(70% 50% at 14% 10%, var(--tint), transparent 60%),radial-gradient(70% 50% at 86% 16%, var(--tint), transparent 60%);
+  -webkit-font-smoothing:antialiased;transition:background-color .5s}
+.wrap{max-width:1080px;margin:0 auto;padding:30px 22px 60px}
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.3em;font-size:11px;color:var(--accent);font-weight:700;text-align:center;margin:14px 0 12px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.6vw,46px);text-align:center;margin:0 0 10px;line-height:1.05}
+.lead{text-align:center;color:var(--ink-soft);font-size:16px;line-height:1.6;max-width:600px;margin:0 auto 30px}
+
+.studio{display:grid;grid-template-columns:320px 1fr;gap:22px;align-items:start}
+@media(max-width:900px){.studio{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line-strong);border-radius:20px;padding:20px;box-shadow:var(--shadow)}
+.panel h3{font-family:var(--label);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin:18px 0 9px}
+.panel h3:first-child{margin-top:0}
+.panel input[type=text]{width:100%;background:var(--card-2);border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;font-family:var(--body);font-size:16px;color:var(--ink);outline:none}
+.panel input[type=text]:focus{border-color:var(--accent)}
+.csearch{position:relative}
+.csearch input{width:100%;background:var(--card-2);border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;font-family:var(--label);font-size:14px;color:var(--ink);outline:none}
+.csearch input:focus{border-color:var(--accent)}
+.cs-list{position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--card);border:1px solid var(--line-strong);border-radius:14px;box-shadow:0 22px 50px -20px rgba(0,0,0,.45);padding:6px;z-index:30;max-height:260px;overflow:auto}
+.cs-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;background:transparent;border:0;border-radius:9px;padding:9px 11px;cursor:pointer;font-family:var(--label);font-size:14px;color:var(--ink)}
+.cs-item:hover{background:var(--accent-soft)}
+.cs-done{color:var(--good);font-weight:700;margin-left:auto}
+.cs-empty{padding:10px 12px;font-size:13px;color:var(--ink-faint);font-style:italic}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-family:var(--label);font-weight:700;font-size:13px;border:1px solid var(--line-strong);background:var(--card-2);color:var(--ink);border-radius:12px;padding:9px 13px;cursor:pointer;transition:.15s}
+.chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.chip[aria-pressed="true"]{background:var(--gold-grad);color:var(--on-accent);border-color:transparent;box-shadow:0 8px 18px -10px var(--accent)}
+.colorrow{display:flex;align-items:center;gap:10px}
+.colorrow input[type=range]{-webkit-appearance:none;appearance:none;height:12px;border-radius:100px;border:1px solid var(--line-strong);background:var(--card-2);outline:none;cursor:pointer}
+.colorrow input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--card);border:2px solid var(--accent);box-shadow:0 2px 8px -2px rgba(0,0,0,.4);cursor:grab}
+.gprev{width:36px;height:36px;border-radius:50%;border:1px solid var(--line-strong);flex:0 0 auto;box-shadow:0 4px 10px -4px rgba(0,0,0,.35)}
+/* готовые стили — большие визуальные плитки (Golden Standard на самом виду) */
+.pstyles{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.pstyle{position:relative;height:76px;border-radius:14px;border:2px solid var(--line-strong);padding:0;cursor:pointer;overflow:hidden;transition:transform .15s,border-color .15s,box-shadow .2s;background:transparent}
+.pstyle:hover{transform:translateY(-2px);border-color:var(--accent)}
+.pstyle[aria-pressed="true"]{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent-line),0 10px 24px -10px var(--accent)}
+.pstyle .pv{position:absolute;inset:0}
+.pstyle .aa{position:absolute;top:7px;left:11px;font-family:var(--display);font-style:italic;font-weight:700;font-size:20px;line-height:1}
+.pstyle .dot{position:absolute;top:10px;right:11px;width:14px;height:14px;border-radius:50%;box-shadow:0 0 8px -1px rgba(0,0,0,.35)}
+.pstyle .nm{position:absolute;left:0;right:0;bottom:0;font-family:var(--label);font-size:11.5px;font-weight:700;letter-spacing:.06em;padding:5px 10px;text-align:left;background:linear-gradient(180deg,transparent,rgba(0,0,0,.38));color:#fff;text-shadow:0 1px 3px rgba(0,0,0,.6)}
+.colorrow input[type=color]{width:46px;height:36px;border:1px solid var(--line-strong);border-radius:10px;background:var(--card-2);padding:3px;cursor:pointer}
+.colorrow span{font-size:13.5px;color:var(--ink-soft)}
+.state{font-family:var(--label);font-size:12.5px;font-weight:600;border-radius:12px;padding:10px 13px;margin-top:8px;line-height:1.5}
+.state.ok{background:rgba(47,138,82,.12);color:var(--good);border:1px solid rgba(47,138,82,.35)}
+.state.no{background:var(--accent-soft);color:var(--ink-soft);border:1px dashed var(--accent-line)}
+.printbtn{width:100%;margin-top:18px;font-family:var(--label);font-weight:700;font-size:15px;border:0;border-radius:14px;padding:15px;cursor:pointer;background:var(--gold-grad);color:var(--on-accent);box-shadow:0 14px 30px -14px var(--accent);transition:transform .15s}
+.printbtn:hover{transform:translateY(-2px)}
+
+/* ---- the certificate itself (A4 landscape ~ 297:210) ---- */
+.stage{position:sticky;top:18px} /* грамота приклеена: настройки листаются, лист всегда на экране */
+@media(max-width:900px){.stage{position:relative;top:auto}}
+.cert{--c-paper:#f6efdd;--c-bg2:#efe2c4;--c-bgang:160deg;--c-ink:#2a241e;--c-gold:#8a6a37;--c-g2:#dcb863;--c-ang:100deg;--c-soft:#6f6557;
+  width:100%;aspect-ratio:297/210;background:var(--c-paper);color:var(--c-ink);
+  background-image:radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.35), transparent 60%),linear-gradient(var(--c-bgang),var(--c-paper),var(--c-bg2) var(--c-bgmid,100%));
+  print-color-adjust:exact;-webkit-print-color-adjust:exact;
+  border-radius:6px;box-shadow:0 30px 70px -30px rgba(0,0,0,.55);position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;text-align:center}
+.cert .frame{position:absolute;inset:4.2%;border:1.5px solid var(--c-gold);border-radius:4px;pointer-events:none}
+.cert .frame::before{content:"";position:absolute;inset:1.4%;border:.5px solid var(--c-gold);opacity:.65;border-radius:2px}
+.cert.frame-thin .frame{border-width:.7px}
+.cert.frame-thin .frame::before{display:none}
+.cert .inner{position:relative;max-width:82%;padding:20px 0}
+.cert .brand{font-family:var(--label);font-size:clamp(9px,1.2vw,13px);letter-spacing:.34em;text-transform:uppercase;font-weight:700;color:var(--c-gold)}
+.cert .doc{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.6vw,40px);letter-spacing:.14em;text-transform:uppercase;margin:1.2vw 0 .4vw;
+  background:linear-gradient(var(--c-ang),var(--c-gold) 10%,var(--c-g2) 45%,var(--c-gold) 75%,var(--c-g2) 95%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;background-size:220% 220%;animation:certShift 8s ease-in-out infinite;
+  print-color-adjust:exact;-webkit-print-color-adjust:exact}
+@keyframes certShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media print{.cert .doc{animation:none !important;background-position:35% 50%}}
+@media (prefers-reduced-motion:reduce){.cert .doc{animation:none !important}}
+.cert .sub{font-family:var(--label);font-size:clamp(8.5px,1.05vw,12px);letter-spacing:.2em;text-transform:uppercase;color:var(--c-soft)}
+.cert .name{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(26px,4.6vw,52px);line-height:1.06;margin:2vw 0 .6vw;color:var(--c-ink)}
+.cert .rule{width:34%;height:1px;background:linear-gradient(90deg,transparent,var(--c-gold),var(--c-g2),var(--c-gold),transparent);margin:0 auto 1.4vw}
+.cert .what{font-family:var(--body);font-size:clamp(11px,1.5vw,17px);line-height:1.55;color:var(--c-soft);max-width:88%;margin:0 auto}
+.cert .what b{color:var(--c-ink);font-weight:600}
+.cert .meta{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-top:2.6vw}
+.cert .meta .m{font-family:var(--label);font-size:clamp(8px,1vw,11.5px);letter-spacing:.08em;color:var(--c-soft);text-align:left}
+.cert .meta .m b{display:block;font-size:clamp(9.5px,1.15vw,13px);color:var(--c-ink);letter-spacing:.06em;margin-top:2px}
+.cert .meta .seal{width:clamp(44px,6.4vw,72px);height:clamp(44px,6.4vw,72px);border-radius:50%;border:1.5px solid var(--c-gold);display:grid;place-items:center;color:var(--c-gold);font-family:var(--display);font-weight:700;font-size:clamp(15px,2.2vw,26px);position:relative;flex:0 0 auto}
+.cert .meta .seal::before{content:"";position:absolute;inset:9%;border-radius:50%;border:.5px solid var(--c-gold);opacity:.6}
+.cert .wm{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.cert .wm span{font-family:var(--label);font-weight:800;font-size:clamp(34px,6.4vw,74px);letter-spacing:.22em;text-transform:uppercase;color:var(--c-ink);opacity:.1;transform:rotate(-24deg);border:3px solid currentColor;border-radius:14px;padding:.4em .8em}
+.cert.clean .wm{display:none}
+
+@media print{
+  @page{size:A4 landscape;margin:0}
+  html,body{height:100vh !important;overflow:hidden !important} /* ровно одна страница */
+  body{background:#fff !important}
+  /* visibility (не display): скрытый предок не убивает лист — на бумагу идёт ТОЛЬКО грамота */
+  body *{visibility:hidden !important}
+  .print-host,.print-host *{visibility:visible !important}
+  .print-host{display:block !important;position:fixed;inset:0;z-index:9999}
+  .cert{width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;box-shadow:none;cursor:default}
+  .site-bar,.lb-stars,.lb-mm,.lb-scrolltop,.lb-cosmos,.lb-grain,.lb-dream,.lb-notebtn,.lb-noteclear,.lb-prof,#lbMiraBtn,#lbMiraPanel{display:none !important}
+}
+.print-host{display:contents}
+</style>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="i18n.js?v=2"></script>
+</head>
+<body data-page="cert">
+<div class="wrap">
+  <div class="eyebrow" data-i18n="cert.eyebrow">Твоя грамота</div>
+  <h1 data-i18n="cert.h1">Собери свою грамоту</h1>
+  <p class="lead" data-i18n="cert.lead">За каждый пройденный курс академия вручает именную грамоту. Впиши имя, выбери курс и цвета, которые нравятся, — и распечатай (или сохрани в PDF). Пока курс не пройден, грамота показывается как образец.</p>
+  <p class="lead" style="font-size:13.5px;font-style:italic;color:var(--ink-faint);margin-top:-16px" data-i18n="cert.honest">Честности ради: это грамота академии — про твой настоящий труд, радость и мотивацию. Она не государственный диплом и не официальный сертификат уровня (такие выдают экзамены вроде IELTS или DELE).</p>
+
+  <div class="studio">
+    <div class="panel">
+      <h3 style="margin-top:0" data-i18n="cert.p.palette">Готовые стили</h3>
+      <div class="pstyles" id="cPresets"></div>
+      <h3 data-i18n="cert.p.name">Имя на грамоте</h3>
+      <input type="text" id="cName" maxlength="60" placeholder="Имя и фамилия" data-i18n-ph="cert.namePh" aria-label="Имя на грамоте" data-i18n-aria="cert.p.name">
+      <h3 data-i18n="cert.p.course">Курс</h3>
+      <div class="csearch" id="cSearch">
+        <input type="text" id="cCourseIn" placeholder="Начни печатать: english, испанский, b2…" data-i18n-ph="cert.searchPh" aria-label="Курс" data-i18n-aria="cert.p.course" autocomplete="off" spellcheck="false">
+        <div class="cs-list" id="cList" hidden></div>
+      </div>
+      <div class="state no" id="cState"></div>
+      <h3 data-i18n="cert.p.lang">Язык грамоты</h3>
+      <div class="chips" id="cLangs"></div>
+      <h3 data-i18n="cert.p.bg">Фон — два цвета</h3>
+      <div class="colorrow"><input type="color" id="cBg1" value="#f6efdd" aria-label="Первый цвет фона" data-i18n-aria="cert.p.bg"><input type="color" id="cBg2" value="#efe2c4" aria-label="Второй цвет фона" data-i18n-aria="cert.p.bg"><span data-i18n="cert.bgHint">сольются в градиент</span></div>
+      <div class="chips" id="cBgType" style="margin-top:8px">
+        <button type="button" class="chip" data-t="linear" aria-pressed="true" data-i18n="cert.sh.linear">Линия</button>
+        <button type="button" class="chip" data-t="out" aria-pressed="false" data-i18n="cert.sh.out">Из центра</button>
+        <button type="button" class="chip" data-t="in" aria-pressed="false" data-i18n="cert.sh.in">К центру</button>
+      </div>
+      <div class="colorrow" id="cAngRow" style="margin-top:8px"><span class="gprev" id="cBgPrev" title="так сольётся фон" data-i18n-title="cert.bgPrev"></span><input type="range" id="cBgAngle" min="0" max="360" step="15" value="160" style="flex:1" aria-label="Направление слияния фона" data-i18n-aria="cert.bgAngle"><span id="cBgAngleV" style="min-width:44px;font-family:var(--label);font-size:13px;color:var(--ink-soft)">160°</span></div>
+      <div class="colorrow" style="margin-top:8px"><span style="font-family:var(--label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);min-width:36px" data-i18n="cert.bgBalance">Баланс</span><input type="range" id="cBgMid" min="20" max="100" step="5" value="100" style="flex:1" aria-label="Баланс цветов фона" data-i18n-aria="cert.bgBalance"><span id="cBgMidV" style="min-width:44px;font-family:var(--label);font-size:13px;color:var(--ink-soft)">100%</span></div>
+      <div class="colorrow" style="margin-top:8px"><span style="font-family:var(--label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);min-width:36px" data-i18n="cert.p.fade">Блеклость</span><input type="range" id="cFade" min="0" max="80" step="5" value="0" style="flex:1" aria-label="Блеклость фона" data-i18n-aria="cert.p.fade"><span id="cFadeV" style="min-width:44px;font-family:var(--label);font-size:13px;color:var(--ink-soft)">0%</span></div>
+      <div class="colorrow"><span data-i18n="cert.bgHint2" style="font-size:12.5px;color:var(--ink-faint)">кружок показывает, как сольётся фон; баланс — где второй цвет берёт верх; блеклость делает цвета пастельными</span></div>
+      <h3 data-i18n="cert.p.ink">Цвет текста</h3>
+      <div class="colorrow"><input type="color" id="cInk" value="#2a241e" aria-label="Цвет текста" data-i18n-aria="cert.p.ink"><button type="button" class="chip" id="cInkAuto" data-i18n="cert.inkAuto">авто ✨</button><span data-i18n="cert.inkHint" style="font-size:12.5px;color:var(--ink-faint)">обычно подбирается сам по фону</span></div>
+      <h3 data-i18n="cert.p.accent">Свой цвет акцента</h3>
+      <div class="colorrow"><input type="color" id="cAccent" value="#8a6a37" aria-label="Свой цвет акцента" data-i18n-aria="cert.p.accent"><span data-i18n="cert.accentHint">рамка, печать и золото букв</span></div>
+      <h3 data-i18n="cert.p.grad">Перелив</h3>
+      <div class="colorrow"><input type="color" id="cGrad2" value="#dcb863" aria-label="Второй цвет перелива" data-i18n-aria="cert.p.grad"><span data-i18n="cert.gradHint">второй цвет — золото заголовка потечёт из одного в другой</span></div>
+      <div class="colorrow" style="margin-top:8px"><input type="range" id="cAngle" min="0" max="360" step="15" value="100" style="flex:1" aria-label="Направление перелива" data-i18n-aria="cert.angle"><span id="cAngleV" style="min-width:44px;font-family:var(--label);font-size:13px;color:var(--ink-soft)">100°</span></div>
+      <div class="colorrow"><span data-i18n="cert.angleHint" style="font-size:12.5px;color:var(--ink-faint)">направление: куда «течёт» перелив заголовка</span></div>
+      <h3 data-i18n="cert.p.frame">Рамка</h3>
+      <div class="chips" id="cFrames"></div>
+      <button class="printbtn" id="cPrint" data-i18n="cert.print">Распечатать / сохранить в PDF 🖨️</button>
+    </div>
+
+    <div class="stage">
+      <div class="print-host">
+        <div class="cert" id="cert">
+          <div class="frame"></div>
+          <div class="inner">
+            <div class="brand">MIRAVERBA · <span id="certAcademy">авторская академия языков</span></div>
+            <div class="doc" id="certDoc">Грамота</div>
+            <div class="sub" id="certSub">о завершении курса</div>
+            <div class="name" id="certName">Мария Иванова</div>
+            <div class="rule"></div>
+            <p class="what" id="certWhat"></p>
+            <div class="meta">
+              <div class="m"><span id="certDateL">Дата завершения</span><b id="certDate"></b></div>
+              <div class="seal">🪞</div>
+              <div class="m"><span id="certIdL">Номер грамоты</span><b id="certId"></b></div>
+            </div>
+          </div>
+          <div class="wm"><span id="certWm">Образец</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="courses/paywall.js"></script>
+<script>
+(function(){
+  var $ = function(s){ return document.querySelector(s); };
+  var LANG_NAME = { en:'English', es:'Español' };
+  var COURSES = [];
+  ['en','es'].forEach(function(lg){ ['a1','a2','b1','b2','c1','c2'].forEach(function(lv){ COURSES.push(lg + '-' + lv); }); });
+  function courseTitle(id){ return LANG_NAME[id.slice(0,2)] + ' ' + id.slice(3).toUpperCase(); }
+  /* progress store keys mirror the engine's LEVEL.pkey convention */
+  function pkeyOf(id){ return id.slice(0,2) === 'en' ? 'langbook-' + id.slice(3) + '-progress' : 'langbook-' + id + '-progress'; }
+  function progress(id){
+    try { return JSON.parse(localStorage.getItem(pkeyOf(id))) || {}; } catch(e){ return {}; }
+  }
+  function isDone(id){
+    var p = progress(id), days = p.days || {}, exams = p.exams || {}, n = 0;
+    for (var i = 1; i <= 30; i++) if (days[i]) n++;
+    return n >= 30 && !!exams[4];
+  }
+  /* the certificate speaks ITS OWN language (Tanya, 2026-07-08): default —
+     the language being studied (an English certificate reads best in
+     English), switchable to RU/EN/ES independently of the site language. */
+  function courseLang(id){ return id.slice(0,2) === 'es' ? 'es' : 'en'; }
+  function CT(k, ru){
+    var l = state.clang;
+    if (l === 'ru') return ru;
+    var d = window.LB_DICT && window.LB_DICT[l];
+    return (d && d[k] != null) ? d[k] : ru;
+  }
+  function doneDate(id){ // no server: the day the learner opens the finished course's certificate
+    var d = new Date();
+    return d.toLocaleDateString(({ru:'ru-RU',en:'en-GB',es:'es-ES'})[state.clang] || 'ru-RU', { day:'numeric', month:'long', year:'numeric' });
+  }
+  function certId(id, name){
+    var s = id + '|' + name, h = 5381;
+    for (var i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0;
+    return 'MV-' + id.toUpperCase().replace('-','') + '-' + ('0000' + (h % 46656).toString(36).toUpperCase()).slice(-4);
+  }
+
+  /* стандартная четвёрка Тани (2026-07-08): Классика · Ночь · Ультранеон · Изумруд */
+  var PRESETS = [
+    { k:'classic',  n:function(){return T('cert.pr.classic','Классика');},   paper:'#f6efdd', bg2:'#efe2c4', ink:'#2a241e', soft:'#6f6557', gold:'#8a6a37' },
+    { k:'night',    n:function(){return T('cert.pr.night','Ночь');},         paper:'#16140f', bg2:'#2a2118', ink:'#f0e6d4', soft:'#c4b49a', gold:'#e3a857' },
+    { k:'ultraneon',n:function(){return T('cert.pr.ultraneon','Ультранеон');},paper:'#06030f', bg2:'#1d1136', ink:'#f2eefc', soft:'#b9b1d6', gold:'#f5c15c' },
+    { k:'emerald',  n:function(){return T('cert.pr.emerald','Изумруд');},    paper:'#0d2b1e', bg2:'#14402d', ink:'#eefbf2', soft:'#a9cfb9', gold:'#d9b45f' }
+  ];
+  var FRAMES = [
+    { k:'double', n:function(){return T('cert.fr.double','Двойная');} },
+    { k:'thin',   n:function(){return T('cert.fr.thin','Тонкая');} }
+  ];
+  var state = { name:'', course:'en-a1', preset:'classic', accent:null, frame:'double', clang:null, clangManual:false, g2:null, ang:100, bg1:null, bg2:null, bgang:160, bgmid:100, inkC:null, fade:0, bgtype:'linear' };
+  try { state = Object.assign(state, JSON.parse(localStorage.getItem('langbook-cert')) || {}); } catch(e){}
+  if (!state.clang) state.clang = courseLang(state.course);
+  if (!PRESETS.some(function(x){ return x.k === state.preset; })) state.preset = 'classic'; // старые сохранённые petrol/rose
+  try { // the profile's name is the natural default
+    var prof = JSON.parse(localStorage.getItem('langbook-profile')) || {};
+    if (!state.name && prof.name) state.name = prof.name;
+  } catch(e){}
+
+  /* яркость цвета 0..1 — чтобы текст сам выбирал, быть тёмным или светлым */
+  function lum(hex){
+    var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m) return .5;
+    var n = parseInt(m[1], 16), r = (n>>16)/255, g = ((n>>8)&255)/255, b = (n&255)/255;
+    return .2126*r + .7152*g + .0722*b;
+  }
+  function render(){
+    var cert = $('#cert'), p = PRESETS.filter(function(x){ return x.k === state.preset; })[0] || PRESETS[0];
+    /* блеклость: оба цвета фона выцветают к белому на fade% (пастель) */
+    function mix(hex, f){
+      var m = /^#?([0-9a-f]{6})$/i.exec(hex || ''); if (!m || !f) return hex;
+      var n = parseInt(m[1], 16), k = function(c){ return Math.round(c + (255 - c) * f); };
+      return '#' + ((1<<24) + (k(n>>16)<<16) + (k((n>>8)&255)<<8) + k(n&255)).toString(16).slice(1);
+    }
+    var fade = (state.fade != null ? state.fade : 0) / 100;
+    var b1 = mix(state.bg1 || p.paper, fade), b2 = mix(state.bg2 || p.bg2, fade);
+    cert.style.setProperty('--c-paper', b1);
+    cert.style.setProperty('--c-bg2', b2);
+    cert.style.setProperty('--c-bgang', (state.bgang != null ? state.bgang : 160) + 'deg');
+    cert.style.setProperty('--c-bgmid', (state.bgmid != null ? state.bgmid : 100) + '%');
+    if (!state.bg1) $('#cBg1').value = p.paper;
+    if (!state.bg2) $('#cBg2').value = p.bg2;
+    $('#cBgAngleV').textContent = (state.bgang != null ? state.bgang : 160) + '°';
+    $('#cBgMidV').textContent = (state.bgmid != null ? state.bgmid : 100) + '%';
+    $('#cFadeV').textContent = (state.fade != null ? state.fade : 0) + '%';
+    /* форма слияния: линия / из центра / к центру */
+    var ang = (state.bgang != null ? state.bgang : 160), mid = (state.bgmid != null ? state.bgmid : 100);
+    var t = state.bgtype || 'linear';
+    var grad = t === 'linear' ? 'linear-gradient(' + ang + 'deg,' + b1 + ',' + b2 + ' ' + mid + '%)'
+             : t === 'out'    ? 'radial-gradient(circle,' + b1 + ',' + b2 + ' ' + mid + '%)'
+                              : 'radial-gradient(circle,' + b2 + ',' + b1 + ' ' + mid + '%)';
+    cert.style.backgroundImage = 'radial-gradient(120% 100% at 50% 0%, rgba(255,255,255,.35), transparent 60%),' + grad;
+    $('#cAngRow').style.display = t === 'linear' ? 'flex' : 'none';
+    document.querySelectorAll('#cBgType .chip').forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.t === t)); });
+    /* наглядность: ползунки в живых (уже поблекших) цветах, кружок — предпросмотр */
+    $('#cBgAngle').style.background = 'linear-gradient(90deg,' + b1 + ',' + b2 + ')';
+    $('#cBgMid').style.background = 'linear-gradient(90deg,' + b2 + ',' + b1 + ')';
+    $('#cFade').style.background = 'linear-gradient(90deg,' + (state.bg2 || p.bg2) + ',' + mix(state.bg2 || p.bg2, .8) + ')';
+    $('#cBgPrev').style.background = grad;
+    /* текст: свой цвет — или авто по средней яркости фона (с учётом блеклости) */
+    var ink = state.inkC, soft;
+    if (!ink){
+      if (state.bg1 || state.bg2 || fade > 0){
+        var L = (lum(b1) + lum(b2)) / 2;
+        ink = L > .45 ? '#2a241e' : '#f4efe2';
+        soft = L > .45 ? '#6f6557' : '#cfc7b4';
+      } else { ink = p.ink; soft = p.soft; }
+    } else {
+      soft = lum(ink) > .45 ? '#cfc7b4' : '#6f6557';
+      if (lum(ink) > .45 && (lum(b1)+lum(b2))/2 > .6) soft = '#8a7f68'; /* светлые чернила на светлом — приглушённее */
+    }
+    cert.style.setProperty('--c-ink', ink);
+    cert.style.setProperty('--c-soft', soft);
+    $('#cInk').value = ink;
+    cert.style.setProperty('--c-gold', state.accent || p.gold);
+    /* перелив: второй цвет (по умолчанию — светлое золото пресета) и направление */
+    var G2 = { classic:'#dcb863', night:'#f5c94a', ultraneon:'#a78bfa', emerald:'#7fd6a4' };
+    cert.style.setProperty('--c-g2', state.g2 || G2[state.preset] || '#dcb863');
+    cert.style.setProperty('--c-ang', (state.ang != null ? state.ang : 100) + 'deg');
+    var g2i = $('#cGrad2'), angi = $('#cAngle');
+    if (g2i && !state.g2) g2i.value = G2[state.preset] || '#dcb863';
+    if (angi) $('#cAngleV').textContent = (state.ang != null ? state.ang : 100) + '°';
+    cert.classList.toggle('frame-thin', state.frame === 'thin');
+    var done = isDone(state.course);
+    cert.classList.toggle('clean', done);
+    /* every word ON the certificate follows state.clang, not the site language */
+    $('#certAcademy').textContent = CT('cert.academy','авторская академия языков');
+    $('#certDoc').textContent = CT('cert.doc','Грамота');
+    $('#certSub').textContent = CT('cert.sub','о завершении курса');
+    $('#certDateL').textContent = CT('cert.date','Дата завершения');
+    $('#certIdL').textContent = CT('cert.id','Номер грамоты');
+    $('#certWm').textContent = CT('cert.sample','Образец');
+    $('#certName').textContent = state.name.trim() || CT('cert.sampleName','Мария Иванова');
+    $('#certWhat').innerHTML = CT('cert.what1','успешно завершил(а) курс ') + '<b>' + courseTitle(state.course) + '</b>' +
+      CT('cert.what2',' — 30 уроков и 4 экзамена по системе CEFR, от первого дня до финала');
+    $('#certDate').textContent = doneDate(state.course);
+    $('#certId').textContent = certId(state.course, state.name.trim() || 'sample');
+    document.querySelectorAll('#cLangs .chip').forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.l === state.clang)); });
+    var st = $('#cState');
+    if (done){ st.className = 'state ok'; st.textContent = T('cert.state.ok','Курс пройден ✓ — грамота настоящая, печатай смело'); }
+    else { st.className = 'state no'; st.textContent = T('cert.state.no','Этот курс ещё в пути — грамота пока с водяным знаком «Образец». Пройди все 30 дней и финальный экзамен, и знак исчезнет.'); }
+    document.querySelectorAll('#cPresets .pstyle').forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.k === state.preset)); });
+    document.querySelectorAll('#cFrames .chip').forEach(function(c){ c.setAttribute('aria-pressed', String(c.dataset.k === state.frame)); });
+    try { localStorage.setItem('langbook-cert', JSON.stringify(state)); } catch(e){}
+  }
+
+  /* course picker = live search (Tanya: печатаешь «эспа» — список сужается) */
+  var inp = $('#cCourseIn'), list = $('#cList');
+  function courseAlias(id){
+    var extra = id.slice(0,2) === 'en'
+      ? 'english английский англ инглиш inglés ingles'
+      : 'español espanol espa эспаньол эспа испанский испан spanish';
+    return (courseTitle(id) + ' ' + extra + ' ' + id).toLowerCase();
+  }
+  function setCourse(id){
+    state.course = id;
+    if (!state.clangManual) state.clang = courseLang(id);
+    inp.value = courseTitle(id) + (isDone(id) ? ' ✓' : '');
+    list.hidden = true;
+    render();
+  }
+  function drawList(q){
+    q = (q || '').trim().toLowerCase();
+    var items = COURSES.filter(function(id){
+      return !q || q.split(/\s+/).every(function(t){ return courseAlias(id).indexOf(t) !== -1; });
+    });
+    list.innerHTML = items.map(function(id){
+      return '<button type="button" class="cs-item" data-id="' + id + '">' + (id.slice(0,2) === 'en' ? '🇬🇧' : '🇪🇸') + ' ' + courseTitle(id) + (isDone(id) ? '<span class="cs-done">✓</span>' : '') + '</button>';
+    }).join('') || '<div class="cs-empty">' + T('cert.searchNone','Ничего не нашлось — попробуй «english» или «español»') + '</div>';
+    list.hidden = false;
+    list.querySelectorAll('.cs-item').forEach(function(b){ b.addEventListener('click', function(){ setCourse(b.dataset.id); }); });
+  }
+  inp.addEventListener('focus', function(){ drawList(''); inp.select(); });
+  inp.addEventListener('input', function(){ drawList(inp.value); });
+  document.addEventListener('click', function(e){ if (!document.getElementById('cSearch').contains(e.target)) list.hidden = true; });
+  try { // ?course=en-a1 pre-selects (streak card and course pages link here)
+    var q = new URLSearchParams(location.search).get('course');
+    if (q && COURSES.indexOf(q.toLowerCase()) !== -1){
+      state.course = q.toLowerCase();
+      if (!state.clangManual) state.clang = courseLang(state.course);
+    }
+  } catch(e){}
+  inp.value = courseTitle(state.course) + (isDone(state.course) ? ' ✓' : '');
+
+  var cl = $('#cLangs');
+  [['ru','Русский'],['en','English'],['es','Español']].forEach(function(pair){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.dataset.l = pair[0]; b.textContent = pair[1];
+    b.addEventListener('click', function(){ state.clang = pair[0]; state.clangManual = true; render(); });
+    cl.appendChild(b);
+  });
+
+  var pr = $('#cPresets');
+  PRESETS.forEach(function(p){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'pstyle'; b.dataset.k = p.k;
+    b.setAttribute('aria-label', p.n());
+    b.innerHTML = '<span class="pv" style="background:linear-gradient(160deg,' + p.paper + ',' + p.bg2 + ')"></span>'
+                + '<span class="aa" style="color:' + p.ink + '">Aa</span>'
+                + '<span class="dot" style="background:' + p.gold + '"></span>'
+                + '<span class="nm">' + p.n() + '</span>';
+    b.addEventListener('click', function(){ state.preset = p.k; state.accent = null; state.g2 = null; state.bg1 = null; state.bg2 = null; state.fade = 0; state.inkC = null; $('#cAccent').value = p.gold; render(); });
+    pr.appendChild(b);
+  });
+  var fr = $('#cFrames');
+  FRAMES.forEach(function(f){
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.dataset.k = f.k; b.textContent = f.n();
+    b.addEventListener('click', function(){ state.frame = f.k; render(); });
+    fr.appendChild(b);
+  });
+  $('#cName').value = state.name || '';
+  $('#cName').addEventListener('input', function(){ state.name = this.value; render(); });
+  $('#cAccent').addEventListener('input', function(){ state.accent = this.value; render(); });
+  if (state.accent) $('#cAccent').value = state.accent;
+  $('#cBg1').addEventListener('input', function(){ state.bg1 = this.value; render(); });
+  $('#cBg2').addEventListener('input', function(){ state.bg2 = this.value; render(); });
+  $('#cBgAngle').addEventListener('input', function(){ state.bgang = +this.value; render(); });
+  $('#cBgMid').addEventListener('input', function(){ state.bgmid = +this.value; render(); });
+  if (state.bgmid != null) $('#cBgMid').value = state.bgmid;
+  document.querySelectorAll('#cBgType .chip').forEach(function(c){
+    c.addEventListener('click', function(){ state.bgtype = c.dataset.t; render(); });
+  });
+  $('#cFade').addEventListener('input', function(){ state.fade = +this.value; render(); });
+  if (state.fade != null) $('#cFade').value = state.fade;
+  $('#cInk').addEventListener('input', function(){ state.inkC = this.value; render(); });
+  $('#cInkAuto').addEventListener('click', function(){ state.inkC = null; render(); });
+  if (state.bg1) $('#cBg1').value = state.bg1;
+  if (state.bg2) $('#cBg2').value = state.bg2;
+  if (state.bgang != null) $('#cBgAngle').value = state.bgang;
+  $('#cGrad2').addEventListener('input', function(){ state.g2 = this.value; render(); });
+  if (state.g2) $('#cGrad2').value = state.g2;
+  $('#cAngle').addEventListener('input', function(){ state.ang = +this.value; render(); });
+  if (state.ang != null) $('#cAngle').value = state.ang;
+  $('#cPrint').addEventListener('click', function(){ window.print(); });
+
+  /* живая грамота: клик по любому месту листа открывает настройку этого места */
+  function hs(el, title, fn){
+    if (!el) return;
+    el.style.cursor = 'pointer'; el.title = title;
+    el.addEventListener('click', function(e){ e.stopPropagation(); fn(); });
+  }
+  hs($('#certName'), T('cert.hs.name','кликни — изменить имя'), function(){ var i = $('#cName'); i.focus(); i.select(); });
+  hs($('#certDoc'), T('cert.hs.doc','кликни — перелив заголовка'), function(){ $('#cGrad2').click(); });
+  hs($('#certWhat'), T('cert.hs.ink','кликни — цвет текста'), function(){ $('#cInk').click(); });
+  hs(document.querySelector('#cert .seal'), T('cert.hs.accent','кликни — цвет рамки и печати'), function(){ $('#cAccent').click(); });
+  var certEl = $('#cert');
+  certEl.style.cursor = 'pointer';
+  certEl.title = T('cert.hs.bg','кликни по фону — цвет фона');
+  certEl.addEventListener('click', function(){ $('#cBg1').click(); });
+
+  render();
+})();
+</script>
+<script src="theme.js?v=3"></script>
+</body>
+</html>

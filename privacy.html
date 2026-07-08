@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta.title.privacy">Политика конфиденциальности — MIRAVERBA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" data-i18n-content="meta.desc.privacy" content="Как устроена приватность в MIRAVERBA: статический сайт без аккаунтов и без серверной базы, прогресс хранится только в твоём браузере, нет аналитики, трекеров и cookies.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MIRAVERBA">
+<meta property="og:title" content="Политика конфиденциальности — MIRAVERBA">
+<meta property="og:description" content="Статический сайт без аккаунтов и серверной базы: прогресс хранится только в твоём браузере, без аналитики, трекеров и cookies.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:image: replace with an absolute URL once the site has a domain -->
+<meta property="og:image" content="assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700&family=Spectral:ital,wght@0,300;0,400;0,500;0,600&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* design tokens (palette/type) live in theme.css — the single source of truth */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);
+  background-image:radial-gradient(120% 90% at 50% -10%, rgba(255,250,238,.7), transparent 55%),radial-gradient(70% 50% at 14% 10%, var(--tint), transparent 60%);
+  -webkit-font-smoothing:antialiased;transition:background-color .5s}
+.wrap{max-width:720px;margin:0 auto;padding:34px 22px 40px}
+a{color:var(--accent)}
+
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.3em;font-size:11px;color:var(--accent);font-weight:700;text-align:center;margin:14px 0 14px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(30px,5.6vw,46px);text-align:center;margin:0 0 10px;line-height:1.05}
+.updated{text-align:center;font-family:var(--label);font-size:12.5px;color:var(--ink-faint);margin-bottom:26px}
+
+.card{background:var(--card);border:1px solid var(--line-strong);border-radius:20px;padding:26px 28px;box-shadow:var(--shadow),0 0 50px -38px var(--accent)}
+.tldr{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--gold-line);border-radius:18px;padding:22px 24px;margin-bottom:30px}
+.tldr h2{font-family:var(--display);font-size:23px;font-weight:600;margin:0 0 12px}
+.tldr ul{margin:0;padding-left:20px}
+.tldr li{font-size:15px;color:var(--ink);line-height:1.6;margin-bottom:8px}
+.tldr li b{font-weight:600}
+
+.doc h2{font-family:var(--display);font-weight:600;font-size:clamp(23px,3.6vw,30px);margin:36px 0 10px;line-height:1.15}
+.doc h2:first-child{margin-top:0}
+.doc h3{font-family:var(--label);font-weight:700;font-size:16px;color:var(--ink);margin:20px 0 6px}
+.doc p{font-size:15.5px;line-height:1.7;color:var(--ink-soft);margin:0 0 14px}
+.doc p b,.doc li b{color:var(--ink);font-weight:600}
+.doc ul{margin:0 0 14px;padding-left:22px}
+.doc li{font-size:15.5px;line-height:1.65;color:var(--ink-soft);margin-bottom:8px}
+.doc .num{font-family:var(--label);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--accent);text-transform:uppercase}
+.doc code{font-family:var(--label);font-size:13px;background:var(--card-2);border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--ink)}
+.note{border-left:3px solid var(--accent-line);background:var(--accent-soft);border-radius:0 12px 12px 0;padding:12px 16px;margin:0 0 14px;font-size:14.5px;line-height:1.6;color:var(--ink-soft)}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 16px;font-size:14px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--label);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+td code{white-space:nowrap}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+.foot{margin-top:52px;padding-top:26px;border-top:1px solid var(--line);text-align:center}
+.foot-nav{display:flex;gap:8px 20px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+.foot-nav a{font-family:var(--label);font-size:13px;font-weight:600;color:var(--ink-soft);text-decoration:none;transition:color .15s}
+.foot-nav a:hover{color:var(--accent)}
+.foot-brand{font-family:var(--label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+
+@media(max-width:560px){.wrap{padding:26px 15px 34px}.card{padding:20px 18px}}
+</style>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="i18n.js?v=2"></script>
+</head>
+<body data-page="privacy">
+<div class="wrap">
+
+  <div class="eyebrow" data-i18n="pv.eyebrow">Прозрачно и по-честному</div>
+  <h1 data-i18n="pv.h1">Политика конфиденциальности</h1>
+  <div class="updated" data-i18n="pv.updated">Обновлено: 2 июля 2026</div>
+
+  <div class="tldr">
+    <h2 data-i18n="pv.tldr.h">Коротко</h2>
+    <ul>
+      <li data-i18n="pv.tldr.li1">Это <b>статический сайт</b>: нет аккаунтов, нет пароля, нет серверной базы с твоими данными.</li>
+      <li data-i18n="pv.tldr.li2">Твой <b>прогресс и настройки хранятся только в твоём браузере</b> (localStorage) — не улетают к нам.</li>
+      <li data-i18n="pv.tldr.li3"><b>Нет</b> аналитики, рекламных трекеров и cookies.</li>
+      <li data-i18n="pv.tldr.li4">Задания на произношение используют распознавание речи браузера — они <b>опциональны</b> (подробнее ниже).</li>
+      <li data-i18n="pv.tldr.li5">Email мы видим только при покупке — его обрабатывает <b>платёжный провайдер</b>, не мы напрямую.</li>
+    </ul>
+  </div>
+
+  <div class="card doc">
+
+    <h2 data-i18n="pv.s1.h"><span class="num">01</span><br>Кто мы и что это за документ</h2>
+    <p data-i18n="pv.s1.p1">MIRAVERBA — авторская академия языков: курс-книга английского для русскоговорящих. Этот документ честно описывает, какие данные затрагивает сайт и что с ними происходит. Мы старались писать простым языком, а не юридическим.</p>
+
+    <h2 data-i18n="pv.s2.h"><span class="num">02</span><br>Главное про архитектуру</h2>
+    <p data-i18n="pv.s2.p1">Сайт устроен максимально просто: это набор статических страниц. У него <b>нет системы аккаунтов</b>, <b>нет входа по паролю</b> и <b>нет серверной базы данных</b>, куда стекались бы твои занятия. Мы не заводим на тебя профиль и не собираем историю обучения на своей стороне.</p>
+    <p data-i18n="pv.s2.p2">Всё, что ты делаешь в курсе — пройденные уроки, баллы, заметки, выбранная тема оформления, — сохраняется <b>локально в памяти твоего браузера</b> (технология localStorage) на том устройстве, где ты занимаешься. Эти данные не покидают твой браузер и не отправляются нам.</p>
+
+    <h2 data-i18n="pv.s3.h"><span class="num">03</span><br>Что именно хранится в браузере</h2>
+    <p data-i18n="pv.s3.p1">Ниже — все ключи, которые сайт может записать в localStorage. Всё это остаётся у тебя:</p>
+    <div class="tbl-wrap">
+    <table>
+      <thead><tr><th data-i18n="pv.s3.th1">Ключ</th><th data-i18n="pv.s3.th2">Что хранит</th></tr></thead>
+      <tbody>
+        <tr><td><code>langbook-theme</code></td><td data-i18n="pv.s3.tr1">Выбранную тему оформления (светлая / тёмная / петроль).</td></tr>
+        <tr><td><code>langbook-goal</code></td><td data-i18n="pv.s3.tr2">Твою цель обучения, если ты её указал(а) на главной.</td></tr>
+        <tr><td><code>langbook-notes</code></td><td data-i18n="pv.s3.tr3">Твои заметки-стикеры, если ты их создаёшь.</td></tr>
+        <tr><td><code>langbook-license</code></td><td data-i18n="pv.s3.tr4">Ключ доступа, который ты ввёл(а) после покупки.</td></tr>
+        <tr><td><code>langbook-en-*</code></td><td data-i18n="pv.s3.tr5">Прогресс по курсу: какие дни и экзамены пройдены, баллы.</td></tr>
+        <tr><td><code>langbook-feedback-day*</code></td><td data-i18n="pv.s3.tr6">Твою оценку конкретного урока, если ты её оставил(а).</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p data-i18n="pv.s3.p2">Эти данные видны только тебе в этом браузере. Если ты откроешь курс в другом браузере или на другом устройстве, прогресс там будет свой — именно потому, что общего сервера нет.</p>
+
+    <h2 data-i18n="pv.s4.h"><span class="num">04</span><br>Аналитика, трекеры и cookies</h2>
+    <p data-i18n="pv.s4.p1">Мы <b>не используем</b> системы веб-аналитики (вроде Google Analytics или Яндекс.Метрики), рекламные пиксели и сторонние трекеры. Сайт <b>не ставит cookies</b> ни для отслеживания, ни для рекламы. Мы не строим твой рекламный портрет и никому его не продаём — просто потому, что не собираем.</p>
+    <div class="note" data-i18n="pv.s4.note1">Оговорка о шрифтах: страницы подключают шрифты Google Fonts. При загрузке страницы твой браузер запрашивает файлы шрифтов с серверов Google, и Google при этом технически видит IP-адрес запроса. Это стандартная механика загрузки шрифтов, а не наша аналитика. Позже мы можем перенести шрифты на свой хостинг, чтобы убрать и это обращение.</div>
+
+    <h2 data-i18n="pv.s5.h"><span class="num">05</span><br>Микрофон и распознавание речи</h2>
+    <p data-i18n="pv.s5.p1">В курсе есть <b>опциональные</b> задания на произношение и чтение вслух. Чтобы оценить, что ты сказал(а), сайт использует <b>встроенное в браузер распознавание речи</b> (Web Speech API). Мы сами не записываем и не храним твой голос.</p>
+    <p data-i18n="pv.s5.p2"><b>Важно и честно:</b> в браузере Google Chrome распознавание речи работает не на устройстве, а через облако — то есть <b>аудио с микрофона отправляется на серверы Google (США)</b> для распознавания. Это поведение самого Chrome, а не нашего сайта, и мы на него не влияем.</p>
+    <ul>
+      <li data-i18n="pv.s5.li1">Эти задания <b>всегда можно пропустить</b> — курс полностью проходится и без микрофона.</li>
+      <li data-i18n="pv.s5.li2">Микрофон включается только по твоему действию: браузер каждый раз спрашивает разрешение.</li>
+      <li data-i18n="pv.s5.li3">Если не хочешь, чтобы аудио уходило в облако, — не давай разрешение на микрофон или используй эти задания в браузере, который распознаёт речь локально.</li>
+    </ul>
+    <p data-i18n="pv.s5.p3">Отдельно: озвучка фраз (голос, который читает тебе примеры) использует синтез речи браузера и <b>микрофон для этого не нужен</b>.</p>
+
+    <h2 data-i18n="pv.s6.h"><span class="num">06</span><br>Оплата и email</h2>
+    <p data-i18n="pv.s6.p1">Покупка курса — разовая. Оплату и связанные с ней данные (email, платёжные реквизиты) обрабатываем <b>не мы напрямую</b>, а внешний платёжный провайдер, который выступает продавцом-плательщиком (Merchant of Record). Он принимает платёж и выставляет чек по своим правилам и своей политике конфиденциальности.</p>
+    <div class="note" data-i18n="pv.s6.note1">Название и реквизиты платёжного провайдера будут указаны здесь, когда оплата будет подключена. <!-- TODO: указать конкретного Merchant of Record и ссылку на его политику перед запуском продаж --></div>
+    <p data-i18n="pv.s6.p2">Твой email мы используем только по делу: прислать ключ доступа и ответить на обращение. Мы не рассылаем спам и не передаём email третьим лицам для рекламы.</p>
+
+    <h2 data-i18n="pv.s7.h"><span class="num">07</span><br>Твои данные — под твоим контролем</h2>
+    <p data-i18n="pv.s7.p1">Так как всё хранится в твоём браузере, ты сам(а) полностью управляешь этими данными:</p>
+    <ul>
+      <li data-i18n="pv.s7.li1"><b>Удалить прогресс и настройки</b> можно, очистив данные сайта в настройках браузера (очистка «данных сайтов» / localStorage для этого адреса).</li>
+      <li data-i18n="pv.s7.li2">Режим «инкогнито» не сохранит прогресс между сессиями — это нормально и ожидаемо.</li>
+      <li data-i18n="pv.s7.li3">Заметки и оценки уроков ты можешь удалить прямо в интерфейсе.</li>
+    </ul>
+    <p data-i18n="pv.s7.p2">Отдельного «удаления аккаунта» не существует, потому что аккаунта нет.</p>
+
+    <h2 data-i18n="pv.s8.h"><span class="num">08</span><br>Дети</h2>
+    <p data-i18n="pv.s8.p1">Курс рассчитан на взрослых и подростков, изучающих язык. Мы сознательно не собираем персональные данные и не запрашиваем возраст. Если курсом пользуется ребёнок, это происходит под ответственность родителей.</p>
+
+    <h2 data-i18n="pv.s9.h"><span class="num">09</span><br>Изменения этой политики</h2>
+    <p data-i18n="pv.s9.p1">Когда мы что-то поменяем — например, подключим оплату или перенесём шрифты, — мы обновим этот документ и дату вверху. Существенные изменения имеет смысл перечитать.</p>
+
+    <h2 data-i18n="pv.s10.h"><span class="num">10</span><br>Как связаться</h2>
+    <p data-i18n="pv.s10.p1">Вопросы о приватности, доступе к данным или удалении — пиши на <a href="mailto:hello@example.com">hello@example.com</a>.<!-- TODO: заменить на реальную почту Тани перед запуском --></p>
+
+  </div>
+
+  <footer class="foot">
+    <nav class="foot-nav">
+      <a href="index.html" data-i18n="chrome.home">Главная</a>
+      <a href="buy.html" data-i18n="foot.buyShort">Купить</a>
+      <a href="privacy.html" data-i18n="foot.privacy">Конфиденциальность</a>
+      <a href="terms.html" data-i18n="foot.terms">Условия</a>
+    </nav>
+    <div class="foot-brand" data-i18n="foot.brand">MIRAVERBA — авторская академия языков · A1 → C2</div>
+  </footer>
+
+</div>
+<script src="theme.js?v=3"></script>
+</body>
+</html>
+<!-- DRAFT — до продаж показать юристу. Формулировки честные под текущую архитектуру, но не проверены на соответствие GDPR/152-ФЗ и требованиям конкретного платёжного провайдера. -->

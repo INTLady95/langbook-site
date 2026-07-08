@@ -1,0 +1,397 @@
+/* =====================================================================
+   MIRROR — global theme system. Linked on every page. A theme is set on
+   <body data-theme="..."> (and <html>) by theme.js and overrides the core
+   CSS variables the pages use, so the WHOLE site recolors at once.
+   Themes: (default = light, pages' own look) · dark · petrol
+   ===================================================================== */
+
+/* =====================================================================
+   BASE (light / default) — the ONE canonical token set for the site.
+   theme.css is linked AFTER each page's inline <style>, so this block is
+   the source of truth; pages no longer carry their own :root copies.
+   Muted inks keep the WCAG-AA values from the a11y pass (~4.5:1 on the
+   paper/card surfaces) without changing the brand gold.
+   ===================================================================== */
+:root{
+  /* surfaces */
+  --paper:#f3ecdc; --paper-2:#ece1cc; --card:#f8f2e6; --card-2:#efe6d2;
+  /* inks (muted values hold WCAG AA on the surfaces above) */
+  --ink:#2a241e; --ink-2:#6f6557; --ink-soft:#6f6557;
+  --ink-3:#71654f; --ink-faint:#71654f;
+  /* lines */
+  --line:rgba(42,36,30,.16); --line-strong:rgba(42,36,30,.34); --gold-line:rgba(138,106,55,.4);
+  /* brand gold + supporting hues */
+  --gold:#b0813a; --gold-2:#dcb863; --gold-deep:#8a6526; --burgundy:#8f2d2a;
+  --gold-grad:linear-gradient(135deg,#8a6526,#dcb863 45%,#9a6f2c 70%,#e7cd86);
+  /* accent system (matches the brand gold #8a6a37) */
+  --accent:#8a6a37; --accent-2:#b08a44;
+  --accent-soft:rgba(138,106,55,.10); --accent-line:rgba(138,106,55,.40);
+  --tint:rgba(138,106,55,.05);
+  /* status + "on-*" text colours (text sitting on accent/status/deep surfaces) */
+  --good:#2f8a52; --bad:#b3473d;
+  --on-accent:#1a1206; --on-status:#fff; --on-deep:#fff7e6; --on-good:#fff; --on-bad:#fff;
+  /* type */
+  --display:'Cormorant Garamond',Georgia,serif; --body:'Spectral',Georgia,serif; --label:'Golos Text',system-ui,sans-serif;
+  /* elevation */
+  --shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 22px 50px -30px rgba(36,29,20,.6);
+}
+
+/* direction accents — the accent follows the language being learned.
+   Declared BEFORE the dark/petrol blocks so an explicit theme still wins. */
+body[data-lang="en"]{ --accent:#9c2b27; --accent-2:#bf7d34; --accent-soft:rgba(156,43,39,.10); --accent-line:rgba(156,43,39,.32); --tint:rgba(156,43,39,.06); }
+body[data-lang="ru"]{ --accent:#1f5f5b; --accent-2:#2f6f97; --accent-soft:rgba(31,95,91,.10); --accent-line:rgba(31,95,91,.32); --tint:rgba(31,95,91,.06); }
+
+/* a11y: visible keyboard focus on every interactive control.
+   Explicit element/attr list (not :where) so it beats page `outline:none`. */
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
+select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--accent); outline-offset:2px; border-radius:6px;
+}
+
+/* a11y: respect "reduce motion" site-wide (shimmer, view transitions,
+   shake, full-screen celebrations). */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important; animation-iteration-count:1 !important;
+    transition-duration:.001ms !important; scroll-behavior:auto !important;
+  }
+}
+
+/* a11y: comfortable touch targets for the global chrome on coarse pointers */
+@media (pointer:coarse){
+  .site-bar .sb-theme button{min-width:44px;height:44px}
+  .site-bar .sb-burger{width:44px;height:44px}
+  .lb-d-close{width:44px;height:44px}
+}
+
+/* utility: visually hidden but available to screen readers */
+.sr-only{position:absolute !important;width:1px;height:1px;padding:0;margin:-1px;
+  overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- top site bar (menu bar: home + theme switch) ----------
+   A real header bar at the very top of every page (static, NOT pinned).
+   Built by theme.js, recolours with the active theme via the CSS variables. */
+.site-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:11px 20px;background:var(--card);border-bottom:1px solid var(--line);font-family:'Golos Text',system-ui,sans-serif;position:relative;z-index:40;box-shadow:0 10px 28px -22px rgba(0,0,0,.6)}
+.site-bar .sb-brand{display:flex;align-items:center;gap:9px;text-decoration:none;font-weight:800;letter-spacing:.04em}
+.site-bar .sb-logo{font-size:21px;line-height:1}
+.site-bar .sb-name{font-size:15px;background:var(--gold-grad);background-size:220% 220%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.site-bar .sb-name i{font-style:normal;margin:0 5px;opacity:.55}
+.site-bar .sb-nav{display:flex;align-items:center;gap:6px}
+.site-bar .sb-link{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink-2);font-weight:600;font-size:13.5px;padding:7px 12px;border-radius:11px;border:1px solid transparent;transition:.15s}
+.site-bar .sb-link:hover{color:var(--ink);border-color:var(--accent-line);background:var(--accent-soft)}
+.site-bar .sb-lang{margin-left:auto;display:flex;align-items:center;gap:4px;background:var(--card-2);border:1px solid var(--line);border-radius:13px;padding:4px 6px}
+.site-bar .sb-lang button{min-width:34px;height:31px;border-radius:9px;border:1px solid transparent;background:transparent;font-family:'Golos Text',system-ui,sans-serif;font-size:11.5px;font-weight:800;letter-spacing:.06em;color:var(--ink-2);cursor:pointer;transition:.15s;line-height:1}
+.site-bar .sb-lang button:hover{background:var(--accent-soft);border-color:var(--accent-line);color:var(--ink)}
+.site-bar .sb-lang button.on{background:var(--gold-grad);background-size:200% 200%;border-color:transparent;color:var(--on-accent);box-shadow:0 0 0 1px var(--accent-line),0 7px 16px -8px var(--accent)}
+.lb-d-lang button{font-family:'Golos Text',system-ui,sans-serif;font-size:13px;font-weight:800;letter-spacing:.06em;color:var(--ink-2)}
+.lb-d-lang button.on{color:var(--on-accent)}
+.site-bar .sb-theme{display:flex;align-items:center;gap:5px;background:var(--card-2);border:1px solid var(--line);border-radius:13px;padding:4px 7px}
+.site-bar .sb-theme-lbl{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);padding:0 4px}
+.site-bar .sb-theme button{min-width:33px;height:31px;border-radius:9px;border:1px solid transparent;background:transparent;font-size:15px;cursor:pointer;transition:.15s;line-height:1}
+.site-bar .sb-theme button:hover{background:var(--accent-soft);border-color:var(--accent-line)}
+.site-bar .sb-theme button.on{background:var(--gold-grad);background-size:200% 200%;border-color:transparent;box-shadow:0 0 0 1px var(--accent-line),0 7px 16px -8px var(--accent)}
+@media(max-width:560px){
+  .site-bar{padding:8px 13px;gap:9px}
+  .site-bar .sb-name{font-size:13px}
+  .site-bar .sb-link span{display:none}
+  .site-bar .sb-theme-lbl{display:none}
+}
+
+/* ---------- burger button (opens the left sidebar) ---------- */
+.site-bar .sb-burger{order:-1;background:transparent;border:1px solid var(--line);color:var(--ink-2);width:40px;height:34px;border-radius:10px;font-size:17px;line-height:1;cursor:pointer;transition:.15s}
+.site-bar .sb-burger:hover{border-color:var(--accent-line);background:var(--accent-soft);color:var(--ink)}
+
+/* ---------- profile button + right drawer ---------- */
+.site-bar .sb-profile{width:38px;height:34px;border-radius:11px;border:1px solid var(--line);background:var(--card-2);font-size:16px;line-height:1;cursor:pointer;transition:.15s}
+.site-bar .sb-profile:hover{border-color:var(--accent-line);background:var(--accent-soft);box-shadow:0 0 16px -4px var(--accent)}
+.lb-prof{position:fixed;top:0;right:0;height:100%;width:300px;max-width:86vw;background:var(--card);border-left:1px solid var(--line);box-shadow:-24px 0 60px -30px rgba(0,0,0,.7);transform:translateX(105%);transition:transform .28s cubic-bezier(.4,0,.2,1);z-index:96;display:flex;flex-direction:column;font-family:'Golos Text',system-ui,sans-serif;padding:14px;overflow-y:auto}
+.lb-prof.open{transform:none}
+.lb-p-head{display:flex;align-items:center;gap:12px;padding:6px 6px 14px;border-bottom:1px solid var(--line)}
+.lb-p-ava{width:46px;height:46px;border-radius:50%;background:var(--gold-grad);display:grid;place-items:center;font-size:24px;flex:0 0 auto;box-shadow:0 8px 20px -10px var(--accent)}
+.lb-p-name{flex:1;min-width:0;background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:9px 11px;font-family:inherit;font-size:14.5px;font-weight:600;color:var(--ink);outline:none}
+.lb-p-name:focus{border-color:var(--accent)}
+.lb-p-avas{display:flex;gap:6px;flex-wrap:wrap;padding:10px 6px 0}
+.lb-p-avas button{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--card-2);font-size:16px;line-height:1;cursor:pointer;transition:.15s}
+.lb-p-avas button:hover{border-color:var(--accent-line);transform:translateY(-1px)}
+.lb-p-avas button.on{border-color:transparent;background:var(--gold-grad);box-shadow:0 0 0 1px var(--accent-line),0 6px 14px -7px var(--accent)}
+.lb-p-dream{margin:6px 6px 0;border:1px dashed var(--accent-line);background:var(--accent-soft);border-radius:12px;padding:11px 13px;font-size:13.5px;line-height:1.55;color:var(--ink)}
+.lb-p-dream i{font-style:italic;color:var(--ink-soft)}
+.lb-p-dream a{color:var(--accent);font-weight:700;text-decoration:none}
+.lb-prog{display:flex;flex-direction:column;gap:4px;padding:0 6px}
+.lb-prog .row{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink-2);padding:6px 8px;border-radius:9px;transition:background .15s}
+.lb-prog .row:hover{background:var(--accent-soft)}
+.lb-prog .row .fl{flex:0 0 auto;font-size:14px}
+.lb-prog .row .nm{flex:0 0 84px;font-weight:600;color:var(--ink)}
+.lb-prog .row .go{flex:0 0 auto;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;text-decoration:none;font-weight:800;font-size:13px;background:var(--gold-grad);color:var(--on-accent);box-shadow:0 6px 14px -7px var(--accent);transition:transform .15s}
+.lb-prog .row .go:hover{transform:scale(1.12)}
+.lb-prog .row .bar{flex:1;height:5px;border-radius:100px;background:var(--line);overflow:hidden}
+.lb-prog .row .bar i{display:block;height:100%;background:var(--gold-grad);border-radius:100px}
+.lb-prog .row .n{flex:0 0 auto;font-size:11.5px;color:var(--ink-3);min-width:38px;text-align:right}
+.lb-prog .row .n.done{color:var(--good);font-weight:700}
+.lb-keys{padding:0 6px;font-size:12.5px;color:var(--ink-2);line-height:1.7}
+.lb-keys code{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;background:var(--card-2);border:1px solid var(--line);border-radius:6px;padding:2px 6px}
+.lb-keys a{color:var(--accent);font-weight:700;text-decoration:none}
+
+/* ---------- left sidebar drawer ---------- */
+.lb-scrim{position:fixed;inset:0;background:rgba(6,6,16,.5);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:95}
+.lb-scrim.show{opacity:1;pointer-events:auto}
+.lb-drawer{position:fixed;top:0;left:0;height:100%;width:272px;max-width:82vw;background:var(--card);border-right:1px solid var(--line);box-shadow:24px 0 60px -30px rgba(0,0,0,.7);transform:translateX(-105%);transition:transform .28s cubic-bezier(.4,0,.2,1);z-index:96;display:flex;flex-direction:column;font-family:'Golos Text',system-ui,sans-serif;padding:14px}
+.lb-drawer.open{transform:none}
+.lb-d-head{display:flex;align-items:center;justify-content:space-between;padding:6px 6px 14px;border-bottom:1px solid var(--line)}
+.lb-d-logo{font-weight:800;letter-spacing:.04em;background:var(--gold-grad);background-size:200% 200%;-webkit-background-clip:text;background-clip:text;color:transparent}
+.lb-d-close{background:transparent;border:0;color:var(--ink-3);font-size:17px;cursor:pointer;border-radius:8px;width:30px;height:30px}
+.lb-d-close:hover{background:var(--accent-soft);color:var(--ink)}
+.lb-d-nav{display:flex;flex-direction:column;gap:4px;margin-top:12px}
+.lb-d-link{display:flex;align-items:center;gap:11px;width:100%;text-decoration:none;color:var(--ink);font-weight:600;font-size:15px;padding:12px;border-radius:11px;border:1px solid transparent;background:transparent;cursor:pointer;font-family:inherit;text-align:left;transition:.15s}
+.lb-d-link:hover{background:var(--accent-soft);border-color:var(--accent-line)}
+.lb-d-sec{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding:18px 8px 8px}
+.lb-d-theme{display:flex;gap:8px;padding:0 6px}
+.lb-d-theme button{flex:1;height:44px;border-radius:11px;border:1px solid var(--line);background:var(--card-2);font-size:18px;cursor:pointer;transition:.15s}
+.lb-d-theme button:hover{border-color:var(--accent-line)}
+.lb-d-theme button.on{background:var(--gold-grad);background-size:200% 200%;border-color:transparent;box-shadow:0 6px 16px -8px var(--accent)}
+.lb-d-foot{margin-top:auto;padding:14px 8px 4px;font-size:11.5px;color:var(--ink-3);line-height:1.7;border-top:1px solid var(--line)}
+.lb-d-foot span{opacity:.7}
+
+/* ---------- presentation-style live effects ----------
+   Lifted 1:1 from tatsiana_presentation.html at Tanya's request and applied
+   to ALL themes: golden twinkling starfield, glowing scroll-to-top, golden
+   breathing minimap with a running spark, gold-shimmer headline. */
+.lb-stars{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.lb-stars span{position:absolute;border-radius:50%;background:#b8860b;box-shadow:0 0 5px rgba(156,107,16,.55);opacity:.1;animation:lbTw var(--tw,7s) ease-in-out infinite;animation-delay:var(--td,0s)}
+body[data-theme="dark"] .lb-stars span,body[data-theme="petrol"] .lb-stars span,body[data-theme="ultraneon"] .lb-stars span{background:#f6d78a;box-shadow:0 0 6px rgba(245,193,92,.85)}
+@keyframes lbTw{0%,100%{opacity:.08}50%{opacity:.7}}
+@media (prefers-reduced-motion:reduce){.lb-stars span{animation:none !important;opacity:.15}}
+
+.lb-scrolltop{position:fixed;bottom:22px;left:22px;width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#3b2a78);color:#fff;border:1px solid #a78bfa;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transform:translateY(8px);transition:opacity .3s,transform .25s cubic-bezier(.3,1.1,.35,1),box-shadow .2s;z-index:85;box-shadow:0 0 20px rgba(124,58,237,.45)}
+.lb-scrolltop.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.lb-scrolltop:hover{box-shadow:0 0 30px rgba(124,58,237,.45);transform:translateY(-3px)}
+
+.lb-mm{position:fixed;right:10px;top:50%;transform:translateY(-50%);z-index:50;padding:8px 6px}
+.lb-mm-track{position:relative;display:flex;flex-direction:column;gap:7px}
+.lb-mm-seg{width:5px;height:26px;border-radius:100px;border:0;padding:0;cursor:pointer;background:color-mix(in srgb,var(--gold) 36%,transparent);box-shadow:0 0 8px rgba(245,193,92,.22);animation:lbMmBreathe 5.5s ease-in-out infinite;animation-delay:calc(var(--i,0)*.55s);transition:width .15s,background .15s}
+.lb-mm-seg:hover{background:var(--gold);width:7px;box-shadow:0 0 14px color-mix(in srgb,var(--gold) 45%,transparent)}
+.lb-mm-seg.on{background:var(--gold);box-shadow:0 0 16px color-mix(in srgb,var(--gold) 42%,transparent),0 0 34px rgba(245,193,92,.4)}
+@keyframes lbMmBreathe{0%,100%{box-shadow:0 0 6px rgba(245,193,92,.15)}50%{box-shadow:0 0 15px rgba(245,193,92,.5)}}
+.lb-mm-track::after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:5px;height:34px;border-radius:100px;pointer-events:none;background:linear-gradient(180deg,transparent,rgba(255,227,140,.95),transparent);filter:blur(1px);animation:lbMmSpark 5.2s ease-in-out infinite}
+@keyframes lbMmSpark{0%{top:-8%;opacity:0}12%{opacity:.9}88%{opacity:.9}100%{top:104%;opacity:0}}
+@media (max-width:760px){.lb-mm{display:none}}
+@media (prefers-reduced-motion:reduce){.lb-mm-seg{animation:none !important}.lb-mm-track::after{display:none !important}}
+
+/* gold shimmer on the brand + hero stats (goldShift from the presentation) */
+.masthead .brand span{background:linear-gradient(100deg,var(--ink) 5%,var(--accent-2) 30%,var(--gold) 55%,var(--gold-2) 75%,var(--ink) 95%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:230% 100%;animation:lbGoldShift 9s ease-in-out infinite}
+.masthead .stats .s b{background:linear-gradient(120deg,var(--ink) 10%,var(--gold) 50%,var(--ink) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:220% 100%;animation:lbGoldShift 8s ease-in-out infinite}
+@keyframes lbGoldShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@media (prefers-reduced-motion:reduce){.masthead .brand span,.masthead .stats .s b{animation:none !important}}
+
+/* presentation-style hover glow on storefront cards */
+.m-card,.feat,.vow,.faq,.streak-card{transition:border-color .2s,box-shadow .25s}
+.m-card:hover,.feat:hover,.vow:hover,.faq:hover,.streak-card:hover{border-color:var(--accent-line);box-shadow:0 0 24px color-mix(in srgb,var(--accent) 22%,transparent),0 0 18px color-mix(in srgb,var(--gold) 20%,transparent)}
+
+/* ---------- the dream card ----------
+   The saved dream lives on EVERY page: translucent gold-shimmering glass,
+   draggable anywhere, resizable by the bottom-right corner, ✕ hides it.
+   Built by theme.js (buildDream); position/size persist. */
+.lb-dream{position:fixed;z-index:60;width:min(560px,92vw);min-width:220px;min-height:92px;max-width:96vw;max-height:80vh;
+  resize:both;overflow:hidden;touch-action:none;
+  background:var(--accent-soft);backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15);
+  border:1px solid var(--gold-line);border-radius:18px;padding:16px 44px 16px 20px;text-align:center;cursor:grab;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  animation:lbDreamIn .6s cubic-bezier(.3,1.1,.35,1),lbDreamGlow 12s ease-in-out infinite;transition:opacity .5s}
+.lb-dream.drag{cursor:grabbing}
+.lb-dream.bye{opacity:0 !important;pointer-events:none}
+@keyframes lbDreamIn{from{opacity:0;transform:translateY(-18px)}}
+@keyframes lbDreamGlow{0%,100%{box-shadow:0 24px 60px -28px rgba(0,0,0,.45),0 0 18px -8px rgba(245,193,92,.2)}50%{box-shadow:0 24px 60px -28px rgba(0,0,0,.45),0 0 30px -6px rgba(245,193,92,.38)}}
+.lb-dream::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 34%,rgba(255,227,140,.08) 46%,rgba(255,255,255,.12) 50%,rgba(255,227,140,.08) 54%,transparent 66%);background-size:250% 100%;animation:cpSheenLb 11s ease-in-out infinite}
+@keyframes cpSheenLb{0%,30%{background-position:210% 0}70%,100%{background-position:-120% 0}}
+.lb-dream::before{content:"";position:absolute;right:3px;bottom:3px;width:13px;height:13px;border-right:2px solid rgba(245,193,92,.75);border-bottom:2px solid rgba(245,193,92,.75);border-bottom-right-radius:6px;pointer-events:none;transition:transform .2s}
+.lb-dream:hover::before{transform:scale(1.25)}
+.lb-dream-k{font-family:'Golos Text',system-ui,sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);opacity:.85;margin-bottom:6px}
+.lb-dream-t{font-family:'Cormorant Garamond',Georgia,serif;font-style:italic;font-weight:600;font-size:22px;line-height:1.25;
+  background:linear-gradient(100deg,var(--gold-deep) 10%,var(--gold) 40%,var(--gold-2) 60%,var(--gold-deep) 90%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;background-size:230% 100%;animation:lbGoldShift 14s ease-in-out infinite}
+.lb-dream-s{font-family:'Golos Text',system-ui,sans-serif;font-size:13px;color:var(--ink-soft);margin-top:6px}
+.lb-dream-x{position:absolute;top:8px;right:10px;background:transparent;border:0;color:var(--ink-3);font-size:14px;cursor:pointer;border-radius:8px;width:26px;height:26px;line-height:1;z-index:2}
+.lb-dream-x:hover{background:var(--accent-soft);color:var(--ink)}
+.lb-dream-b{position:absolute;top:8px;left:10px;display:flex;gap:2px;z-index:2;opacity:0;transition:opacity .25s}
+.lb-dream:hover .lb-dream-b{opacity:1}
+.lb-dream-b button{background:transparent;border:0;font-size:12px;cursor:pointer;border-radius:8px;width:24px;height:24px;line-height:1;padding:0}
+.lb-dream-b button:hover{background:var(--accent-soft)}
+.lb-dream-h{font-family:'Golos Text',system-ui,sans-serif;font-size:10px;letter-spacing:.05em;color:var(--ink-faint);margin-top:7px;opacity:0;transition:opacity .3s}
+.lb-dream:hover .lb-dream-h{opacity:.9}
+@media(prefers-reduced-motion:reduce){.lb-dream,.lb-dream::after,.lb-dream-t{animation:none !important}}
+@media(max-width:560px){.lb-dream{padding:13px 40px 13px 14px}.lb-dream-t{font-size:18px}}
+
+/* ---------- Мира · помощница (FAQ chat, every page) ----------
+   Floating button sits ABOVE the notes button/clear button (which occupy
+   bottom:18px/82px on the right); built by theme.js (buildMira). */
+.lb-mirabtn{position:fixed;right:18px;bottom:150px;width:48px;height:48px;border-radius:50%;border:1px solid var(--gold-line);background:var(--card);color:var(--ink);font-size:21px;cursor:pointer;z-index:88;box-shadow:0 14px 28px -12px rgba(0,0,0,.6),0 0 16px -6px rgba(245,193,92,.4);transition:transform .15s,box-shadow .15s;animation:lbMiraGlow 6s ease-in-out infinite}
+.lb-mirabtn:hover{transform:translateY(-2px) scale(1.06);box-shadow:0 0 22px -3px var(--accent)}
+@keyframes lbMiraGlow{0%,100%{box-shadow:0 14px 28px -12px rgba(0,0,0,.6),0 0 10px -6px rgba(245,193,92,.3)}50%{box-shadow:0 14px 28px -12px rgba(0,0,0,.6),0 0 20px -4px rgba(245,193,92,.55)}}
+@media(prefers-reduced-motion:reduce){.lb-mirabtn{animation:none !important}}
+
+.lb-mira-panel{position:fixed;right:18px;bottom:150px;width:min(320px,90vw);max-height:min(440px,70vh);background:var(--accent-soft);backdrop-filter:blur(18px) saturate(1.15);-webkit-backdrop-filter:blur(18px) saturate(1.15);border:1px solid var(--gold-line);border-radius:18px;box-shadow:0 26px 60px -24px rgba(0,0,0,.6),0 0 26px -12px rgba(245,193,92,.4);z-index:89;display:flex;flex-direction:column;overflow:hidden;opacity:0;transform:translateY(10px) scale(.98);pointer-events:none;transition:opacity .2s,transform .22s cubic-bezier(.3,1.1,.35,1)}
+.lb-mira-panel.open{opacity:1;transform:none;pointer-events:auto}
+.lb-mira-head{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;font-family:var(--label,'Golos Text',system-ui,sans-serif);font-weight:700;font-size:14px;color:var(--ink);border-bottom:1px solid var(--gold-line);background:var(--card)}
+.lb-mira-x{background:transparent;border:0;color:var(--ink-3);font-size:14px;cursor:pointer;border-radius:8px;width:26px;height:26px;line-height:1}
+.lb-mira-x:hover{background:var(--accent-soft);color:var(--ink)}
+.lb-mira-list{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:8px;background:var(--card);min-height:160px}
+.lb-mira-msg{max-width:86%;font-family:var(--body,'Spectral',Georgia,serif);font-size:13.5px;line-height:1.5;padding:8px 12px;border-radius:13px;word-wrap:break-word}
+.lb-mira-msg a{color:var(--accent);font-weight:700;text-decoration:underline}
+.lb-mira-msg.mira{align-self:flex-start;background:var(--accent-soft);border:1px solid var(--gold-line);color:var(--ink);border-bottom-left-radius:4px}
+.lb-mira-msg.me{align-self:flex-end;background:var(--gold-grad);color:var(--on-accent);border-bottom-right-radius:4px}
+.lb-mira-row{display:flex;gap:8px;padding:10px;border-top:1px solid var(--gold-line);background:var(--card)}
+.lb-mira-in{flex:1;min-width:0;background:var(--card-2);border:1px solid var(--line);border-radius:11px;padding:9px 11px;font-family:var(--body,'Spectral',Georgia,serif);font-size:13.5px;color:var(--ink);outline:none;transition:border-color .15s}
+.lb-mira-in:focus{border-color:var(--accent)}
+.lb-mira-send{flex:0 0 auto;width:36px;height:36px;border-radius:10px;border:0;background:var(--gold-grad);color:var(--on-accent);font-size:14px;cursor:pointer;transition:transform .15s}
+.lb-mira-send:hover{transform:scale(1.06)}
+@media(max-width:560px){.lb-mira-panel{right:10px;left:10px;width:auto;bottom:140px}.lb-mirabtn{right:14px;bottom:146px}}
+@media(prefers-reduced-motion:reduce){.lb-mira-panel{transition:opacity .05s}}
+
+/* ---------- floating sticky notes ---------- */
+.lb-notebtn{position:fixed;right:18px;bottom:18px;width:54px;height:54px;border-radius:50%;border:1px solid var(--gold-line);background:var(--card);color:var(--ink);font-size:23px;cursor:pointer;z-index:88;box-shadow:0 14px 30px -12px rgba(0,0,0,.6);transition:transform .15s,box-shadow .15s}
+.lb-notebtn:hover{transform:translateY(-2px) scale(1.05);box-shadow:0 0 22px -3px var(--accent)}
+.lb-noteclear{position:fixed;right:25px;bottom:82px;width:40px;height:40px;border-radius:50%;border:1px solid var(--bad,#e0715f);background:var(--card);color:var(--bad,#e0715f);font-size:16px;cursor:pointer;z-index:88;box-shadow:0 10px 24px -12px rgba(0,0,0,.55);display:none;place-items:center;transition:transform .15s,background .15s}
+.lb-noteclear:hover{transform:scale(1.09);background:var(--bad,#e0715f);color:#fff}
+.lb-note{position:fixed;z-index:90;width:208px;height:138px;min-width:146px;min-height:88px;max-width:92vw;max-height:82vh;resize:both;overflow:hidden;background:linear-gradient(180deg,#fff7c8,#ffe7a0);border:1px solid #e6c462;border-radius:11px;box-shadow:0 16px 36px -14px rgba(0,0,0,.55);display:flex;flex-direction:column}
+.lb-note.drag{opacity:.92}
+.lb-note::-webkit-resizer{background:transparent}
+.lb-note-bar{display:flex;align-items:center;justify-content:space-between;padding:6px 10px;cursor:grab;background:rgba(120,90,10,.12);touch-action:none;user-select:none;flex:0 0 auto}
+.lb-note-bar:active{cursor:grabbing}
+.lb-note-grip{font-size:11px;font-weight:700;letter-spacing:.06em;color:#7a5d12;text-transform:uppercase}
+.lb-note-del{background:transparent;border:0;font-size:14px;cursor:pointer;opacity:.65;line-height:1}
+.lb-note-del:hover{opacity:1}
+.lb-note-ta{flex:1;border:0;background:transparent;resize:none;padding:10px 12px;font-family:'Golos Text',system-ui,sans-serif;font-size:14px;color:#3a2e08;outline:none;min-height:40px;line-height:1.5}
+.lb-note-ta::placeholder{color:#b09445}
+/* notes are always a warm sticky — force dark ink even on dark/petrol (which recolour textareas) */
+body[data-theme="dark"] .lb-note-ta,body[data-theme="petrol"] .lb-note-ta{color:#3a2e08 !important}
+/* a subtle corner grip so it's clear the note can be resized */
+.lb-note::after{content:"";position:absolute;right:2px;bottom:2px;width:12px;height:12px;border-right:2px solid rgba(122,93,18,.5);border-bottom:2px solid rgba(122,93,18,.5);border-bottom-right-radius:4px;pointer-events:none}
+@media(max-width:560px){.lb-note{width:190px}}
+
+/* ===================== DARK ===================== */
+:root[data-theme="dark"], body[data-theme="dark"]{
+  --paper:#16140f; --paper-2:#1d1a13; --card:#241f18; --card-2:#322c22;
+  --ink:#f0e6d4; --ink-2:#c4b49a; --ink-3:#94866a; --ink-soft:#c4b49a; --ink-faint:#94866a;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(255,255,255,.20); --gold-line:rgba(227,168,87,.35);
+  --gold:#e3a857; --gold-2:#f5c94a; --gold-deep:#edb45f; --burgundy:#d98b6a;
+  --gold-grad:linear-gradient(135deg,#b9842f,#f5c94a 45%,#c79a45 70%,#ffe39c);
+  --accent:#e3a857; --accent-2:#f5c94a; --accent-soft:rgba(227,168,87,.14); --accent-line:rgba(227,168,87,.4); --tint:rgba(227,168,87,.06);
+  --good:#5bbd72; --bad:#e0715f; --on-good:#06120a; --on-bad:#1a0608;
+  --shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 22px 50px -28px #000;
+}
+body[data-theme="dark"]{ background:#16140f !important; background-image:radial-gradient(130% 90% at 50% -10%,#221c12,#100e0a 60%) !important; }
+body[data-theme="dark"] .dayprog{ background:rgba(22,20,15,.92) !important; }
+body[data-theme="dark"] #tip{ background:#0c0b08; }
+
+/* ===================== PETROL DEEP ===================== */
+:root[data-theme="petrol"], body[data-theme="petrol"]{
+  --paper:#0f1f1d; --paper-2:#122622; --card:#173430; --card-2:#1e423c;
+  --ink:#eaf3f1; --ink-2:#a9c6c0; --ink-3:#8db0a9; --ink-soft:#a9c6c0; --ink-faint:#8db0a9;
+  --line:rgba(255,255,255,.09); --line-strong:rgba(255,255,255,.22); --gold-line:rgba(224,177,90,.4);
+  --gold:#e0b15a; --gold-2:#6fd2bf; --gold-deep:#c99a44; --burgundy:#d98b6a;
+  --gold-grad:linear-gradient(135deg,#b1873b,#eec97b 45%,#c39a45 70%,#f2dfa4);
+  --accent:#e0b15a; --accent-2:#6fd2bf; --accent-soft:rgba(224,177,90,.13); --accent-line:rgba(224,177,90,.42); --tint:rgba(111,210,191,.07);
+  --good:#5fc98e; --bad:#e07a6a; --on-good:#06120a; --on-bad:#1a0608;
+  --shadow:0 1px 0 rgba(255,255,255,.04) inset, 0 22px 50px -28px #000;
+}
+body[data-theme="petrol"]{
+  background:#0f1f1d !important;
+  background-image:radial-gradient(130% 90% at 50% -10%,#17332e,#0a1715 60%) !important;
+}
+body[data-theme="petrol"] .dayprog{ background:rgba(15,31,29,.92) !important; }
+body[data-theme="petrol"] #tip{ background:#0a1614; }
+
+/* ===================== ULTRANEON ===================== */
+/* Lifted 1:1 from Tanya's presentation (software-house/tatsiana_presentation.html,
+   the «Magic prototype» ULTRANEON palette): cosmic violet dark, neon auroras
+   (violet/cyan/magenta), warm gold accents, film grain, a passing comet. */
+:root[data-theme="ultraneon"], body[data-theme="ultraneon"]{
+  --paper:#06030f; --paper-2:#0c0719; --card:#140c26; --card-2:#1d1136;
+  --ink:#f2eefc; --ink-2:#b9b1d6; --ink-3:#837b9f; --ink-soft:#b9b1d6; --ink-faint:#837b9f;
+  --line:rgba(255,255,255,.08); --line-strong:rgba(167,139,250,.32); --gold-line:rgba(245,193,92,.4);
+  --gold:#f5c15c; --gold-2:#ffd98a; --gold-deep:#c9922c; --burgundy:#ff7ce5;
+  --gold-grad:linear-gradient(135deg,#c9922c,#f5c15c 45%,#d9a53e 70%,#ffd98a);
+  --accent:#f5c15c; --accent-2:#a78bfa; --accent-soft:rgba(245,193,92,.12); --accent-line:rgba(245,193,92,.4);
+  --tint:rgba(124,58,237,.09);
+  --good:#5ecf8b; --bad:#ff7d70; --on-good:#06120a; --on-bad:#1a0608;
+  --shadow:0 1px 0 rgba(255,255,255,.05) inset, 0 22px 50px -28px #000;
+}
+body[data-theme="ultraneon"]{
+  background:#06030f !important;
+  background-image:radial-gradient(130% 90% at 50% -10%,#140c26,#06030f 60%) !important;
+}
+body[data-theme="ultraneon"] .dayprog{ background:rgba(6,3,15,.92) !important; }
+body[data-theme="ultraneon"] #tip{ background:#0c0719; }
+body[data-theme="ultraneon"] ::selection{ background:rgba(167,139,250,.35); }
+
+/* the neon cosmos — DOM is built by theme.js on every page (lbCosmos/lbGrain),
+   but it only shows itself under the ultraneon theme. Effects are exact copies
+   of the presentation: aurora blobs + comet behind the content, grain above. */
+.lb-cosmos,.lb-grain{display:none}
+body[data-theme="ultraneon"] .lb-cosmos{display:block;position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+body[data-theme="ultraneon"] .lb-aurora{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+body[data-theme="ultraneon"] .lb-aurora.a1{width:60vw;height:60vw;top:-25vw;right:-15vw;background:radial-gradient(circle,#7c3aed,transparent 65%);animation:lbDrift1 40s ease-in-out infinite alternate}
+body[data-theme="ultraneon"] .lb-aurora.a2{width:46vw;height:46vw;bottom:-18vw;left:-12vw;background:radial-gradient(circle,#34e5ff,transparent 65%);opacity:.22;animation:lbDrift2 48s ease-in-out infinite alternate}
+body[data-theme="ultraneon"] .lb-aurora.a3{width:34vw;height:34vw;top:40%;left:55%;background:radial-gradient(circle,#ff7ce5,transparent 65%);opacity:.16;animation:lbDrift1 58s ease-in-out infinite alternate-reverse}
+@keyframes lbDrift1{to{transform:translate(-8vw,6vh) scale(1.15) rotate(20deg)}}
+@keyframes lbDrift2{to{transform:translate(6vw,-5vh) scale(1.1)}}
+body[data-theme="ultraneon"] .lb-comet{position:absolute;width:140px;height:1.5px;opacity:0;background:linear-gradient(90deg,transparent,#34e5ff,#fff);transform:rotate(-35deg);animation:lbComet 11s linear infinite;animation-delay:4s}
+@keyframes lbComet{0%,92%{opacity:0;left:105%;top:8%}93%{opacity:.9}100%{opacity:0;left:45%;top:46%}}
+body[data-theme="ultraneon"] .lb-grain{display:block;position:fixed;inset:-50%;z-index:1;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");animation:lbGrainMove 8s steps(10) infinite}
+@keyframes lbGrainMove{0%,100%{transform:translate(0,0)}50%{transform:translate(-4%,3%)}}
+
+/* =====================================================================
+   FIX: <button>/<textarea> don't inherit color by default, so on dark
+   themes option/tile/feedback buttons kept black UA text → invisible.
+   Force readable text + lift surfaces + add accent on the two dark themes.
+   ===================================================================== */
+body[data-theme="dark"] .opt:not(.correct):not(.wrong),  body[data-theme="petrol"] .opt:not(.correct):not(.wrong),
+body[data-theme="dark"] .tile, body[data-theme="petrol"] .tile,
+body[data-theme="dark"] .atile,body[data-theme="petrol"] .atile,
+body[data-theme="dark"] .fbk-face:not(.sel), body[data-theme="petrol"] .fbk-face:not(.sel),
+body[data-theme="dark"] .btn.ghost, body[data-theme="petrol"] .btn.ghost,
+body[data-theme="dark"] .dd-item, body[data-theme="petrol"] .dd-item,
+body[data-theme="dark"] .pill-btn, body[data-theme="petrol"] .pill-btn,
+body[data-theme="dark"] input, body[data-theme="petrol"] input,
+body[data-theme="dark"] textarea, body[data-theme="petrol"] textarea{ color:var(--ink) !important; }
+
+/* lighter, more vivid interactive surfaces (state classes excluded so the
+   pages' own correct/wrong/sel colours — driven by --on-* tokens — win) */
+body[data-theme="dark"] .opt:not(.correct):not(.wrong),  body[data-theme="petrol"] .opt:not(.correct):not(.wrong),
+body[data-theme="dark"] .tile, body[data-theme="petrol"] .tile,
+body[data-theme="dark"] .fbk-face:not(.sel), body[data-theme="petrol"] .fbk-face:not(.sel),
+body[data-theme="dark"] .dd-item, body[data-theme="petrol"] .dd-item,
+body[data-theme="dark"] .btn.ghost, body[data-theme="petrol"] .btn.ghost{
+  background:var(--card-2) !important; border:1px solid var(--accent-line) !important;
+}
+body[data-theme="dark"] .opt:not(.correct):not(.wrong):hover,  body[data-theme="petrol"] .opt:not(.correct):not(.wrong):hover,
+body[data-theme="dark"] .tile:hover, body[data-theme="petrol"] .tile:hover,
+body[data-theme="dark"] .fbk-face:not(.sel):hover, body[data-theme="petrol"] .fbk-face:not(.sel):hover,
+body[data-theme="dark"] .btn.ghost:hover, body[data-theme="petrol"] .btn.ghost:hover{
+  border-color:var(--accent) !important; box-shadow:0 0 16px -5px var(--accent);
+}
+/* correct/wrong/selected states now use the --on-good/--on-bad/--on-accent
+   tokens inside the pages themselves — no per-theme patches needed. */
+body[data-theme="dark"] .atile, body[data-theme="petrol"] .atile{ background:var(--accent-soft) !important; border:1px solid var(--accent-line) !important; }
+
+/* ultraneon is a dark theme too — mirror the same readability fixes */
+body[data-theme="ultraneon"] .opt:not(.correct):not(.wrong),
+body[data-theme="ultraneon"] .tile,
+body[data-theme="ultraneon"] .atile,
+body[data-theme="ultraneon"] .fbk-face:not(.sel),
+body[data-theme="ultraneon"] .btn.ghost,
+body[data-theme="ultraneon"] .dd-item,
+body[data-theme="ultraneon"] .pill-btn,
+body[data-theme="ultraneon"] input,
+body[data-theme="ultraneon"] textarea{ color:var(--ink) !important; }
+body[data-theme="ultraneon"] .opt:not(.correct):not(.wrong),
+body[data-theme="ultraneon"] .tile,
+body[data-theme="ultraneon"] .fbk-face:not(.sel),
+body[data-theme="ultraneon"] .dd-item,
+body[data-theme="ultraneon"] .btn.ghost{ background:var(--card-2) !important; border:1px solid var(--accent-line) !important; }
+body[data-theme="ultraneon"] .opt:not(.correct):not(.wrong):hover,
+body[data-theme="ultraneon"] .tile:hover,
+body[data-theme="ultraneon"] .fbk-face:not(.sel):hover,
+body[data-theme="ultraneon"] .btn.ghost:hover{ border-color:var(--accent) !important; box-shadow:0 0 16px -5px var(--accent); }
+body[data-theme="ultraneon"] .atile{ background:var(--accent-soft) !important; border:1px solid var(--accent-line) !important; }
+body[data-theme="ultraneon"] .lb-note-ta{ color:#3a2e08 !important; }

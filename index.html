@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta.title.home">MIRAVERBA — авторская академия языков</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" data-i18n-content="meta.desc.home" content="Учись в обе стороны — понимая, а не зубря. Один день — один урок, ~20 минут, с живым проводником Мирой. Английский A1–C2 для русскоговорящих.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MIRAVERBA">
+<meta property="og:title" content="MIRAVERBA — авторская академия языков">
+<meta property="og:description" content="Учись в обе стороны — понимая, а не зубря. Один день — один урок, ~20 минут, с живым проводником Мирой. Английский A1–C2 для русскоговорящих.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:image: replace with an absolute URL once the site has a domain -->
+<meta property="og:image" content="assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Spectral:ital,wght@0,300;0,400;0,500;0,600&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* design tokens (palette/type/lang-accents) live in theme.css — the single source of truth */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--body);color:var(--ink);background:var(--paper);
+  background-image:
+    radial-gradient(120% 90% at 50% -10%, rgba(255,250,238,.7), transparent 55%),
+    radial-gradient(70% 50% at 12% 10%, var(--tint), transparent 60%),
+    radial-gradient(70% 50% at 88% 18%, var(--tint), transparent 60%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.035'/%3E%3C/svg%3E");
+  transition:background-color .5s;-webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1000px;margin:0 auto;padding:0 24px 110px}
+a{color:inherit}
+
+/* ---------- masthead / hero ---------- */
+.masthead{padding:52px 0 6px;text-align:center}
+.eyebrow{font-family:var(--label);text-transform:uppercase;letter-spacing:.34em;font-size:11px;color:var(--accent);font-weight:700;margin-bottom:16px}
+.brand{font-family:var(--display);font-weight:600;font-size:clamp(40px,7vw,72px);letter-spacing:.06em;line-height:1;display:flex;gap:.5em;justify-content:center;align-items:center;flex-wrap:wrap}
+.brand .sep{color:var(--accent);font-size:.7em;transform:translateY(-.06em);transition:color .5s}
+.brand .en{color:var(--ink-soft)}
+.lead{font-size:19px;color:var(--ink-soft);max-width:620px;margin:18px auto 0;line-height:1.55}
+.lead b{color:var(--ink);font-weight:600}
+.stats{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;margin-top:28px}
+.stats .s b{font-family:var(--display);font-size:30px;font-weight:700;display:block;line-height:1;color:var(--accent)}
+.stats .s span{font-family:var(--label);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);margin-top:5px;display:block}
+.hero-cta{margin-top:30px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ---------- section frame ---------- */
+.sec{padding:46px 0;border-top:1px solid var(--line);margin-top:34px}
+.sec-eyebrow{display:flex;align-items:center;gap:12px;justify-content:center;margin-bottom:8px}
+.sec-eyebrow .num{font-family:var(--display);font-size:22px;color:var(--accent);font-weight:600}
+.sec-eyebrow .ln{height:1px;width:34px;background:var(--line-strong)}
+.sec h2{font-family:var(--display);font-weight:600;font-size:clamp(28px,4.5vw,42px);text-align:center;margin:0 0 6px;line-height:1.05}
+.sec .sub{text-align:center;color:var(--ink-soft);font-size:16px;margin-bottom:32px}
+
+/* ---------- course picker (language dropdown → 6 levels) ---------- */
+.picker{max-width:660px;margin:0 auto;background:var(--card);border:1px solid var(--line-strong);border-radius:20px;padding:22px;box-shadow:var(--shadow),0 0 50px -34px var(--accent);position:relative}
+.pk-head{display:flex;flex-direction:column;align-items:center;gap:9px;margin-bottom:22px}
+.lang-select{position:relative}
+.ls-btn{display:flex;align-items:center;gap:11px;background:var(--card-2);border:1px solid var(--line-strong);border-radius:14px;padding:9px 14px 9px 9px;cursor:pointer;font-family:inherit;color:inherit;transition:border-color .15s,box-shadow .15s}
+.ls-btn:hover{border-color:var(--accent);box-shadow:0 8px 20px -12px var(--accent)}
+.ls-btn .fl{font-size:20px;width:40px;height:40px;display:grid;place-items:center;border-radius:11px;background:var(--card);border:1px solid var(--line)}
+.ls-btn .nm{font-family:var(--display);font-size:24px;font-weight:600;line-height:1}
+.ls-btn .chev{margin-left:3px;color:var(--ink-faint);font-size:13px;transition:transform .2s}
+.lang-select.open .ls-btn .chev{transform:rotate(180deg)}
+.lang-menu{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);min-width:270px;background:var(--card);border:1px solid var(--line-strong);border-radius:16px;box-shadow:0 26px 54px -20px rgba(0,0,0,.45);padding:7px;z-index:30;display:none;max-height:330px;overflow:auto}
+.lang-select.open .lang-menu{display:block;animation:menuIn .18s cubic-bezier(.2,.7,.2,1)}
+@keyframes menuIn{from{opacity:0;transform:translateX(-50%) translateY(-6px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.lang-opt{display:flex;align-items:center;gap:11px;width:100%;text-align:left;background:transparent;border:0;border-radius:11px;padding:9px 11px;cursor:pointer;font-family:inherit;color:inherit;transition:background .12s}
+.lang-opt:hover{background:var(--accent-soft)}
+.lang-opt.on{background:var(--accent-soft)}
+.lang-opt .fl{font-size:17px;width:34px;height:34px;display:grid;place-items:center;border-radius:9px;background:var(--card-2);border:1px solid var(--line);flex:0 0 auto}
+.lang-opt .t{flex:1;min-width:0}
+.lang-opt .t .e{display:block;font-family:var(--display);font-size:19px;font-weight:600;line-height:1.1}
+.lang-opt .t .r{font-family:var(--label);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-faint)}
+.lang-opt .b{font-family:var(--label);font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:3px 8px;border-radius:20px;flex:0 0 auto}
+.lang-opt .b.has{background:var(--good);color:#fff}
+.lang-opt .b.no{background:transparent;border:1px solid var(--line-strong);color:var(--ink-faint)}
+.pk-dir{font-family:var(--label);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.pk-levels{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.pk-pill{display:flex;flex-direction:column;align-items:center;justify-content:center;width:78px;height:74px;border-radius:14px;border:1px solid var(--line);background:var(--card-2);text-decoration:none;color:var(--ink-faint);transition:transform .15s,border-color .15s,box-shadow .15s}
+.pk-pill .lv{font-family:var(--display);font-weight:700;font-size:24px;line-height:1}
+.pk-pill .ds{font-family:var(--label);font-size:8.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-top:4px;opacity:.82}
+.pk-pill.ready{border-color:transparent;background:var(--gold-grad);color:var(--on-accent);box-shadow:0 8px 18px -10px var(--accent)}
+.pk-pill.ready:hover{transform:translateY(-3px);box-shadow:0 16px 28px -10px var(--accent)}
+.pk-pill.wip{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent)}
+.pk-pill.wip:hover{transform:translateY(-3px);border-color:var(--accent)}
+.pk-pill.soon{opacity:.5}
+.pk-outs{margin-top:16px;display:flex;flex-direction:column;gap:6px;max-width:520px;margin-left:auto;margin-right:auto;text-align:left}
+.pk-out{font-size:13.5px;line-height:1.5;color:var(--ink-soft)}
+.pk-out b{font-family:var(--label);font-size:12px;color:var(--accent);margin-right:6px}
+
+/* ---------- goal ---------- */
+.goal-wrap{max-width:640px;margin:0 auto;text-align:center}
+.goal-chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:18px}
+.goal-chip{display:inline-flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--line-strong);border-radius:30px;padding:10px 16px;font-family:var(--label);font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:transform .15s,border-color .15s,background .15s}
+.goal-chip:hover{border-color:var(--accent);transform:translateY(-1px)}
+.goal-chip.on{background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent) inset}
+.goal-input{display:flex;gap:10px;max-width:480px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.goal-input input{flex:1;min-width:220px;background:var(--card);border:1px solid var(--line-strong);border-radius:13px;padding:13px 16px;font-family:var(--body);font-size:15px;color:var(--ink);outline:none;transition:border-color .15s}
+.goal-input input:focus{border-color:var(--accent)}
+.goal-save{font-family:var(--label);font-weight:700;font-size:14px;border:0;border-radius:13px;padding:13px 22px;cursor:pointer;background:var(--gold-grad);color:var(--on-accent);box-shadow:0 12px 26px -14px var(--accent);transition:transform .15s}
+.goal-save:hover{transform:translateY(-2px)}
+.goal-done{font-style:italic;color:var(--good);font-size:14.5px;margin-top:14px;min-height:1.2em}
+
+/* ---------- continue cards (по одной на активный курс) ---------- */
+.cont-strip{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:26px auto 0;max-width:840px}
+.cont-card{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--gold-line);border-radius:16px;padding:14px 18px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow),0 0 30px -18px var(--accent);transition:transform .15s,box-shadow .2s;min-width:250px;flex:1 1 250px;max-width:390px}
+.cont-card:hover{transform:translateY(-3px);box-shadow:var(--shadow),0 0 34px -10px var(--accent)}
+.ct-flag{font-size:24px;flex:0 0 auto}
+.ct-main{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;text-align:left}
+.ct-main b{font-family:var(--display);font-size:18px;line-height:1.05}
+.ct-day{font-family:var(--label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.ct-topic{font-size:12.5px;color:var(--ink-soft);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ct-bar{height:4px;border-radius:100px;background:var(--line);overflow:hidden;margin-top:3px}
+.ct-bar i{display:block;height:100%;background:var(--gold-grad);border-radius:100px}
+.ct-go{font-family:var(--label);font-weight:700;font-size:12.5px;color:var(--on-accent);background:var(--gold-grad);border-radius:20px;padding:8px 13px;white-space:nowrap;flex:0 0 auto}
+
+/* ---------- certificate showcase (наша «визитная карточка») ---------- */
+.cpromo{display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:30px;align-items:center;max-width:820px;margin:0 auto}
+@media(max-width:720px){.cpromo{grid-template-columns:1fr}}
+.cp-cert{--cp-paper:#f6efdd;--cp-ink:#2a241e;--cp-soft:#6f6557;--cp-gold:#8a6a37;
+  display:block;position:relative;aspect-ratio:297/210;background:var(--cp-paper);color:var(--cp-ink);
+  border-radius:8px;box-shadow:0 26px 60px -26px rgba(0,0,0,.55);text-decoration:none;text-align:center;
+  transition:transform .25s,box-shadow .25s;overflow:hidden}
+.cp-cert:hover{transform:translateY(-4px) rotate(-.5deg)}
+.cp-cert{animation:cpGlow 5.5s ease-in-out infinite}
+@keyframes cpGlow{0%,100%{box-shadow:0 26px 60px -26px rgba(0,0,0,.55),0 0 26px -8px rgba(245,193,92,.28)}50%{box-shadow:0 26px 60px -26px rgba(0,0,0,.55),0 0 52px -6px rgba(245,193,92,.6)}}
+.cp-cert::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:linear-gradient(115deg,transparent 32%,rgba(255,227,140,.16) 45%,rgba(255,255,255,.26) 50%,rgba(255,227,140,.16) 55%,transparent 68%);background-size:250% 100%;animation:cpSheen 4.8s ease-in-out infinite}
+@keyframes cpSheen{0%,18%{background-position:210% 0}55%,100%{background-position:-120% 0}}
+.cp-frame{position:absolute;inset:5%;border:1.5px solid var(--cp-gold);border-radius:4px;pointer-events:none;box-shadow:0 0 14px -4px rgba(245,193,92,.5),inset 0 0 22px -12px rgba(245,193,92,.55)}
+.cp-frame::before{content:"";position:absolute;inset:2%;border:.5px solid var(--cp-gold);opacity:.6}
+.cp-in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5%}
+.cp-brand{font-family:var(--label);font-size:9px;letter-spacing:.3em;text-transform:uppercase;font-weight:700;color:var(--cp-gold);text-shadow:0 0 12px rgba(245,193,92,.45)}
+.cp-doc{font-family:var(--display);font-weight:600;font-size:clamp(19px,3vw,26px);letter-spacing:.14em;text-transform:uppercase;background:linear-gradient(100deg,var(--cp-gold) 8%,#ffe39c 32%,var(--cp-gold) 55%,#fff3d0 76%,var(--cp-gold) 92%);-webkit-background-clip:text;background-clip:text;color:transparent;background-size:230% 100%;animation:lbGoldShift 6s ease-in-out infinite}
+.cp-name{font-family:var(--display);font-style:italic;font-weight:600;font-size:clamp(17px,2.6vw,24px);color:var(--cp-ink)}
+.cp-line{width:34%;height:1px;background:linear-gradient(90deg,transparent,var(--cp-gold),transparent)}
+.cp-course{font-family:var(--label);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cp-soft)}
+.cp-seal{width:34px;height:34px;border-radius:50%;border:0;display:grid;place-items:center;font-size:15px;margin-top:1%;background:linear-gradient(135deg,#c9922c,#f5c15c 45%,#ffe39c);box-shadow:0 0 18px -3px rgba(245,193,92,.75)}
+@media(prefers-reduced-motion:reduce){.cp-cert,.cp-cert::after,.cp-doc{animation:none !important}}
+.cp-side{display:flex;flex-direction:column;align-items:flex-start;gap:16px}
+@media(max-width:720px){.cp-side{align-items:center;text-align:center}}
+.cp-dots{display:flex;gap:10px}
+.cp-dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--line-strong);cursor:pointer;padding:0;transition:transform .15s,border-color .15s,box-shadow .15s}
+.cp-dot:hover{transform:scale(1.12)}
+.cp-dot.on{border-color:var(--accent);box-shadow:0 0 14px -2px var(--accent)}
+.cp-hint{font-size:14.5px;color:var(--ink-soft);line-height:1.55;max-width:380px}
+
+/* ---------- mirror selector (kept from the pair-picker) ---------- */
+.mirror{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center;max-width:820px;margin:0 auto}
+@media(max-width:680px){.mirror{grid-template-columns:1fr;gap:12px}.mirror .swap{transform:rotate(90deg);justify-self:center}}
+.col{position:relative;background:var(--card);border:1px solid var(--line-strong);border-radius:22px;padding:18px;box-shadow:var(--shadow)}
+.col-h{text-align:center;margin:4px 0 16px}
+.col-h .k{font-family:var(--label);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-faint)}
+.col-h .v{display:block;font-family:var(--display);font-size:22px;font-weight:600;color:var(--ink);margin-top:3px}
+.opt-lang{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:transparent;border:1px solid var(--line);border-radius:14px;padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:transform .15s,border-color .18s,background .18s;font-family:inherit;color:inherit}
+.opt-lang:last-child{margin-bottom:0}
+.opt-lang:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-1px)}
+.opt-lang.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1.5px var(--accent) inset}
+.opt-lang .fl{font-size:21px;line-height:1;flex:0 0 auto;width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:var(--card-2);border:1px solid var(--line)}
+.opt-lang .nm{flex:1;min-width:0}
+.opt-lang .nm .e{display:block;font-family:var(--display);font-size:21px;font-weight:600;line-height:1.05}
+.opt-lang .nm .r{font-family:var(--label);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint)}
+.opt-lang .st{font-family:var(--label);font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:3px 8px;border-radius:20px;color:#fff;background:var(--good);flex:0 0 auto}
+.opt-lang.soon{opacity:.6}.opt-lang.soon .st{background:var(--ink-faint)}
+.swap{align-self:center;width:50px;height:50px;border-radius:50%;border:1px solid var(--line-strong);background:var(--card);display:grid;place-items:center;font-size:22px;color:var(--accent);box-shadow:var(--shadow),0 0 30px -16px var(--accent);cursor:pointer;transition:transform .25s,background .2s,color .2s}
+.swap:hover{transform:rotate(180deg) scale(1.06);background:var(--accent);color:#fff}
+.pair-cta{max-width:560px;margin:26px auto 0;text-align:center}
+.pair-line{font-family:var(--display);font-size:25px;font-weight:600;margin-bottom:14px;min-height:1.1em}
+.pair-line .ar{color:var(--accent);margin:0 .28em}.pair-line .muted{color:var(--ink-faint)}
+.go-btn{font-family:var(--label);font-weight:700;font-size:15px;border:0;border-radius:30px;padding:14px 34px;cursor:pointer;background:var(--gold-grad);color:var(--on-accent);transition:transform .15s,box-shadow .2s;box-shadow:0 16px 34px -14px var(--accent)}
+.go-btn:hover:not([disabled]){transform:translateY(-2px)}
+.go-btn[disabled]{background:var(--ink-faint);color:#fff;box-shadow:none;cursor:not-allowed;opacity:.6}
+.go-btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line-strong);box-shadow:none}
+.go-btn.ghost:hover{border-color:var(--accent);background:var(--accent-soft);transform:translateY(-2px)}
+.pair-note{font-style:italic;color:var(--ink-soft);font-size:14.5px;margin-top:12px;min-height:1.3em}
+
+/* ---------- method ---------- */
+.method{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:880px;margin:0 auto;position:relative}
+@media(max-width:760px){.method{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.method{grid-template-columns:1fr}}
+.m-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;box-shadow:var(--shadow);position:relative;cursor:pointer;animation:mcBreathe 7.5s ease-in-out infinite;animation-delay:calc(var(--mci,0)*.7s);transition:border-color .2s,box-shadow .25s,transform .2s}
+.m-card:hover{transform:translateY(-2px)}
+.m-card:focus-visible{transform:translateY(-2px)}
+@keyframes mcBreathe{0%,100%{box-shadow:var(--shadow),0 0 0 -4px transparent}50%{box-shadow:var(--shadow),0 0 22px -6px color-mix(in srgb,var(--gold) 32%,transparent)}}
+.m-card .ic{font-size:26px;line-height:1;display:inline-block;transition:transform .35s cubic-bezier(.3,1.1,.35,1)}
+.m-card:hover .ic,.m-card:focus-visible .ic{transform:translateY(-3px) rotate(-8deg) scale(1.12)}
+.m-card h3{font-family:var(--display);font-size:21px;font-weight:600;margin:12px 0 6px;line-height:1.1}
+.m-card p{font-size:14.5px;color:var(--ink-soft);line-height:1.55;margin:0}
+.m-card .mc-hint{display:block;font-family:var(--label);font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--accent);opacity:0;transform:translateY(-3px);transition:opacity .2s,transform .2s;margin-top:10px}
+.m-card:hover .mc-hint,.m-card:focus-visible .mc-hint{opacity:.85;transform:none}
+@media(prefers-reduced-motion:reduce){.m-card{animation:none !important}.m-card .ic{transition:none !important}.m-card:hover .ic,.m-card:focus-visible .ic{transform:none}}
+
+/* ---------- method satellite (click → glass example card) ---------- */
+.mc-sat{position:absolute;z-index:20;width:min(300px,86vw);background:var(--accent-soft);backdrop-filter:blur(16px) saturate(1.15);-webkit-backdrop-filter:blur(16px) saturate(1.15);border:1px solid var(--gold-line);border-radius:16px;padding:16px 34px 16px 16px;box-shadow:0 24px 50px -22px rgba(0,0,0,.5),0 0 24px -10px rgba(245,193,92,.35);animation:mcSatIn .25s cubic-bezier(.3,1.1,.35,1)}
+@keyframes mcSatIn{from{opacity:0;transform:translateY(-8px) scale(.97)}}
+.mc-sat .mc-sat-k{font-family:var(--label);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);opacity:.85;margin-bottom:6px}
+.mc-sat .mc-sat-t{font-size:14px;line-height:1.55;color:var(--ink)}
+.mc-sat-x{position:absolute;top:8px;right:8px;background:transparent;border:0;color:var(--ink-3);font-size:13px;cursor:pointer;border-radius:8px;width:24px;height:24px;line-height:1}
+.mc-sat-x:hover{background:var(--accent-soft);color:var(--ink)}
+@media(max-width:520px){.mc-sat{position:static;width:auto;margin:10px 0 0;animation:mcSatInMobile .22s ease-out}}
+@keyframes mcSatInMobile{from{opacity:0;transform:translateY(-6px)}}
+@media(prefers-reduced-motion:reduce){.mc-sat{animation:none !important}}
+
+/* footer */
+.foot{text-align:center;padding:60px 0 0;font-family:var(--label);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+
+.sec{content-visibility:auto;contain-intrinsic-size:auto 640px}
+/* спутник-карточка вылезает за границу секции — paint-containment её резал */
+#method{content-visibility:visible;contain-intrinsic-size:none}
+.reveal{opacity:0;transform:translateY(18px);animation:rise .7s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.reveal{animation:none;opacity:1;transform:none}}
+
+/* ---------- онбординг: выбор пары при первом входе ---------- */
+.onb{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;overflow:auto;background:rgba(34,28,20,.46);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+.onb[hidden]{display:none}
+.onb-card{max-width:900px;width:100%;background:var(--paper);border:1px solid var(--line-strong);border-radius:26px;padding:34px 28px 26px;box-shadow:0 46px 110px -34px rgba(0,0,0,.55);max-height:calc(100vh - 40px);overflow:auto;text-align:center}
+.onb-card h2{font-family:var(--display);font-weight:600;font-size:clamp(26px,4vw,38px);margin:0 0 6px;line-height:1.05}
+.onb-card .sub{color:var(--ink-soft);font-size:15px;margin-bottom:26px}
+.onb-skip{margin-top:16px;background:none;border:0;color:var(--ink-faint);cursor:pointer;font-family:inherit;font-size:13.5px;text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px}
+.onb-skip:hover{color:var(--ink-soft)}
+
+/* ---------- правая навигация по разделам (desktop) ---------- */
+.secnav{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:40;display:none;flex-direction:column;gap:4px}
+@media(min-width:1240px){.secnav{display:flex}}
+.secnav a{display:flex;align-items:center;gap:9px;justify-content:flex-end;text-decoration:none;font-family:var(--label);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);padding:7px 9px;border-radius:11px;transition:color .15s}
+.secnav a::after{content:"";width:7px;height:7px;border-radius:50%;border:1.5px solid var(--ink-faint);flex:0 0 auto;transition:background .15s,border-color .15s,transform .15s}
+.secnav a:hover{color:var(--ink)}
+.secnav a.on{color:var(--accent)}
+.secnav a.on::after{background:var(--accent);border-color:var(--accent);transform:scale(1.25)}
+</style>
+<link rel="stylesheet" href="theme.css?v=2">
+<script src="i18n.js?v=2"></script>
+</head>
+<body data-page="home">
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow reveal" data-i18n="hero.eyebrow">Авторская академия языков</div>
+    <h1 class="brand reveal" style="animation-delay:.06s;margin:0"><span lang="en">MIRAVERBA</span></h1>
+    <p class="lead reveal" style="animation-delay:.12s" data-i18n="hero.lead">Учись <b>в обе стороны</b> — понимая, а не зубря. Один день — один урок, ~20 минут, с живым проводником <b>Мирой</b>. Объяснения на твоём родном языке.</p>
+    <div class="stats reveal" style="animation-delay:.18s">
+      <div class="s"><b>12</b><span data-i18n="hero.stat.courses">курсов готово</span></div>
+      <div class="s"><b>360</b><span data-i18n="hero.stat.lessons">уроков</span></div>
+      <div class="s"><b>~20</b><span data-i18n="hero.stat.min">мин в день</span></div>
+      <div class="s"><b>A1→C2</b><span data-i18n="hero.stat.cefr">система CEFR</span></div>
+    </div>
+    <div class="hero-cta reveal" style="animation-delay:.24s">
+      <a class="go-btn" href="courses/en-a1.html" data-i18n="hero.cta.start">🌿 Попробовать 3 урока бесплатно →</a>
+      <a class="go-btn ghost" href="placement.html" data-i18n="hero.cta.placement">🧭 Узнать свой уровень</a>
+      <a class="go-btn ghost" href="buy.html" data-i18n="hero.cta.buy">Курс — $79 · серия A1→C2 — $369</a>
+    </div>
+  </header>
+
+  <!-- «продолжить» — первое, что видит вернувшийся ученик: карточка на каждый активный курс -->
+  <div id="continueStrip"></div>
+
+  <!-- 01 — CATALOG (селектор пары переехал в онбординг — решение Тани, 2026-07-08) -->
+  <section class="sec reveal" id="courses">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">01</span><span class="ln"></span></div>
+    <h2 data-i18n="cat.h">Курсы академии</h2>
+    <div class="sub" data-i18n="cat.sub">Выбери язык — и курс. Каждый уровень — отдельный курс; что готово, кликается</div>
+    <div id="catalog"></div>
+  </section>
+
+  <!-- 02 — GOAL -->
+  <section class="sec" id="goal">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">02</span><span class="ln"></span></div>
+    <h2 data-i18n="goal.h">Зачем тебе язык?</h2>
+    <div class="sub" data-i18n="goal.sub">Выбери цель или напиши свою — так я подберу примеры и темы ближе к тебе</div>
+    <div class="goal-wrap">
+      <div class="goal-chips" id="goalChips"></div>
+      <div class="goal-input"><input type="text" id="goalText" aria-label="Твоя цель обучения" data-i18n-aria="goal.aria" placeholder="…или напиши свою: например, I am a billionaire 💛" data-i18n-ph="goal.ph" maxlength="120"><button class="goal-save" id="goalSave" data-i18n="goal.save">Сохранить 💛</button></div>
+      <div class="goal-done" id="goalDone"></div>
+    </div>
+  </section>
+
+  <!-- 03 — CERTIFICATE SHOWCASE -->
+  <section class="sec" id="certpromo">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">03</span><span class="ln"></span></div>
+    <h2 data-i18n="cpromo.h">Грамота, которую хочется повесить</h2>
+    <div class="sub" data-i18n="cpromo.sub">За каждый пройденный курс — именная. Собери её в своих цветах и на своём языке</div>
+    <div class="cpromo">
+      <a class="cp-cert" id="cpCert" href="certificate.html" aria-label="Собери свою грамоту" data-i18n-aria="cert.h1">
+        <div class="cp-frame"></div>
+        <div class="cp-in">
+          <div class="cp-brand">MIRAVERBA</div>
+          <div class="cp-doc" data-i18n="cert.doc">Грамота</div>
+          <div class="cp-name" data-i18n="cpromo.name">Твоё имя</div>
+          <div class="cp-line"></div>
+          <div class="cp-course" data-i18n="cpromo.course">English A1 · 30 уроков · финал сдан ✓</div>
+          <div class="cp-seal">🪞</div>
+        </div>
+      </a>
+      <div class="cp-side">
+        <div class="cp-dots" id="cpDots" role="group" aria-label="Стиль грамоты" data-i18n-aria="cert.p.palette"></div>
+        <div class="cp-hint" data-i18n="cpromo.hint">Четыре стиля, любой свой цвет — и язык грамоты на выбор: русский, English или Español. Впиши имя, выбери курс — и распечатай. Попробовать можно прямо сейчас, ещё до первого урока.</div>
+        <a class="go-btn" href="certificate.html" data-i18n="cpromo.cta">Собери свою грамоту →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 — METHOD (рациональные аргументы — внизу, для тех, кто хочет понять устройство) -->
+  <section class="sec" id="method">
+    <div class="sec-eyebrow"><span class="ln"></span><span class="num">04</span><span class="ln"></span></div>
+    <h2 data-i18n="method.h">Как устроена академия</h2>
+    <div class="sub" data-i18n="method.sub">Метод, по которому собран каждый день</div>
+    <div class="method" id="methodCards">
+      <div class="m-card" data-mc="1" style="--mci:0" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">🪞</div><h3 data-i18n="method.1.h">В обе стороны</h3><p data-i18n="method.1.p">Объяснения — на родном языке. Видно, чем язык-цель отличается от твоего: где русский ставит ловушку, там я подсвечиваю.</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+      <div class="m-card" data-mc="2" style="--mci:1" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">🌿</div><h3 data-i18n="method.2.h">Один день — один урок</h3><p data-i18n="method.2.p">~20 минут, маленькими шагами, с ранним успехом. Без перегруза и без «потери жизней».</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+      <div class="m-card" data-mc="3" style="--mci:2" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">🧭</div><h3 data-i18n="method.3.h">Личный проводник</h3><p data-i18n="method.3.p">Мира ведёт тебя шаг за шагом, объясняет простыми словами и поддерживает на каждом задании.</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+      <div class="m-card" data-mc="4" style="--mci:3" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">🎛</div><h3 data-i18n="method.4.h">7 типов заданий</h3><p data-i18n="method.4.p">Выбор, сборка фразы, ввод, говорение в микрофон, чтение вслух с оценкой, сопоставление и живые анимированные сценки.</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+      <div class="m-card" data-mc="5" style="--mci:4" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">🔁</div><h3 data-i18n="method.5.h">Повторение каждый день</h3><p data-i18n="method.5.p">День начинается с короткого повторения вчерашнего — слабые места возвращаются, пока не закрепятся.</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+      <div class="m-card" data-mc="6" style="--mci:5" tabindex="0" role="button" aria-haspopup="true" aria-expanded="false"><div class="ic">✦</div><h3 data-i18n="method.6.h">Прогресс и серии</h3><p data-i18n="method.6.p">XP, серии и награды — мягко и по-доброму. Цель — привычка, а не тревога.</p><span class="mc-hint" data-i18n="mcx.hint">подробнее ↗</span></div>
+    </div>
+  </section>
+
+  <!-- «Об академии» удалён по решению Тани (2026-07-07): личность автора не раскрываем,
+       персональных обращений на витрине нет. Авторский голос остаётся в уроках (Мира). -->
+
+  <!-- Правая навигация по разделам — только широкие экраны -->
+  <nav class="secnav" id="secnav" aria-label="Разделы страницы" data-i18n-aria="nav.aria">
+    <a href="#courses" data-i18n="nav.courses">Курсы</a>
+    <a href="#goal" data-i18n="nav.goal">Цель</a>
+    <a href="#certpromo" data-i18n="nav.cert">Грамота</a>
+    <a href="#method" data-i18n="nav.method">Метод</a>
+  </nav>
+
+  <!-- ONBOARDING: выбор пары показывается один раз при первом входе (решение Тани, 2026-07-08).
+       Повторная смена пары — через выпадашку языка в каталоге. -->
+  <div class="onb" id="onboard" hidden>
+    <div class="onb-card" role="dialog" aria-modal="true" aria-labelledby="onbTitle">
+      <div class="sec-eyebrow"><span class="ln"></span><span class="num">✦</span><span class="ln"></span></div>
+      <h2 id="onbTitle" data-i18n="pair.h">С какого языка — на какой?</h2>
+      <div class="sub" data-i18n="pair.sub">Принцип «в обе стороны»: выбери, на каком языке говоришь и какой хочешь учить</div>
+      <div class="mirror">
+        <div class="col"><div class="col-h"><span class="k" data-i18n="pair.speak.k">Я говорю на</span><span class="v" data-i18n="pair.speak.v">🗣 Мой язык</span></div><div id="colSpeak"></div></div>
+        <button class="swap" id="swapBtn" title="Поменять языки местами" data-i18n-title="pair.swap" aria-label="Поменять языки местами" data-i18n-aria="pair.swap">⇄</button>
+        <div class="col"><div class="col-h"><span class="k" data-i18n="pair.learn.k">Хочу выучить</span><span class="v" data-i18n="pair.learn.v">🎯 Цель</span></div><div id="colLearn"></div></div>
+      </div>
+      <div class="pair-cta">
+        <div class="pair-line" id="pairLine"><span class="muted" data-i18n="pair.pickBoth">выбери оба языка</span></div>
+        <button class="go-btn" id="pairGo" disabled data-i18n="pair.btn.pick">Выбери языки</button>
+        <div class="pair-note" id="pairNote"></div>
+      </div>
+      <button class="onb-skip" id="onbSkip" data-i18n="pair.skip">Позже — сначала просто посмотрю →</button>
+    </div>
+  </div>
+
+  <footer class="foot"><span data-i18n="foot.brand">MIRAVERBA — авторская академия языков · A1 → C2</span> · <a href="buy.html" data-i18n="foot.buy">Купить курс</a> · <a href="certificate.html" data-i18n="foot.cert">Грамота</a> · <a href="privacy.html" data-i18n="foot.privacy">Конфиденциальность</a> · <a href="terms.html" data-i18n="foot.terms">Условия</a></footer>
+
+</div>
+
+<script>
+const LANGS = {
+  ru:{endo:'Русский',   ru:'Russian',       fl:'🇷🇺'},
+  en:{endo:'English',   ru:'Английский',    fl:'🇬🇧'},
+  pt:{endo:'Português', ru:'Португальский', fl:'🇵🇹'},
+  de:{endo:'Deutsch',   ru:'Немецкий',      fl:'🇩🇪'},
+  es:{endo:'Español',   ru:'Испанский',     fl:'🇪🇸'},
+  pl:{endo:'Polski',    ru:'Польский',      fl:'🇵🇱'},
+  fr:{endo:'Français',  ru:'Французский',   fl:'🇫🇷'}
+};
+const SPEAK = ['ru','en','es','pt','de','pl'];   // 6 each → both columns equal height (symmetric)
+const LEARN = ['en','es','pt','de','pl','fr'];
+/* speak: ru/en/es have a real experience today (ru — полный курс; en/es — интерфейс
+   на этом языке, выбор переключает язык сайта). learn: en+es курсы построены. */
+function isReady(group,code){ return group==='speak' ? ['ru','en','es'].includes(code) : ['en','es'].includes(code); }
+
+/* ----- course catalog (honest status: A1 ready, A2 in progress, rest soon) ----- */
+const LANGS_LADDER = [
+  { code:'en', name:'English',   flag:'🇬🇧', dir:'Русский → English',   lv:{ A1:{s:'ready',href:'courses/en-a1.html'}, A2:{s:'ready',href:'courses/en-a2.html'}, B1:{s:'ready',href:'courses/en-b1.html'}, B2:{s:'ready',href:'courses/en-b2.html'}, C1:{s:'ready',href:'courses/en-c1.html'}, C2:{s:'ready',href:'courses/en-c2.html'} } },
+  { code:'ru', name:'Русский',   flag:'🇷🇺', dir:'English → Русский',   lv:{} },
+  { code:'es', name:'Español',   flag:'🇪🇸', dir:'Русский → Español',   lv:{ A1:{s:'ready',href:'courses/es-a1.html'}, A2:{s:'ready',href:'courses/es-a2.html'}, B1:{s:'ready',href:'courses/es-b1.html'}, B2:{s:'ready',href:'courses/es-b2.html'}, C1:{s:'ready',href:'courses/es-c1.html'}, C2:{s:'ready',href:'courses/es-c2.html'} } },
+  { code:'pt', name:'Português', flag:'🇵🇹', dir:'Русский → Português', lv:{} },
+  { code:'de', name:'Deutsch',   flag:'🇩🇪', dir:'Русский → Deutsch',   lv:{} },
+  { code:'pl', name:'Polski',    flag:'🇵🇱', dir:'Русский → Polski',    lv:{} },
+  { code:'fr', name:'Français',  flag:'🇫🇷', dir:'Русский → Français',  lv:{} }
+];
+const CEFR = ['A1','A2','B1','B2','C1','C2'];
+/* результат уровня словами жизни, не темами (research: outcomes продают) */
+const OUTCOMES = {
+  'en-A1': ()=>T('out.en-a1','поздороваешься, расскажешь о себе и закажешь кофе'),
+  'en-A2': ()=>T('out.en-a2','спросишь дорогу, сделаешь покупки и поговоришь о планах'),
+  'en-B1': ()=>T('out.en-b1','пройдёшь собеседование и посмотришь сериал с субтитрами'),
+  'en-B2': ()=>T('out.en-b2','будешь спорить, шутить и работать на английском'),
+  'en-C1': ()=>T('out.en-c1','выступишь с презентацией и прочтёшь роман в оригинале'),
+  'en-C2': ()=>T('out.en-c2','заговоришь так, что тебя примут за своего'),
+  'es-A1': ()=>T('out.es-a1','поздороваешься, познакомишься и закажешь тапас'),
+  'es-A2': ()=>T('out.es-a2','спросишь дорогу, поторгуешься на рынке и расскажешь о себе'),
+  'es-B1': ()=>T('out.es-b1','поболтаешь с местными и посмотришь сериал с субтитрами'),
+  'es-B2': ()=>T('out.es-b2','будешь свободно спорить и работать на испанском'),
+  'es-C1': ()=>T('out.es-c1','прочтёшь Маркеса в оригинале и выступишь с докладом'),
+  'es-C2': ()=>T('out.es-c2','заговоришь так, что примут за своего')
+};
+const $ = s => document.querySelector(s);
+
+let pickLang = 0;   // English by default (the language that has content)
+function langHasReady(L){ return CEFR.some(c=>L.lv[c]); }
+function levelPills(L){
+  return CEFR.map(c=>{
+    const cell=L.lv[c], s=cell?cell.s:'soon';
+    const ds=s==='ready'?T('status.ready','готов'):(s==='wip'?T('status.wip','превью'):T('status.soon','скоро'));
+    const inner=`<span class="lv">${c}</span><span class="ds">${ds}</span>`;
+    return (cell&&cell.href) ? `<a class="pk-pill ${s}" href="${cell.href}">${inner}</a>` : `<div class="pk-pill ${s}">${inner}</div>`;
+  }).join('');
+}
+function renderPicker(){
+  const L=LANGS_LADDER[pickLang];
+  $('#catalog').innerHTML = `<div class="picker">
+    <div class="pk-head">
+      <div class="lang-select" id="langSelect">
+        <button class="ls-btn" id="lsBtn" aria-haspopup="true" aria-expanded="false" aria-label="${T('cat.pickLang','Выбрать язык')}"><span class="fl" aria-hidden="true">${L.flag}</span><span class="nm">${L.name}</span><span class="chev" aria-hidden="true">▾</span></button>
+        <div class="lang-menu">${LANGS_LADDER.map((x,i)=>`<button class="lang-opt${i===pickLang?' on':''}" data-i="${i}"><span class="fl">${x.flag}</span><span class="t"><span class="e">${x.name}</span><span class="r">${lbLangName(x.code)}</span></span><span class="b ${langHasReady(x)?'has':'no'}">${langHasReady(x)?T('badge.has','есть'):T('status.soon','скоро')}</span></button>`).join('')}</div>
+      </div>
+      <span class="pk-dir">${L.dir}</span>
+    </div>
+    <div class="pk-levels">${levelPills(L)}</div>
+    ${langHasReady(L) ? `<div class="pk-outs">${CEFR.filter(c=>L.lv[c]&&OUTCOMES[L.code+'-'+c]).map(c=>`<div class="pk-out"><b>${c}</b>${OUTCOMES[L.code+'-'+c]()}</div>`).join('')}</div>` : ''}
+  </div>`;
+  const sel=$('#langSelect');
+  $('#lsBtn').addEventListener('click', e=>{ e.stopPropagation(); const open=sel.classList.toggle('open'); $('#lsBtn').setAttribute('aria-expanded', open); });
+  sel.querySelectorAll('.lang-opt').forEach(o=> o.addEventListener('click', ()=>{ pickLang=+o.dataset.i; renderPicker(); }));
+}
+document.addEventListener('click', e=>{ const sel=document.getElementById('langSelect'); if(sel && !sel.contains(e.target)){ sel.classList.remove('open'); const b=document.getElementById('lsBtn'); if(b) b.setAttribute('aria-expanded','false'); } });
+
+/* ----- mirror pair selector ----- */
+const state = { speak: (window.lbLang==='en'||window.lbLang==='es') ? window.lbLang : 'ru', learn:null };
+function optHTML(group, code){
+  const L=LANGS[code], ready=isReady(group,code);
+  return `<button class="opt-lang ${ready?'':'soon'}" data-g="${group}" data-c="${code}">
+    <span class="fl">${L.fl}</span>
+    <span class="nm"><span class="e">${L.endo}</span><span class="r">${lbLangName(code)}</span></span>
+    <span class="st">${ready?T('badge.has','есть'):T('status.soon','скоро')}</span>
+  </button>`;
+}
+function renderCols(){
+  $('#colSpeak').innerHTML = SPEAK.map(c=>optHTML('speak',c)).join('');
+  $('#colLearn').innerHTML = LEARN.map(c=>optHTML('learn',c)).join('');
+  document.querySelectorAll('.opt-lang').forEach(el=> el.addEventListener('click', ()=> pick(el.dataset.g, el.dataset.c)));
+  applySel();
+}
+function applySel(){ document.querySelectorAll('.opt-lang').forEach(o=> o.classList.toggle('sel', state[o.dataset.g]===o.dataset.c)); }
+function pick(group, code){
+  state[group]=code; applySel(); updatePair();
+  /* «Мой язык» = язык интерфейса: выбор ru/en/es переключает язык сайта */
+  if(group==='speak' && ['ru','en','es'].includes(code) && code!==window.lbLang){
+    try{ sessionStorage.setItem('langbook-pair-learn', state.learn||''); }catch(e){}
+    lbSetLang(code);
+  }
+}
+function updatePair(){
+  const s=state.speak, l=state.learn, line=$('#pairLine'), go=$('#pairGo'), note=$('#pairNote');
+  if(!s||!l){ line.innerHTML=`<span class="muted">${T('pair.pickBoth','выбери оба языка')}</span>`; go.disabled=true; go.textContent=T('pair.btn.pick','Выбери языки'); note.textContent=''; return; }
+  line.innerHTML = `${LANGS[s].endo} <span class="ar">→</span> ${LANGS[l].endo}`;
+  if(s===l){ go.disabled=true; go.textContent=T('pair.btn.diff','Выбери разные'); note.textContent=T('pair.note.same','Выбери два разных языка 🙂'); return; }
+  if(s==='ru' && l==='en'){
+    document.body.dataset.lang='en';
+    go.disabled=false; go.textContent=T('pair.btn.en','К курсам English →'); go.dataset.go='courses';
+    note.textContent=T('pair.note.en','Это направление готово: English A1 → C2, все 6 курсов 💛');
+  } else if(s==='ru' && l==='es'){
+    delete document.body.dataset.lang;
+    go.disabled=false; go.textContent=T('pair.btn.es','К курсам Español →'); go.dataset.go='courses';
+    note.textContent=T('pair.note.es','Это направление готово: Español A1 → C2, все 6 курсов 💛');
+  } else if((s==='en'||s==='es') && l==='ru'){
+    go.disabled=true; go.textContent=T('pair.btn.soon','Пока недоступно'); go.dataset.go='';
+    note.textContent=T('pair.note.toRu','Курс русского для носителей других языков — в планах. А меню сайта уже говорит на твоём языке 💛');
+  } else {
+    go.disabled=true; go.textContent=T('pair.btn.soon','Пока недоступно'); go.dataset.go='';
+    note.textContent=T('pair.note.none','Этой пары пока нет — готовим. Сейчас открыто: Русский → English и Русский → Español.');
+  }
+}
+$('#pairGo').addEventListener('click', ()=>{
+  if($('#pairGo').disabled) return;
+  if(window.lbCloseOnboard) window.lbCloseOnboard();
+  document.getElementById('courses').scrollIntoView({behavior:'smooth', block:'start'});
+});
+$('#swapBtn').addEventListener('click', ()=>{ const a=state.speak; state.speak=state.learn; state.learn=a; applySel(); updatePair(); });
+
+/* ----- goal (optional personalisation, saved locally) ----- */
+const GOALS=[
+  {k:'work',t:()=>T('goal.c.work','💼 Работа и карьера')},
+  {k:'travel',t:()=>T('goal.c.travel','✈️ Путешествия')},
+  {k:'move',t:()=>T('goal.c.move','🌍 Переезд')},
+  {k:'study',t:()=>T('goal.c.study','🎓 Учёба / экзамен')},
+  {k:'talk',t:()=>T('goal.c.talk','💬 Общение с людьми')},
+  {k:'media',t:()=>T('goal.c.media','🎬 Фильмы, книги, игры')},
+  {k:'self',t:()=>T('goal.c.self','❤️ Для себя')}
+];
+const GKEY='langbook-goal';
+function loadGoal(){
+  try{
+    const g=JSON.parse(localStorage.getItem(GKEY))||{};
+    if(g.key && !g.keys) g.keys=[g.key];   // миграция со старого одиночного выбора
+    if(!g.keys) g.keys=[];
+    return g;
+  }catch(e){ return {keys:[]}; }
+}
+function saveGoal(g){
+  try{
+    localStorage.setItem(GKEY,JSON.stringify(g));
+    /* новая мечта возвращает карточку, если её прятали крестиком */
+    const dc=JSON.parse(localStorage.getItem('langbook-dream-card'))||{};
+    delete dc.hidden;
+    localStorage.setItem('langbook-dream-card',JSON.stringify(dc));
+  }catch(e){}
+}
+function goalDone(){ $('#goalDone').textContent=T('goal.done','Цель сохранена 💛 Буду держать её в уме.'); }
+function renderGoals(){
+  const g=loadGoal();
+  $('#goalChips').innerHTML = GOALS.map(x=>`<button class="goal-chip${g.keys.includes(x.k)?' on':''}" data-k="${x.k}" aria-pressed="${g.keys.includes(x.k)}">${x.t()}</button>`).join('');
+  $('#goalChips').querySelectorAll('.goal-chip').forEach(b=> b.addEventListener('click', ()=>{
+    const cur=loadGoal(), k=b.dataset.k;
+    const keys = cur.keys.includes(k) ? cur.keys.filter(x=>x!==k) : cur.keys.concat(k);   // целей можно несколько
+    saveGoal({ keys, key: keys[0]||null, text: cur.text||'' }); renderGoals(); goalDone();
+  }));
+  if(g.text) $('#goalText').value=g.text;
+  if(g.keys.length||g.text) goalDone();
+}
+$('#goalSave').addEventListener('click', ()=>{ const cur=loadGoal(); saveGoal({ keys:cur.keys, key:cur.keys[0]||null, text:$('#goalText').value.trim() }); goalDone(); });
+
+/* ----- «продолжить»: карточка на каждый активный курс, первым делом ----- */
+(function(){
+  const langs=['en','es'], lvls=['a1','a2','b1','b2','c1','c2'], act=[];
+  langs.forEach(lg=>lvls.forEach(lv=>{
+    const id=lg+'-'+lv, pkey= lg==='en' ? 'langbook-'+lv+'-progress' : 'langbook-'+id+'-progress';
+    let p={}; try{ p=JSON.parse(localStorage.getItem(pkey))||{}; }catch(e){}
+    const days=p.days||{}; let done=0,next=null;
+    for(let i=1;i<=30;i++){ if(days[i])done++; else if(next===null)next=i; }
+    const full=done>=30&&!!((p.exams||{})[4]);
+    if(done>0&&!full&&next) act.push({id,lg,done,next,last:p.last,title:(lg==='en'?'English ':'Español ')+lv.toUpperCase()});
+  }));
+  const host=document.getElementById('continueStrip');
+  if(!act.length||!host) return;
+  host.innerHTML='<div class="cont-strip reveal">'+act.map(c=>{
+    const topic=(c.last&&c.last.t)?`<span class="ct-topic">${T('cont.at','ты здесь: ')}«${c.last.t}»</span>`:'';
+    const pct=Math.round(c.done/30*100);
+    return `<a class="cont-card" href="courses/${c.id}.html?day=${c.next}">
+      <span class="ct-flag">${c.lg==='en'?'🇬🇧':'🇪🇸'}</span>
+      <span class="ct-main"><b>${c.title}</b><span class="ct-day">${T('cont.day','День ')}${c.next}${T('cont.of',' из 30')} · ${pct}%</span>${topic}<span class="ct-bar"><i style="width:${pct}%"></i></span></span>
+      <span class="ct-go">${T('cont.cta','Продолжить →')}</span></a>`;
+  }).join('')+'</div>';
+})();
+
+/* ----- certificate showcase: recolor the mini-cert with preset dots ----- */
+(function(){
+  const PR=[
+    {k:'classic',paper:'#f6efdd',ink:'#2a241e',soft:'#6f6557',gold:'#8a6a37'},
+    {k:'night',paper:'#16140f',ink:'#f0e6d4',soft:'#c4b49a',gold:'#e3a857'},
+    {k:'ultraneon',paper:'#06030f',ink:'#f2eefc',soft:'#b9b1d6',gold:'#f5c15c'},
+    {k:'emerald',paper:'#0d2b1e',ink:'#eefbf2',soft:'#a9cfb9',gold:'#d9b45f'}
+  ];
+  const cert=$('#cpCert'), dots=$('#cpDots');
+  if(!cert||!dots) return;
+  PR.forEach((p,i)=>{
+    const b=document.createElement('button');
+    b.type='button'; b.className='cp-dot'+(i===0?' on':''); b.dataset.k=p.k;
+    b.style.background=`linear-gradient(135deg,${p.paper} 50%,${p.gold} 50%)`;
+    b.title=p.k;
+    b.addEventListener('click',()=>{
+      ['paper','ink','soft','gold'].forEach(v=>cert.style.setProperty('--cp-'+v,p[v]));
+      dots.querySelectorAll('.cp-dot').forEach(x=>x.classList.toggle('on',x===b));
+      try{ const st=JSON.parse(localStorage.getItem('langbook-cert'))||{}; st.preset=p.k; st.accent=null; localStorage.setItem('langbook-cert',JSON.stringify(st)); }catch(e){}
+    });
+    dots.appendChild(b);
+  });
+})();
+
+/* ----- method cards: click → satellite glass card with a living example ----- */
+(function(){
+  const EX = {
+    1: ()=>T('mcx.1','Пример: русский говорит «я согласен» — и тянется сказать «I am agree». Урок ловит эту ловушку: agree — глагол, поэтому «I agree».'),
+    2: ()=>T('mcx.2','Пример: сегодня — только приветствия и «как дела», 6–8 карточек и 2 задания. Завтра — следующий маленький шаг. Обещание простое: ~20 минут, и ты закрыл(а) день.'),
+    3: ()=>T('mcx.3','Мира: «Не спеши — прочитай фразу ещё раз вслух, я подожду 💛 Ошибся(лась)? Это нормально, идём дальше вместе».'),
+    4: ()=>T('mcx.4','Например: 🎙 говорение в микрофон с оценкой произношения и 🎬 живая анимированная сценка в кафе, где ты выбираешь реплики.'),
+    5: ()=>T('mcx.5','Пример: вчера ты учил(а) «to be». Сегодняшний день начинается с 3 карточек-повторов именно на «to be» — и только потом идёт новый материал.'),
+    6: ()=>T('mcx.6','Пример: серия 4 дня подряд 🔥 — и Мира тихо подсказывает: «Ещё один день — и будет неделя». Пропустил(а) день? Серия не наказывает, а просто ждёт тебя.')
+  };
+  const host = document.getElementById('methodCards');
+  if (!host) return;
+  let openSat = null, openCard = null;
+  function closeSat(){
+    if (openSat){ openSat.remove(); openSat = null; }
+    if (openCard){ openCard.setAttribute('aria-expanded','false'); openCard = null; }
+  }
+  function openFor(card){
+    const id = card.dataset.mc;
+    if (openCard === card){ closeSat(); return; }
+    closeSat();
+    const sat = document.createElement('div');
+    sat.className = 'mc-sat'; sat.setAttribute('role','status');
+    sat.innerHTML = '<button class="mc-sat-x" aria-label="'+T('chrome.close','Закрыть')+'">✕</button>'
+                   + '<div class="mc-sat-k">✨ '+T('mcx.k','Живой пример')+'</div>'
+                   + '<div class="mc-sat-t"></div>';
+    sat.querySelector('.mc-sat-t').textContent = (EX[id] ? EX[id]() : '');
+    const mobile = window.innerWidth <= 520;
+    if (mobile){
+      card.insertAdjacentElement('afterend', sat);
+    } else {
+      host.appendChild(sat);
+      const cr = card.getBoundingClientRect(), hr = host.getBoundingClientRect();
+      let left = cr.left - hr.left;
+      const maxLeft = host.clientWidth - sat.offsetWidth;
+      left = Math.max(0, Math.min(left, maxLeft));
+      sat.style.left = left + 'px';
+      sat.style.top = (cr.bottom - hr.top + 10) + 'px';
+    }
+    sat.querySelector('.mc-sat-x').addEventListener('click', function(e){ e.stopPropagation(); closeSat(); });
+    sat.addEventListener('click', function(e){ e.stopPropagation(); });
+    card.setAttribute('aria-expanded','true');
+    openSat = sat; openCard = card;
+  }
+  host.querySelectorAll('.m-card').forEach(function(card){
+    card.addEventListener('click', function(){ openFor(card); });
+    card.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openFor(card); }
+    });
+  });
+  document.addEventListener('click', function(e){
+    if (openSat && !e.target.closest('.m-card') && !e.target.closest('.mc-sat')) closeSat();
+  });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeSat(); });
+})();
+
+/* restore the target-language choice across the interface-language reload */
+try{ const rl=sessionStorage.getItem('langbook-pair-learn'); if(rl && LEARN.includes(rl)) state.learn=rl; sessionStorage.removeItem('langbook-pair-learn'); }catch(e){}
+
+renderPicker();
+renderGoals();
+renderCols();
+updatePair();
+
+/* ----- онбординг: пара выбирается один раз при первом входе ----- */
+(function(){
+  const KEY='langbook-onboarded', onb=document.getElementById('onboard');
+  if(!onb) return;
+  let seen=false; try{ seen=!!localStorage.getItem(KEY); }catch(e){}
+  let hasProgress=false;
+  try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^langbook-.*progress$/.test(k)){ hasProgress=true; break; } } }catch(e){}
+  const close=()=>{ try{ localStorage.setItem(KEY,'1'); }catch(e){} onb.hidden=true; document.body.style.overflow=''; };
+  window.lbCloseOnboard=close;
+  /* если пользователь начал менять язык интерфейса прямо из онбординга — после
+     перезагрузки показываем онбординг снова (KEY ставится только по Go/скипу) */
+  if(!seen && !hasProgress){ onb.hidden=false; document.body.style.overflow='hidden'; }
+  document.getElementById('onbSkip').addEventListener('click', close);
+  onb.addEventListener('click', e=>{ if(e.target===onb) close(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !onb.hidden) close(); });
+})();
+
+/* ----- правая навигация: подсветка активного раздела ----- */
+(function(){
+  const nav=document.getElementById('secnav'); if(!nav) return;
+  const links=[...nav.querySelectorAll('a')], map={};
+  links.forEach(a=>{ map[a.getAttribute('href').slice(1)]=a; });
+  const io=new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(!e.isIntersecting) return;
+      links.forEach(a=>a.classList.remove('on'));
+      const a=map[e.target.id]; if(a) a.classList.add('on');
+    });
+  },{rootMargin:'-35% 0px -55% 0px'});
+  Object.keys(map).forEach(id=>{ const s=document.getElementById(id); if(s) io.observe(s); });
+})();
+</script>
+<script src="streak.js?v=2"></script>
+<script src="theme.js?v=3"></script>
+</body>
+</html>

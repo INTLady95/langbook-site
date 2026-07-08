@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Español A1 · Курс за 30 дней — MIRAVERBA</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='15' fill='%232a241e'/%3E%3Cpath d='M32 13 L45 32 L32 32 Z' fill='%23dcb863'/%3E%3Cpath d='M32 51 L19 32 L32 32 Z' fill='%238a6a37'/%3E%3C/svg%3E">
+<meta name="description" content="Курс испанского A1 за 30 дней: один день — один урок, ~20 минут. Объяснения на русском, 7 типов заданий, повторение и недельные экзамены.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MIRAVERBA">
+<meta property="og:title" content="Español A1 · Курс за 30 дней — MIRAVERBA">
+<meta property="og:description" content="Курс испанского A1 за 30 дней: один день — один урок, ~20 минут. Объяснения на русском, 7 типов заданий, повторение и недельные экзамены.">
+<meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<!-- og:image: replace with an absolute URL once the site has a domain -->
+<meta property="og:image" content="../assets/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Golos+Text:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="engine.css">
+<link rel="stylesheet" href="../theme.css?v=2">
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar">
+    <a class="back" href="../index.html" data-i18n="sh.allCourses">← Все курсы</a>
+    <a class="back" href="#" id="toMap" style="display:none" data-i18n="sh.toMap">← К программе курса</a>
+    <span class="vip">★ <span data-i18n="sh.vip">Личный курс</span> · A1</span>
+  </div>
+
+  <div class="view on" id="viewMap">
+    <div class="hero">
+      <div class="seal"></div>
+      <div class="eyebrow"><span data-i18n="sh.days30">Курс за 30 дней</span> · <span data-i18n="sh.level">Уровень</span> A1</div>
+      <h1>Español <span class="goldtext" data-i18n="sh.h1.zero">с нуля</span></h1>
+      <p class="lead" data-i18n="sh.lead">Тебя ведёт личный проводник — шаг за шагом, каждый день. Простые объяснения, голос, примеры, разбор ошибок и живые задания.</p>
+      <div class="stats">
+        <div class="stat"><b class="goldtext">30</b><span data-i18n="sh.stat.days">дней</span></div>
+        <div class="stat"><b class="goldtext">4</b><span data-i18n="sh.stat.weeks">недели</span></div>
+        <div class="stat"><b class="goldtext">~20</b><span data-i18n="sh.stat.min">мин в день</span></div>
+        <div class="stat"><b class="goldtext">A1</b><span data-i18n="sh.stat.level">уровень</span></div>
+      </div>
+    </div>
+    <div id="weeks"></div>
+  </div>
+
+  <div class="view" id="viewDay">
+    <div class="dayprog">
+      <button class="dp-back" id="dpBack" title="Вернуться к списку уроков" data-i18n-title="sh.backTitle" data-i18n="sh.lessons">←&nbsp;Уроки</button>
+      <span class="lab" id="progLab" data-i18n="sh.progInit">День 1 · прогресс</span>
+      <span class="hud"><span class="xp">✦ <b id="xpNum">0</b> XP</span><span class="streak" id="streakBox">🔥 <b id="streakNum">0</b></span></span>
+      <span class="bar"><i id="dFill"></i></span>
+      <span class="pct" id="dPct">0%</span>
+    </div>
+    <div id="dayContent"></div>
+    <div class="finish" id="finish">
+      <span class="spark" style="left:14%;top:24%"></span><span class="spark" style="left:82%;top:30%;animation-delay:.5s"></span>
+      <span class="spark" style="left:24%;top:70%;animation-delay:1s"></span><span class="spark" style="left:72%;top:66%;animation-delay:1.5s"></span>
+      <div class="seal"></div>
+      <div class="g-name">Мира</div>
+      <h2 id="finishH2" data-i18n="sh.finishH2">День пройден! 🎉</h2>
+      <p id="finishP"></p>
+      <button class="btn" id="finishBack" data-i18n="sh.finishBack">← Вернуться к программе</button>
+    </div>
+  </div>
+</div>
+<div id="tip"></div>
+<div class="reward-pop" id="rewardPop"></div>
+
+<script src="days-es-a1.js"></script>
+<script src="level-es-a1.js"></script>
+<script src="paywall.js"></script>
+<script src="../i18n.js?v=2"></script>
+<script src="engine.js"></script>
+<script src="../streak.js?v=2"></script>
+<script src="../theme.js?v=3"></script>
+</body>
+</html>
