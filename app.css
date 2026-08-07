@@ -1,0 +1,106 @@
+/* MIRAVERBA — вид приложения: установка, офлайн, обновления.
+   Всё, что здесь есть, живёт под префиксом .mv- и не пересекается
+   с чромом сайта (.lb-, .sb-) и с движком уроков (.w-, .exq-).
+   Цвета берутся из переменных theme.css — значит, работают во всех
+   четырёх темах без единой правки. */
+
+/* ---------- окно «Приложение» ---------- */
+.mv-scrim{position:fixed;inset:0;background:rgba(10,8,6,.55);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .25s;z-index:120}
+.mv-scrim.on{opacity:1;pointer-events:auto}
+
+.mv-sheet{
+  position:fixed;z-index:121;left:50%;bottom:0;transform:translate(-50%,110%);
+  width:min(460px,100%);max-height:86vh;overflow:auto;overscroll-behavior:contain;
+  background:var(--card);color:var(--ink);border:1px solid var(--line);
+  border-bottom:0;border-radius:20px 20px 0 0;
+  padding:20px 20px calc(22px + env(safe-area-inset-bottom));
+  font-family:var(--body);box-shadow:0 -20px 60px -24px rgba(0,0,0,.6);
+  transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.mv-sheet.on{transform:translate(-50%,0)}
+@media (min-width:640px){
+  .mv-sheet{bottom:auto;top:50%;border-radius:18px;border-bottom:1px solid var(--line);transform:translate(-50%,-46%) scale(.97);opacity:0}
+  .mv-sheet.on{transform:translate(-50%,-50%) scale(1);opacity:1}
+}
+
+.mv-grip{width:38px;height:4px;border-radius:4px;background:var(--line-strong);margin:-6px auto 14px}
+@media (min-width:640px){.mv-grip{display:none}}
+
+.mv-head{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+.mv-head img{width:38px;height:38px;border-radius:10px;flex:none}
+.mv-head h3{margin:0;font-family:var(--display);font-size:21px;font-weight:600;letter-spacing:.01em}
+.mv-head p{margin:2px 0 0;font-size:12.5px;color:var(--ink-3)}
+.mv-x{margin-left:auto;background:none;border:0;color:var(--ink-3);font-size:19px;cursor:pointer;line-height:1;padding:4px}
+.mv-x:hover{color:var(--ink)}
+
+.mv-sec{margin-top:17px;padding-top:15px;border-top:1px solid var(--line)}
+.mv-sec:first-of-type{border-top:0;padding-top:0}
+.mv-sec h4{margin:0 0 8px;font-family:var(--label);text-transform:uppercase;letter-spacing:.16em;font-size:10.5px;color:var(--accent);font-weight:700}
+.mv-p{margin:0 0 11px;font-size:14px;line-height:1.55;color:var(--ink-2)}
+.mv-p b{color:var(--ink)}
+
+.mv-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  font-family:var(--body);font-size:15px;font-weight:600;cursor:pointer;
+  padding:12px 16px;border-radius:11px;border:1px solid var(--gold-line);
+  background:var(--gold-grad);color:var(--on-deep);
+  transition:transform .12s,filter .15s;
+}
+.mv-btn:hover{filter:brightness(1.06)}
+.mv-btn:active{transform:translateY(1px)}
+.mv-btn[disabled]{opacity:.5;cursor:default;filter:none;transform:none}
+.mv-btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.mv-btn.ghost:hover{border-color:var(--gold);color:var(--gold-deep);filter:none}
+.mv-btn.danger:hover{border-color:var(--bad);color:var(--bad)}
+.mv-btn + .mv-btn{margin-top:9px}
+
+/* строка «что уже сохранено» */
+.mv-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.mv-row:last-child{border-bottom:0}
+.mv-row .mv-nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mv-row .mv-sz{color:var(--ink-3);font-size:12.5px;flex:none}
+.mv-row button{background:none;border:0;color:var(--ink-3);cursor:pointer;font-size:15px;padding:2px 4px;flex:none}
+.mv-row button:hover{color:var(--bad)}
+
+.mv-bar{height:6px;border-radius:6px;background:var(--line);overflow:hidden;margin:10px 0 4px}
+.mv-bar i{display:block;height:100%;width:0;background:var(--gold-grad);transition:width .2s}
+
+.mv-note{font-size:12.5px;color:var(--ink-3);line-height:1.5;margin:9px 0 0}
+.mv-ok{color:var(--good)}
+.mv-steps{margin:0;padding-left:19px;font-size:14px;line-height:1.7;color:var(--ink-2)}
+
+/* ---------- кнопка «скачать курс» на странице курса ---------- */
+.mv-chip{
+  display:inline-flex;align-items:center;gap:7px;margin:14px auto 0;
+  font-family:var(--body);font-size:13px;font-weight:600;cursor:pointer;
+  padding:8px 15px;border-radius:999px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink-2);transition:border-color .15s,color .15s;
+}
+.mv-chip:hover{border-color:var(--gold);color:var(--gold-deep)}
+.mv-chip.done{border-color:var(--gold-line);color:var(--gold-deep)}
+
+/* ---------- полоска «есть обновление» / «нет сети» ---------- */
+.mv-toast{
+  position:fixed;left:50%;transform:translate(-50%,140%);
+  bottom:calc(16px + env(safe-area-inset-bottom));z-index:119;
+  display:flex;align-items:center;gap:12px;max-width:min(440px,calc(100vw - 24px));
+  padding:11px 15px;border-radius:13px;border:1px solid var(--line);
+  background:var(--card);color:var(--ink);font-family:var(--body);font-size:13.5px;
+  box-shadow:0 18px 44px -20px rgba(0,0,0,.65);transition:transform .3s cubic-bezier(.4,0,.2,1);
+}
+.mv-toast.on{transform:translate(-50%,0)}
+.mv-toast b{font-weight:600}
+.mv-toast button{
+  flex:none;font-family:var(--body);font-size:13px;font-weight:600;cursor:pointer;
+  padding:6px 12px;border-radius:9px;border:1px solid var(--gold-line);
+  background:var(--gold-grad);color:var(--on-deep);
+}
+.mv-toast .mv-toast-x{background:none;border:0;color:var(--ink-3);font-size:16px;padding:2px 4px}
+
+/* ---------- режим приложения (запущено с домашнего экрана) ---------- */
+/* Вырез и «домашняя полоска» айфона: контент не должен под них залезать. */
+html.mv-standalone .site-bar{padding-top:calc(8px + env(safe-area-inset-top))}
+html.mv-standalone .lb-drawer{padding-top:calc(14px + env(safe-area-inset-top))}
+html.mv-standalone body{padding-bottom:env(safe-area-inset-bottom)}
+/* В приложении нет адресной строки — «резинка» при протяжке выглядит поломкой. */
+html.mv-standalone,html.mv-standalone body{overscroll-behavior-y:none}
